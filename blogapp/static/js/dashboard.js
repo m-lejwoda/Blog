@@ -1,6 +1,4 @@
-function commit (){
-    console.log("commit")
-}
+
 $(document).ready(function (){
     console.log("początkowy ajax")
     $.ajax({
