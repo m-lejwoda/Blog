@@ -1,0 +1,49 @@
+{% extends 'blogapp/main.html' %}
+{% load static %}
+{% load svg %}
+{% block content %}
+<div class="login">
+    <div class="login__illustration">
+        {% svg 'login2' %}
+    </div>
+    <div class="login__box">
+        <div class="login__box__title">Rejestracja</div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="login__box__rest">
+                <div class="login__box__rest-label">
+                    <label>Nazwa użytkownika</label>
+                </div>
+                <div class="login__box__rest-input">
+                    {{form.username}}
+                </div>
+                <div class="login__box__rest-label">
+                    <label>Adres E-mail</label>
+                </div>
+                <div class="login__box__rest-input">
+                    {{form.email}}
+                </div>
+                <div class="login__box__rest-label">
+                    <label>Hasło</label>
+                </div>
+                <div class="login__box__rest-input">
+                    {{form.password1}}
+                </div>
+                <div class="login__box__rest-label">
+                    <label>Powtórz hasło</label>
+                </div>
+                <div class="login__box__rest-input">
+                    {{form.password2}}
+                </div>
+                <div class="login__box__rest-submit">
+                    <button>Zarejestruj się</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

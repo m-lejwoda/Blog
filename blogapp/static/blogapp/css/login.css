@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght@800&display=swap");
+@import url("http://fonts.googleapis.com/css?family=Abril+Fatface&subset=latin,latin-ext");
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght@800&family=Rowdies&display=swap");
+.login {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.login__form {
+  display: flex;
+  width: 50%;
+  flex: 1;
+}
+
+.login__form__vector {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: center;
+}
+
+.login__form__box {
+  display: flex;
+  width: 40%;
+  background-color: green;
+}
+
+.login__form__data {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  align-items: center;
+}
+
+.login__form__data form {
+  width: 100%;
+}
+
+.login__form__data-title {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  font-family: 'Recursive', sans-serif;
+  font-family: 'Rowdies', cursive;
+}
+
+.login__form__data-label {
+  font-size: 1.3rem;
+  font-family: 'Abril Fatface', sans-serif;
+  width: 70%;
+  padding-bottom: 0.5rem;
+}
+
+.login__form__data-input {
+  width: 70%;
+  padding-bottom: 0.5rem;
+}
+
+.login__form__data-input input {
+  border-radius: 10px;
+  width: 100%;
+  height: 2rem;
+  padding: 0.5rem;
+  border-color: grey;
+}
+
+.login__form__data-input input:focus {
+  border-radius: 10px;
+  border-image-source: linear-gradient(90deg, #310149 0%, #d93333 50%, #ff923f 100%);
+  border-image-slice: 1;
+}
+
+.login__form__data-submit {
+  padding-top: 2rem;
+  display: flex;
+  width: 70%;
+  justify-content: center;
+}
+
+.login__form__data-submit input {
+  background: #310149;
+  background: linear-gradient(90deg, #310149 0%, #d93333 50%, #ff923f 100%);
+  color: white;
+  padding: 1rem;
+  font-weight: 700;
+}
+
+.login__form__data-submit input:hover {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.login__background {
+  display: flex;
+  width: 50%;
+  flex: 1;
+  background-image: url("/static/blogapp/svg/rainbow.svg");
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+.error {
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+}
