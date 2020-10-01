@@ -1,0 +1,117 @@
+// body{
+//     display: flex;
+//     flex:1;
+//     height: 100%;
+// }
+
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@800&display=swap');
+@import url('http://fonts.googleapis.com/css?family=Abril+Fatface&subset=latin,latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@800&family=Rowdies&display=swap');
+.register{
+    display: flex;
+    width:100%;
+    flex: 1;
+    min-height: 100vh;
+    flex-direction: row;
+    &__form{
+        display: flex;
+        width: 50%;
+        flex: 1;
+        &__vector{
+            display: flex;
+            align-items: center;
+            width: 50%;
+            justify-content: center;
+        }
+        // justify-content: center;
+        // align-items: center;
+        &__box{
+            display: flex;
+            width: 40%;
+            background-color: red;
+        }
+        &__data{
+            display: flex;
+            flex-wrap: wrap;
+            width: 50%;
+            
+            align-items: center;
+            form{
+                width: 100%;
+            }
+            &-title{
+                display: flex;
+                width: 70%;
+                justify-content: center;
+                font-family: 'Recursive', sans-serif;
+                font-family: 'Rowdies', cursive;
+            }
+            &-label{
+                font-size: 1.3rem;
+                font-family: 'Abril Fatface', sans-serif;
+                width: 70%;
+                padding-bottom: 0.5rem;
+            }
+            &-input{
+                width:70%;
+                input{
+                border-radius: 10px;
+                width: 100%;
+                height: 2rem;
+                padding: 0.5rem;
+                border-color: grey;
+                }
+                input:focus{
+                    border-radius: 10px;
+                    border-image-source: linear-gradient(90deg, rgba(49,1,73,1) 0%, rgba(217,51,51,1) 50%, rgba(255,146,63,1) 100%); 
+                    // border-width: 1pt;
+                    border-image-slice: 1;
+                    
+                }
+                padding-bottom: 0.5rem;
+            }
+            &-submit{
+                padding-top: 2rem;
+                display: flex;
+                width:70%;
+                justify-content: center;
+                input{
+                    background: rgb(49,1,73);
+                    background: linear-gradient(90deg, rgba(49,1,73,1) 0%, rgba(217,51,51,1) 50%, rgba(255,146,63,1) 100%); 
+                  
+                    color: white;
+                    padding: 1rem;
+                    font-weight: 700;
+                }
+                input:hover{
+                    cursor: pointer;
+                    font-size: 1rem;
+                }
+            }
+        }
+
+    }
+    &__background{
+        display:flex;
+        width: 50%;
+        flex: 1;
+        background-image: url('/static/blogapp/svg/rainbow.svg');
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+    }
+
+}
+// .errorlist{
+//     li{
+//         #text{
+//             display:none;
+//         }
+//     }
+    
+// }
+.error{
+    display: flex;
+}
+ul{
+    list-style-type:none;
+}

@@ -1,0 +1,32 @@
+{% load static%}
+{% load svg %}
+<link href="{% static 'blogapp/css/login.css' %}" rel="stylesheet">
+<div class="login">
+    <div class="login__background">
+    </div>
+
+    <div class="login__form">
+        <div class="login__form__vector">
+            {% svg 'login2' %}
+        </div>
+        <div class="login__form__data">
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="login__form__data-title">
+                    <h1>Logowanie</h1>
+                </div>
+
+                <div class="login__form__data-label">Nazwa użytkownika</div>
+                <div class="login__form__data-input"><input type="text" placeholder="Nazwa użytkownika" name="username"></div>
+                <div class="login__form__data-label">Hasło</div>
+                <div class="login__form__data-input"><input type="text" placeholder="Hasło" name="password"></div>
+                <div class="login__form__data-submit">
+                    <input type="submit" value="Zaloguj się"></input>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>

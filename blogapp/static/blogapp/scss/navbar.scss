@@ -1,0 +1,198 @@
+// @mixin google-font($family) {
+//     @import url("http://fonts.googleapis.com/css?family=#{$family}");
+//   }
+// @include google-font("Droid Sans");
+// @include google-font("Abril Fatface");
+// @include google-font("Cabin");
+// @include google-font("Calistoga");
+// .navbar{
+//     display: flex;
+//     overflow:hidden;
+//     width: 100%;
+//     justify-content: center;
+//     position:sticky;
+//     top:0%;
+//     z-index: 3;
+    
+//     &__main{
+//         &__icon{
+            
+//             width: 50%;
+//         }
+//     }
+//     &__options{
+        
+//         background-color: #778da9;
+//         color: white;
+//         width: 100%;
+//         display:flex;
+//         justify-content: space-between;
+//         font-size: 20px;
+//         &__left{
+//             padding-left: 1rem;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             white-space: nowrap;
+//             &-options{
+//                 margin-left:1rem;
+//                 display: flex;
+//                 height:100%;
+//                 align-items: center;
+//             }
+//             &-option{
+//                 padding: 1rem;
+//                 height: 100%;
+//                 display: flex;
+//                 align-items: center;
+//                 font-family: 'Cabin';
+                
+//             }
+//             &-option:hover{
+//                 background-color:#415a77;
+//                 cursor: pointer;
+                
+//             }
+//         }
+//         &__right{
+//             padding-right: 1rem;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             white-space: nowrap;
+//             &-login{
+//                 padding: 1rem;
+//             }
+//             &-register{
+//                 padding: 1rem;
+//             }
+//         }
+        
+//     }
+//     &__options::before{
+//         border-radius: 0 0 50% 50%;
+//     }
+// }
+// .nav{
+//     display: flex;
+//     flex-direction: column;
+//     // display: inline-block;
+//     width: 70%;
+//     // height: 200px;
+//     margin: 0 auto;
+// }
+// a{
+//     color: white
+// }
+// body{
+//     position: relative;
+// }
+// $breakpoints:(
+//   'phone': 360px,
+//   'tablet': 768px,
+//   'desktop':1366px,
+//   'LGdesktop': 1920px
+// )!default;
+
+@mixin breakpoint($point){
+  @if $point == mobile{
+    @media screen and(max-width:600px){@content;}
+  }
+  @else if $point == laptop{
+    @media screen and(max-width:900px){@content;}
+  }
+  @else if $point == desktop{
+    @media screen and(max-width:1400px){@content;}
+  }
+  @else if $point == LGdesktop{
+    @media screen and(max-width:1800px){@content;}
+  }
+
+}
+@import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
+.navbar{
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    list-style: none;
+    padding-top: 2rem;
+    position: sticky;
+    @include breakpoint(laptop){
+      display:none;
+    }
+    &__right{
+        font-family: 'Rochester';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 48px;
+        line-height: 62px;
+        color: #FFFFFF;
+        white-space: nowrap;
+        @include breakpoint(desktop){
+          font-size:28px;
+        }
+        @include breakpoint(laptop){
+          display:none;
+        }
+    }
+    &__right:hover{
+        cursor:pointer
+    }
+    &__left{
+        white-space: nowrap;
+        font-family: 'Rochester';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 48px;
+        line-height: 62px;
+        color: #FFFFFF;
+        @include breakpoint(desktop){
+          font-size:30px;
+        }
+        @include breakpoint(laptop){
+          display:none;
+        }
+        
+    }
+    &__left:hover{
+        cursor:pointer
+    }
+}
+  a.navbar__item {
+    font-family: 'Rochester';
+    color: white;
+    // text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    
+    display: inline-block;
+    padding: 15px 20px;
+    position: relative;
+  }
+  a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #fff;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+  }
+  
+  a:hover:after { 
+    width: 100%; 
+    left: 0; 
+  }
+  @media screen and (max-height: 300px) {
+      ul {
+          margin-top: 40px;
+      }
+  }
+  
+li .navbar__left:hover{
+    cursor:pointer;
+}
+

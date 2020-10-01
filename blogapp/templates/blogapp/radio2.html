@@ -1,0 +1,10 @@
+    {% load static %}
+    {% for item in data|slice:":3"  %}
+
+    <div class="post__recommendation__post">
+        <div class="post__recommendation__post-image">
+            <img src={% static item.image.url %} alt="shakhur" />
+        </div>
+        <div class="post__recommendation__post-description">{{item.short_description}}</div>
+    </div>
+    {% endfor %}

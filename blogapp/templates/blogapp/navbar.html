@@ -1,0 +1,15 @@
+{% load static %}
+
+<link href="{% static 'blogapp/css/navbar.css' %}" rel="stylesheet">
+<ul class="navbar">
+    <li class="navbar__left"><a class="navbar__item">Strona Domowa</a></li>
+    <li class="navbar__left"><a class="navbar__item">Rozpiski</a></li>
+    <li class="navbar__left"><a class="navbar__item">Newsy</a></li>
+    {% if user.is_authenticated %}
+    <li class="navbar__right"><a class="navbar__item">Witaj {{user}}</a></li>
+    <li class="navbar__right"><a href="/logout/" class="navbar__item">Wyloguj się</a></li>
+    {% else %}
+    <li class="navbar__right"><a href="/login/" class="navbar__item">Zaloguj się</a></li>
+    <li class="navbar__right"><a class="navbar__item">Zarejestruj się</a></li>
+    {% endif %}
+</ul>

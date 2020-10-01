@@ -1,0 +1,871 @@
+// @mixin google-font($family) {
+//     @import url("http://fonts.googleapis.com/css?family=#{$family}");
+//   }
+// @include google-font("Droid Sans");
+// @include google-font("Abril Fatface");
+// @include google-font("Cabin");
+// @include google-font("Calistoga");
+// .dashboard{
+//     display: flex;
+//     width: 70%;
+//     flex-wrap:wrap;
+//     margin: 0 auto;
+//     background-color: #1b263b;
+//     min-height: 100vh;
+//     color: white;
+//     &__mainnews{
+//         display: flex;
+//         flex-wrap: wrap;
+//         height: 600px;
+//         width:100%;
+//         &__rest{
+//             width:50%;
+//         }
+//         &__first{
+//             width:50%;
+//             background-color:black;
+//             z-index: 1;
+//             position: relative;
+//             &__title{
+//                 display: flex;
+//                 justify-content: center;
+//                 font-size:3rem;
+//                 color:white;
+//                 font-family: 'Abril Fatface';
+//             }
+//             &__description{
+//                 display: flex;
+//                 justify-content: center;
+//                 color: white;
+//             }
+//             &__tags{
+//                 color:white;
+//                 display: flex;
+//                 justify-content: center;
+//                 padding: 2px 5px 7px 10px;
+                
+//                 &__tag{
+//                     // border: 1px solid black;
+//                     padding: 2px 5px 2px 5px;
+//                     background-color: rgba(0, 0, 0, 0.7);
+//                     font-family: 'Roboto', sans-serif;
+//                     line-height: 13px;
+//                     font-weight: 500;
+//                     text-transform: uppercase;
+//                     transition: background-color 0.3s ease;
+//                     z-index:2;
+//                 }
+//                 &__tag:hover{
+//                     cursor: pointer;
+//                     color: white;
+//                     background-color:rgb(100, 157, 223)
+//                 }
+//             }
+//             &__meta{
+//                 position: absolute;
+//                 bottom: 0;
+//                 width: 100%;
+//                 margin-bottom:2rem;
+//             }
+//         }
+//         &__first:hover{
+//             cursor: pointer;
+//             opacity: 0.7;
+//         }
+//         &__second{
+//             width:100%;
+//             height: 50%;
+//             position: relative;
+//             background-color:black;
+//             z-index: 1;
+//             &__title{
+//                 display: flex;
+//                 justify-content: center;
+//                 font-size:3rem;
+//                 color:white;
+//                 font-family: 'Abril Fatface';
+//             }
+//             &__description{
+//                 display: flex;
+//                 justify-content: center;
+//                 color: white;
+//             }
+//             &__tags{
+//                 color:white;
+//                 display: flex;
+//                 justify-content: center;
+//                 padding: 2px 5px 7px 10px;
+                
+//                 &__tag{
+//                     // border: 1px solid black;
+//                     padding: 2px 5px 2px 5px;
+//                     background-color: rgba(0, 0, 0, 0.7);
+//                     font-family: 'Roboto', sans-serif;
+//                     line-height: 18px;
+//                     font-weight: 500;
+//                     text-transform: uppercase;
+//                     transition: background-color 0.3s ease;
+//                 }
+//                 &__tag:hover{
+//                     cursor: pointer;
+//                     color: white;
+//                     background-color:rgb(100, 157, 223)
+//                 }
+//             }
+//             &__meta{
+//                 position: absolute;
+//                 bottom: 0;
+//                 width: 100%;
+//                 margin-bottom:2rem;
+//             }
+//         }
+//         &__second:hover{
+//             cursor: pointer;
+//             opacity: 0.7;
+//         }
+//         &__third{
+//             width: 100%;
+//             height: 50%;
+//             position: relative;
+//             background-color:black;
+//             z-index: 1;
+//             &__title{
+//                 display: flex;
+//                 justify-content: center;
+//                 font-size:3rem;
+//                 color:white;
+//                 font-family: 'Abril Fatface';
+//             }
+//             &__description{
+//                 display: flex;
+//                 justify-content: center;
+//                 color: white;
+//             }
+//             &__tags{
+//                 color:white;
+//                 display: flex;
+//                 justify-content: center;
+//                 padding: 2px 5px 7px 10px;
+//                 align-items: end;
+                
+//                 &__tag{
+//                     // border: 1px solid black;
+//                     padding: 2px 5px 2px 5px;
+//                     background-color: rgba(0, 0, 0, 0.7);
+//                     font-family: 'Roboto', sans-serif;
+//                     line-height: 13px;
+//                     font-weight: 500;
+//                     text-transform: uppercase;
+//                     transition: background-color 0.3s ease;
+//                 }
+//                 &__tag:hover{
+//                     cursor: pointer;
+//                     color: white;
+//                     background-color:rgb(100, 157, 223)
+//                 }
+//             }
+//             &__meta{
+//                 position: absolute;
+//                 bottom: 0;
+//                 width: 100%;
+//                 margin-bottom:2rem;
+//             }
+//         }
+//         &__third:hover{
+//             cursor: pointer;
+//             opacity: 0.7;
+//         }
+//     }
+// }
+// .news{
+//     display:flex;
+//     background-color: #1b263b;
+//     flex-direction: column;
+//     width: 60%;
+//     &__lastnews{
+//         width:60%;
+//         min-width: 700px;
+//         &__firstpost{
+//             margin-bottom: 2rem;
+//             position: relative;
+//         }
+//         &__firstpost{
+            
+//             &__meta{
+//                 bottom:0;
+//                 color:white;
+//                 font-size:1em;
+//                 // background-color:red;
+//                 position: absolute;
+//                 // width: 100%;
+//                 display: flex;
+//                 flex-wrap: wrap;
+//                 // padding: 1rem;
+//                 padding:1rem;
+//             }
+//             &__shortdescription{
+//                 width:100%;
+//                 display: none;
+//             }
+//             &__title{
+//                 width: 100%;
+//                 display: flex;
+//                 justify-content: center;
+//                 font-size:3rem;
+//                 color:white;
+//                 font-family: 'Abril Fatface';
+//             }
+//             &__author{
+//                 width:50%;
+//                 color: grey;
+//             }
+//             &__comments{
+//                 width: 50%;
+//                 display: flex;
+//                 justify-content: flex-end;
+//             }
+            
+//         }
+//         &__post{
+//             color:white;
+//             // padding:1rem;
+//             display:flex;
+//             flex-wrap:wrap;
+//             margin-bottom:2rem;
+//             width:100%;
+//             background-color: #415a77;
+//             &__comments{
+//                 width: 100%;
+//                 display: flex;
+//                 justify-content: space-around;
+//                 align-items: end;
+//                 padding-left: 2rem;
+//                 padding-right: 2rem;
+//             }
+//             &__image{
+//                 display:flex;
+//                 height:100%;
+//                 width:40%;
+//                 flex-wrap: wrap;
+//                 img{
+//                     width:280px;
+//                     height:150px;
+//                 } 
+//             }
+//             &__meta{
+//                 font-size:14px;
+//                 display: flex;
+//                 justify-content: space-between;
+//                 width: 100%;
+//                 padding-left: 2rem;
+//                 padding-right: 2rem;
+//             }
+//             &__title{
+//                 width:100%;
+//                 font-size: 20px;
+//                 font-family: 'Abril Fatface';
+//                 font-weight: 900;
+                
+//             }
+//             &__information{
+//                 height:150px;
+//                 width:60%;
+//                 display: flex;
+//                 flex-wrap: wrap;
+//             }
+//             &__shortdescription{
+//                 flex-grow:1;
+//                 padding-left: 2rem;
+//                 padding-right: 2rem;
+//             }
+//         }
+//     }
+//     &__bonusinformation{
+//         width:40%;
+//         min-width: 460px;
+//         &__tags{
+//             margin-bottom:2rem;
+//             background-color:  black;
+//             display:flex;
+//             flex-wrap:wrap;
+//             justify-content: center;
+//             background-color: #415a77;
+//             &__tag{
+//                 background-color:grey;
+//                 padding: 0.2em 1em 0.2em 1em;
+//                 font-size:1.2em;
+//                 border: solid 1px white;
+//                 margin-right:1em;
+//                 margin-bottom:0.5em;
+//                 margin-top:0.5em;
+//             }
+//             &__tag:hover{
+//                 cursor:pointer;
+//             }
+//         }
+//         &__journalists{
+//             background-color: #415a77;
+//             &__user{
+                
+//                 display:flex;
+//                 font-family: 'Abril Fatface', sans-serif;
+//                 align-items: center;
+//                 flex-wrap:wrap;
+//                 &__name{
+//                     display:flex;
+//                     width:100%;
+//                 }
+//             img{
+//                 width:100px;
+//                 height:70px;
+//             }
+//         }
+//         }
+
+//     }
+// }
+// body{
+//     margin: 0;
+// }
+// .pagination{
+//     display: flex;
+//     justify-content: center;
+//     color: white;
+// }
+@mixin breakpoint($point){
+    @if $point == mobile{
+      @media screen and(max-width:500px){@content;}
+    }
+    @if $point == mobilebig{
+        @media screen and(max-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen and(max-width:900px){@content;}
+    }
+    @else if $point == desktop{
+      @media screen and(max-width:1400px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and(max-width:1800px){@content;}
+    }
+    @else if $point == desktopsmall{
+        @media screen and(max-width:1200px){@content;}
+    }
+  
+  }
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+    color: white;
+    
+}
+body{
+    background-color: #1C1C1C;
+    // position: relative;
+    
+}
+
+.freewords{
+    height:500px;
+    position: relative;
+    &-title{
+        position: absolute;
+        top:10%;
+        font-family: 'Rosario';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 64px;
+        line-height: 78px;
+        left:5%;
+        @include breakpoint(laptop){
+            display:none;
+          }
+    }
+    &-box{
+        position: absolute;
+        font-family: 'Pridi';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 288px;
+        color: rgba(255, 255, 255, 0.3);
+        right: 20%;
+        top: 0%;
+        @include breakpoint(laptop){
+            right: 10%;
+          }
+        
+    }
+    &-mma{
+        position: absolute;
+        font-family: 'Pridi';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 288px;
+        color: rgba(255, 255, 255, 0.3);
+        left:3%;
+        top:50%;
+        @include breakpoint(laptop){
+            font-size: 100px;
+          }
+    }
+    &-muaythai{
+        position: absolute;
+        top:55%;
+        right:30%;
+        font-family: 'Pridi';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 96px;
+        color: rgba(255, 255, 255, 0.3);
+    }
+    &-kickboxing{
+        position: absolute;
+        top:60%;
+        right: -5%;
+        font-family: 'Pridi';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 80px;
+        color: rgba(255, 255, 255, 0.3);
+        transform: rotate(90.05deg); 
+        @include breakpoint(laptop){
+            right: -25%;
+          }  
+    }
+}
+.dashboard{
+    position: relative;
+    height: 100%;
+    margin-top:2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    @include breakpoint(bigmobile){
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+    &__news{
+        padding-top:10rem;
+        width: 100%;
+        height:700px;
+        display:flex;
+        
+        &__firstcolumn{
+            width: 60%;
+            height: 100%;
+            max-width: 60%;
+            background-color: #1C1C1C;
+            border: 2px solid white;
+            position: relative;
+            color:red;
+            transform: scale(1);
+            &__meta{
+                position: absolute;
+                bottom:0;
+                height: 40%;
+                width:100%;
+                background-color: rgba(255, 255, 255, 0.7);
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                color:black;
+                font-size:40px;
+                &-title{
+                    color:black;
+                    font-size:40px;
+                }
+            }
+        }
+        &__firstcolumn:hover{
+            // cursor:pointer;
+            transform: scale(1.1);
+        }
+        &__secondcolumn{
+            width:40%;
+            background-color: #1C1C1C;
+            :hover{
+                cursor: pointer;
+            }
+            &__first{
+                height: 50%;
+                border: 2px solid white;
+                position: relative;
+                &__meta{
+                    position: absolute;
+                    bottom:0;
+                    height: 40%;
+                    width:100%;
+                    background-color: rgba(255, 255, 255, 0.7);
+                    display:flex;
+                    justify-content: center;
+                    align-items: center;
+                    color:black;
+                    font-size:30px;
+                    &-title{
+                        color:black;
+                        font-size:30px;
+                    }
+                }
+            }
+            &__first:hover{
+                cursor: pointer;
+            }
+            &__second{
+                height: 50%;
+                border: 2px solid white;
+                position: relative;
+                &__meta{
+                    position: absolute;
+                    bottom:0;
+                    height: 40%;
+                    width:100%;
+                    background-color: rgba(255, 255, 255, 0.7);
+                    display:flex;
+                    justify-content: center;
+                    align-items: center;
+                    color:black;
+                    font-size:30px;
+                    &-title{
+                        color:black;
+                        font-size:30px;
+                    }
+                }
+            }
+            &__second:hover{
+                cursor: pointer;
+            }
+        }
+    }
+    &__redbox{
+        position: absolute;
+        background-color: #F94C4C;
+        height: 100%;
+        width: 30%;
+        left: 20%;
+        z-index: -1;
+        &-news{
+            
+            font-size: 40px;
+            
+        }
+        &__box{
+            display:flex;
+            padding-top:3rem;
+            justify-content: center;
+
+        }
+        
+    }
+}
+.news{
+    width:100%;
+    height: 100%;
+    position:relative;
+    display: flex;
+    flex:1;
+    &__bonusinformation{
+        padding-top:5rem;
+        
+        
+        &__events{
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom:2rem;
+            height: 400px;
+            border: 2px solid white;
+        }
+        &__tags{
+            width:80%;
+            margin: 0 auto;
+            border: 2px solid white;
+        }
+    }
+    &__box{
+        display:flex;
+        flex:1;
+        width:100%;
+        height:100%;
+        flex-wrap:wrap;
+    }
+    &__bonusinformation{
+        padding-top:6rem;
+        width:40%;
+        margin:0 auto;
+        @include breakpoint(desktopsmall){
+            width:100%;
+        }
+        &__box{
+            width:60%;
+            margin: 0 auto;
+        }
+        &__title{
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;  
+            font-size:30px;
+        }
+        &__journalists{
+            width:100%;
+            // border: 2px solid white;
+            background-color: #1C1C1C;
+            &__meta{
+                display:flex;
+                flex-direction: column;
+                
+            }
+            &__user{
+                display:flex;
+                border: 1px solid white;
+                &__name{
+                    height:50%;
+                    display:flex;
+                    align-items: center;
+                    padding-left:1rem;
+                    a{
+                        font-family: Arial, Helvetica, sans-serif;
+                        color:white;
+                        letter-spacing: 0.05em;
+                        text-decoration: none;
+                    }
+                }
+                &__rank{
+                    padding-left:1rem;
+                }
+                &__image{
+                    width: 100px;
+                    height:100px;
+                    img{
+                        width:100%;
+                        height:100%;
+                    }
+                }
+            }
+            &__user:hover{
+                cursor:pointer;
+
+            }
+        }
+        &__tags{
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 2rem;
+            display:flex;
+            flex-wrap: wrap;
+            padding:1rem;
+            background-color:#1C1C1C;
+            &-tag{
+                padding: 0.2rem 1rem 0.2rem 1rem;
+                border: 1px solid white;
+                margin-right: 1rem;
+                font-size:17px;
+                font-weight: 700;
+                margin-bottom:1rem;
+            }
+            &-tag:hover{
+                cursor: pointer;
+                background-color: #33adff;
+            }
+        }
+    }
+    &__posts{
+        padding-top:6rem;
+        width:60%;
+        @include breakpoint(desktopsmall){
+            width:100%;
+        }
+        @include breakpoint(mobile){
+            width:100%;
+          }
+        &__firstpost{
+            border: 2px solid white;
+            width:100%;
+            height:500px;
+            margin-bottom:2rem;
+            position: relative;
+            &__meta{
+                padding:1rem;
+                position:absolute;
+                height:30%;
+                background-color: rgba(255, 255, 255, 0.7);
+                color: black;
+                bottom: 0%;
+                width: 100%;
+                display:flex;
+                flex-direction: column;
+                &__data{
+                    display:flex;
+                    justify-content: space-between;
+                    font-size:17px;
+                    color:black;
+                }
+                &-title{
+                    flex-grow:1;
+                    font-size:40px;
+                    color:black;
+                }
+                &__bottom{
+                    display: flex;
+                    justify-content: end;
+                    button{
+                        padding: 0.5rem 1rem 0.5rem 1rem;
+                        margin-right:2rem;
+                        color:white;
+                        background-color: black;
+                        font-size:17px;
+                        font-weight: 600;
+                        // border: none
+                    }
+                    button:hover{
+                        cursor:pointer;
+                        font-size:20px;
+                    }
+                }
+            }
+        }
+        &__post{
+            width:100%;
+            height:300px;
+            display:flex;
+            border: 2px solid white;
+            margin-bottom:2rem;
+            @include breakpoint(mobilebig){
+                height:200px;
+              }
+            @include breakpoint(mobile){
+                height:125px;
+              }
+            
+            &__meta{
+                display: flex;
+                justify-content: space-between;
+                margin-right: 2rem;
+                @include breakpoint(mobile){
+                    margin-right: 0.5rem;
+                }
+            }
+            &__bottom{
+                margin-right:2rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                margin-bottom: 1rem;
+                button{
+                    padding: 0.5rem 1rem 0.5rem 1rem;
+                    margin-right:2rem;
+                    color:black;
+                    background-color: white;
+                    font-size:17px;
+                    font-weight: 600;
+                    @include breakpoint(mobilebig){
+                    font-size:13px;
+                      }
+                      @include breakpoint(mobile){
+                        font-size:8px;
+                        padding: 0.1rem 0.2rem 0.1rem 0.2rem;
+                          }
+                      
+                    
+                    // border: none
+                }
+                button:hover{
+                    cursor:pointer;
+                    font-size:20px;
+                    @include breakpoint(mobilebig){
+                        font-size:10px;
+                      }
+                    @include breakpoint(mobilebig){
+                        font-size:7px;
+                      }
+                }
+            }
+            &-title{
+                font-size:40px;
+                text-transform: uppercase;
+                display:flex;
+                justify-content: center;
+                padding-top: 1rem;
+                @include breakpoint(mobilebig){
+                    font-size:20px;
+                  }
+                @include breakpoint(mobile){
+                    font-size:10px;
+                }
+            }
+            &__information{
+                display:flex;
+                width:100%;
+                flex-direction: column;
+                background-color:#1C1C1C;
+                padding-left:1rem;
+            }
+            &-description{
+                flex-grow:1;
+                padding-top:1rem;
+                @include breakpoint(mobilebig){
+                    font-size:15px;
+                  }
+                  @include breakpoint(mobile){
+                    font-size:8px;
+                }
+            }
+            &-image{
+                min-width: 300px;
+                height: 290px;
+                @include breakpoint(mobilebig){
+                    font-size:20px;
+                    min-width: 200px;
+                    height: 190px;
+                  }
+                @include breakpoint(mobile){
+                    font-size:10px;
+                    min-width: 100px;
+                    height: 120px;
+                }
+                img{
+                    width:100%;
+                    height:100%;
+                    max-width: 300px;
+                }
+            }
+        }
+    }
+    &__redbox{
+        position: absolute;
+        height: 100%;
+        width: 30%;
+        left: 20%;
+        z-index: -1;
+        background-color: #F94C4C;
+        &-news{
+            font-size: 30px;
+            
+        }
+        &__box{
+            display:flex;
+            padding-top: 2rem;
+            justify-content: center;
+        }
+    }
+    &__redbox2{
+        position: absolute;
+        height: 100%;
+        width: 20%;
+        right: 10%;
+        z-index: -1;
+        background-color: #F94C4C;
+        @include breakpoint(desktopsmall){
+            display:none;
+        }
+        &-news{
+            font-size: 30px;
+        }
+        &__box{
+            display:flex;
+            padding-top: 2rem;
+            justify-content: center;
+        }
+    }
+
+}
