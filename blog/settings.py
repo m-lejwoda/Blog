@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'hitcount',
     'ads',
-    'sekizai'
+    'sekizai',
+    'fontawesome_5',
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 MIDDLEWARE = [
@@ -192,3 +193,4 @@ ADS_VIEWPORTS = {
     'lg': 'd-none img-fluid d-lg-block d-xl-none',
     'xl': 'd-none img-fluid d-xl-block',
 }
+

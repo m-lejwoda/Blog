@@ -1,6 +1,26 @@
 
+$(".news__bonusinformation__journalists__user").on({
+    mouseenter: function (event) {
+        $(".news__bonusinformation__journalists__user__name").css('color','red')
+        $( this ).find('a').css('color','#F94C4C');
+    },
+    mouseleave: function (event) {
+        $(".news__bonusinformation__journalists__user__name").css('color','red')
+        $( this ).find('a').css('color','white');
+    }
+});
+// $(".news__bonusinformation__journalists__user").on({
+//     mouseenter: function (event) {
+//         $(".news__bonusinformation__journalists__user__name").css('color','red')
+//         $( this ).find('a').css('color','#F94C4C');
+//     },
+//     mouseleave: function (event) {
+//         $(".news__bonusinformation__journalists__user__name").css('color','red')
+//         $( this ).find('a').css('color','white');
+//     }
+// });
 $(document).ready(function (){
-    console.log("początkowy ajax")
+    
     $.ajax({
         url: "/radio/",
         type: 'POST',
@@ -15,6 +35,21 @@ $(document).ready(function (){
         }
         
     })
+    // $(function() {
+    //     $('.news__bonusinformation__journalists__user').hover(function() {
+    //         console.log("bonus")
+    //       $('.news__bonusinformation__journalists__user__name').css('background-color', 'yellow');
+    //     }, function() {
+    //       // on mouseout, reset the background colour
+    //       $('#b').css('background-color', '');
+    //     });
+    //   });
+    // $('.news__bonusinformation__journalists__user').hover(
+    //     function(){
+    //         console.log("zmiana koloru journalisty")
+    //         $('.news__bonusinformation__journalists__user__name').css('color','#F94C4C')
+    //     }
+    // )
     $(".radio-btn").click(function(){
         var url = "{% url 'radio2' %}";
         console.log(url)
