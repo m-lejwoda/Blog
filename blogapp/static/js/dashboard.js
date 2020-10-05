@@ -9,16 +9,16 @@ $(".news__bonusinformation__journalists__user").on({
         $( this ).find('a').css('color','white');
     }
 });
-// $(".news__bonusinformation__journalists__user").on({
-//     mouseenter: function (event) {
-//         $(".news__bonusinformation__journalists__user__name").css('color','red')
-//         $( this ).find('a').css('color','#F94C4C');
-//     },
-//     mouseleave: function (event) {
-//         $(".news__bonusinformation__journalists__user__name").css('color','red')
-//         $( this ).find('a').css('color','white');
-//     }
-// });
+$(".dashboard__news__firstcolumn").on({
+    mouseenter: function (event) {
+        $(".dashboard__news__firstcolumn__meta-title").css('color','red')
+        $( this ).find('a').css('color','#F94C4C');
+    },
+    mouseleave: function (event) {
+        $(".dashboard__news__firstcolumn__meta-title").css('color','white')
+        $( this ).find('a').css('color','white');
+    }
+});
 $(document).ready(function (){
     
     $.ajax({
