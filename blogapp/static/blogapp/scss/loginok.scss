@@ -1,15 +1,49 @@
+@mixin breakpoint($point){
+    @if $point == mobile{
+      @media screen and(max-width:500px){@content;}
+    }
+    @if $point == mobilebig{
+        @media screen and(max-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen and(max-width:900px){@content;}
+    }
+    @else if $point == minlaptop{
+        @media screen and(min-width:900px){@content;}
+      }
+    @else if $point == desktop{
+      @media screen and(max-width:1400px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and(max-width:1800px){@content;}
+    }
+    @else if $point == desktopsmall{
+        @media screen and(max-width:1200px){@content;}
+    }
+  
+  }
+
+
 .login{
     display:flex;
-    width:60%;
+    width:100%;
     margin:0 auto;
-    
+    justify-content: center;
+    padding:2rem;
+    &__illustration{
+        @include breakpoint(laptop){
+            display:none;
+        }
+        
+    }
     &__box{
         display:flex;
         flex-direction: column;
         justify-content: center;
-        // flex-wrap:wrap;
-        // justify-content: center;
         width: 100%;
+        min-width: 350px;
+        max-width: 500px;
+        padding-right: 2rem;
         &__rest{
             &-label{
                 width:100%;
@@ -20,13 +54,12 @@
                 width:100%;
                 margin-bottom: 1rem;
                 font-weight: 600;
-                
-
                 input{
                     width: 100%;
                     padding:0.4rem;
                     border: 2px solid grey;
                     color:black;
+                    
                 }
             }
             &-submit{
