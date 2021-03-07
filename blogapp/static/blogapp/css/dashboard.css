@@ -708,3 +708,9 @@ body {
 i .fa-comment {
   color: black !important;
 }
+
+.pagination {
+  position: relative;
+  width: 30%;
+  left: 20%;
+}

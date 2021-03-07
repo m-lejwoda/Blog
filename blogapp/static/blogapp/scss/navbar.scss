@@ -120,16 +120,25 @@
     @include breakpoint(laptop){
       display:none;
     }
+    &__mobile{
+      display:flex;
+      padding:1rem;
+      justify-content: end;
+      &-icon{
+        display:flex;
+        justify-content: end;
+      }
+    }
     &__right{
         font-family: 'Rochester';
         font-style: normal;
         font-weight: normal;
-        font-size: 48px;
+        font-size: 30px;
         line-height: 62px;
         color: #FFFFFF;
         white-space: nowrap;
         @include breakpoint(desktop){
-          font-size:28px;
+          font-size:30px;
         }
         @include breakpoint(laptop){
           display:none;
@@ -143,7 +152,7 @@
         font-family: 'Rochester';
         font-style: normal;
         font-weight: normal;
-        font-size: 48px;
+        font-size: 30px;
         line-height: 62px;
         color: #FFFFFF;
         @include breakpoint(desktop){
@@ -195,4 +204,3 @@
 li .navbar__left:hover{
     cursor:pointer;
 }
-

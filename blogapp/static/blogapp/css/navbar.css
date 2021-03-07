@@ -14,11 +14,22 @@
   }
 }
 
+.navbar__mobile {
+  display: flex;
+  padding: 1rem;
+  justify-content: end;
+}
+
+.navbar__mobile-icon {
+  display: flex;
+  justify-content: end;
+}
+
 .navbar__right {
   font-family: 'Rochester';
   font-style: normal;
   font-weight: normal;
-  font-size: 48px;
+  font-size: 30px;
   line-height: 62px;
   color: #FFFFFF;
   white-space: nowrap;
@@ -26,7 +37,7 @@
 
 @media screen and (max-width: 1400px) {
   .navbar__right {
-    font-size: 28px;
+    font-size: 30px;
   }
 }
 
@@ -45,7 +56,7 @@
   font-family: 'Rochester';
   font-style: normal;
   font-weight: normal;
-  font-size: 48px;
+  font-size: 30px;
   line-height: 62px;
   color: #FFFFFF;
 }

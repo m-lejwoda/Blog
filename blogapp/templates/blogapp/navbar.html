@@ -1,10 +1,13 @@
 {% load static %}
-
+{% load fontawesome_5 %}
 <link href="{% static 'blogapp/css/navbar.css' %}" rel="stylesheet">
+<div class="navbar__mobile">
+    <div class="navbar__mobile-icon">{% fa5_icon 'bars' 'fa fa-2x' %}</div>
+</div>
 <ul class="navbar">
-    <li class="navbar__left"><a class="navbar__item">Strona Domowa</a></li>
+    <li class="navbar__left"><a href={% url 'index' %} class="navbar__item">Strona Domowa</a></li>
     <li class="navbar__left"><a class="navbar__item">Rozpiski</a></li>
-    <li class="navbar__left"><a class="navbar__item">Newsy</a></li>
+    <li class="navbar__left" id="news"><a class="navbar__item">Newsy</a></li>
     {% if user.is_authenticated %}
     <li class="navbar__right"><a class="navbar__item">Witaj {{user}}</a></li>
     <li class="navbar__right"><a href="/logout/" class="navbar__item">Wyloguj się</a></li>
