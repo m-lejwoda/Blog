@@ -23,6 +23,18 @@ body {
   position: relative;
 }
 
+@media screen and (max-width: 700px) {
+  .freewords {
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .freewords {
+    height: 250px;
+  }
+}
+
 .freewords-title {
   position: absolute;
   top: 10%;
@@ -49,11 +61,27 @@ body {
   color: rgba(255, 255, 255, 0.3);
   right: 20%;
   top: 0%;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 900px) {
   .freewords-box {
     right: 10%;
+    font-size: 100px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .freewords-box {
+    left: 3%;
+    top: 0%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .freewords-box {
+    left: 3%;
+    top: 0%;
   }
 }
 
@@ -66,10 +94,27 @@ body {
   color: rgba(255, 255, 255, 0.3);
   left: 3%;
   top: 50%;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 900px) {
   .freewords-mma {
+    font-size: 100px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .freewords-mma {
+    left: 3%;
+    top: 30%;
+    font-size: 100px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .freewords-mma {
+    left: 3%;
+    top: 30%;
     font-size: 100px;
   }
 }
@@ -82,7 +127,24 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 96px;
+  white-space: nowrap;
   color: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 500px) {
+  .freewords-muaythai {
+    left: 3%;
+    top: 65%;
+    font-size: 70px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .freewords-muaythai {
+    left: 3%;
+    top: 65%;
+    font-size: 70px;
+  }
 }
 
 .freewords-kickboxing {
@@ -92,6 +154,7 @@ body {
   font-family: 'Pridi';
   font-style: normal;
   font-weight: normal;
+  white-space: nowrap;
   font-size: 80px;
   color: rgba(255, 255, 255, 0.3);
   transform: rotate(90.05deg);
@@ -100,6 +163,26 @@ body {
 @media screen and (max-width: 900px) {
   .freewords-kickboxing {
     right: -25%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .freewords-kickboxing {
+    left: 3%;
+    top: 90%;
+    right: 0%;
+    transform: rotate(0deg);
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .freewords-kickboxing {
+    left: 3%;
+    top: 90%;
+    right: 0%;
+    transform: rotate(0deg);
+    font-size: 50px;
   }
 }
 
@@ -246,6 +329,16 @@ body {
   z-index: -1;
 }
 
+@media screen and (max-width: 500px) {
+  .dashboard__redbox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    left: 0;
+    background-color: transparent;
+  }
+}
+
 .dashboard__redbox-news {
   font-size: 40px;
 }
@@ -254,6 +347,13 @@ body {
   display: flex;
   padding-top: 3rem;
   justify-content: center;
+}
+
+@media screen and (max-width: 500px) {
+  .dashboard__redbox__box {
+    width: 70%;
+    background-color: #F94C4C;
+  }
 }
 
 .news {
@@ -305,6 +405,18 @@ body {
 .news__bonusinformation__box {
   width: 60%;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 500px) {
+  .news__bonusinformation__box {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .news__bonusinformation__box {
+    width: 100%;
+  }
 }
 
 .news__bonusinformation__title {
@@ -536,9 +648,19 @@ body {
   margin-bottom: 1rem;
 }
 
+.news__posts__post__bottom-next {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
 .news__posts__post__bottom-icon {
   display: flex;
   align-items: center;
+}
+
+.news__posts__post__bottom-icon .fa-2x {
+  font-size: 1em;
 }
 
 .news__posts__post__bottom-length {
@@ -670,8 +792,36 @@ body {
   background-color: #F94C4C;
 }
 
+@media screen and (max-width: 500px) {
+  .news__redbox {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .news__redbox {
+    width: 60%;
+  }
+}
+
 .news__redbox-news {
   font-size: 30px;
+}
+
+@media screen and (max-width: 500px) {
+  .news__redbox-news {
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .news__redbox-news {
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .news__redbox__box {
@@ -713,4 +863,27 @@ i .fa-comment {
   position: relative;
   width: 30%;
   left: 20%;
+}
+
+@media screen and (max-width: 500px) {
+  .pagination {
+    width: 100%;
+    left: 0%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .pagination {
+    width: 100%;
+    left: 0%;
+  }
+}
+
+span.current {
+  width: 100%;
+}
+
+span.step-links {
+  display: flex;
+  flex-direction: column;
 }

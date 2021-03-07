@@ -59,41 +59,40 @@ $("#news").click(function() {
         scrollTop: $(".news__posts").offset().top},
         'slow');
 });
-$(document).ready(function (){
-    
-    $.ajax({
-        url: "/radio/",
-        type: 'POST',
-        data:{
-            radio: "radio",
-            input: "radio-one",
-            author: author
-        },
-        success: function(response){
-            console.log(response)
-            $('#radio2').html(response);
-        }
+// $(document).ready(function (){
+//     $.ajax({
+//         url: "/radio/",
+//         type: 'POST',
+//         data:{
+//             radio: "radio",
+//             input: "radio-one",
+//             author: author
+//         },
+//         success: function(response){
+//             console.log(response)
+//             $('#radio2').html(response);
+//         }
         
-    })
-    $(".radio-btn").click(function(){
-        var url = "{% url 'radio2' %}";
-        console.log(url)
-        $.ajax({
-            url: "/radio/",
-            type: 'POST',
-            data:{
-                radio: "radio",
-                input: $(this)[0].id,
-                author: author
-            },
-            success: function(response){
-                console.log(response)
-                $('#radio2').html(response);
-            }
+//     })
+//     $(".radio-btn").click(function(){
+//         var url = "{% url 'radio2' %}";
+//         console.log(url)
+//         $.ajax({
+//             url: "/radio/",
+//             type: 'POST',
+//             data:{
+//                 radio: "radio",
+//                 input: $(this)[0].id,
+//                 author: author
+//             },
+//             success: function(response){
+//                 console.log(response)
+//                 $('#radio2').html(response);
+//             }
             
-        })
-    })
-})
+//         })
+//     })
+// })
 function onClick(page) {
     window.location.href = page
 }
