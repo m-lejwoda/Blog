@@ -47,6 +47,12 @@ body{
 .freewords{
     height:500px;
     position: relative;
+    @include breakpoint(mobilebig){
+        height: 250px;
+    }
+    @include breakpoint(mobile){
+        height: 250px;
+    }
     &-title{
         position: absolute;
         top:10%;
@@ -56,9 +62,11 @@ body{
         font-size: 64px;
         line-height: 78px;
         left:5%;
+        
         @include breakpoint(laptop){
             display:none;
-          }
+        }
+        
     }
     &-box{
         position: absolute;
@@ -69,9 +77,20 @@ body{
         color: rgba(255, 255, 255, 0.3);
         right: 20%;
         top: 0%;
+        white-space: nowrap;
         @include breakpoint(laptop){
             right: 10%;
+            font-size: 100px;
+            
           }
+          @include breakpoint(mobile){
+            left:3%;
+            top:0%;
+        }
+        @include breakpoint(mobilebig){
+            left:3%;
+            top:0%;
+        }
         
     }
     &-mma{
@@ -83,9 +102,20 @@ body{
         color: rgba(255, 255, 255, 0.3);
         left:3%;
         top:50%;
+        white-space: nowrap;
         @include breakpoint(laptop){
             font-size: 100px;
-          }
+        }
+        @include breakpoint(mobile){
+            left:3%;
+            top:30%;
+            font-size:100px;
+        }
+        @include breakpoint(mobilebig){
+            left:3%;
+            top:30%;
+            font-size:100px;
+        }
     }
     &-muaythai{
         position: absolute;
@@ -95,7 +125,21 @@ body{
         font-style: normal;
         font-weight: normal;
         font-size: 96px;
+        white-space: nowrap;
         color: rgba(255, 255, 255, 0.3);
+        @include breakpoint(mobile){
+            left:3%;
+            top:65%;
+            font-size:70px;
+            
+        }
+        @include breakpoint(mobilebig){
+            left:3%;
+            top:65%;
+            font-size:70px;
+            
+        }
+        
     }
     &-kickboxing{
         position: absolute;
@@ -104,12 +148,29 @@ body{
         font-family: 'Pridi';
         font-style: normal;
         font-weight: normal;
+        white-space: nowrap;
         font-size: 80px;
         color: rgba(255, 255, 255, 0.3);
         transform: rotate(90.05deg); 
         @include breakpoint(laptop){
             right: -25%;
           }  
+          @include breakpoint(mobile){
+            left:3%;
+            top:90%;
+            right: 0%;
+            transform: rotate(0deg); 
+            font-size:50px;
+            
+        }
+        @include breakpoint(mobilebig){
+            left:3%;
+            top:90%;
+            right: 0%;
+            transform: rotate(0deg); 
+            font-size:50px;
+            
+        }
     }
 }
 .dashboard{
@@ -245,6 +306,21 @@ body{
         width: 30%;
         left: 20%;
         z-index: -1;
+        @include breakpoint(mobile){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+
+          }
+        @include breakpoint(bigmobile){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
         &-news{
             
             font-size: 40px;
@@ -254,6 +330,15 @@ body{
             display:flex;
             padding-top:3rem;
             justify-content: center;
+            @include breakpoint(mobile){
+                width:70%;
+                background-color: #F94C4C;
+    
+              }
+            @include breakpoint(bigmobile){
+                width:70%;
+                background-color: #F94C4C;
+              }
 
         }
         
@@ -299,6 +384,12 @@ body{
         &__box{
             width:60%;
             margin: 0 auto;
+            @include breakpoint(mobile){
+                width: 100%;
+            }
+            @include breakpoint(mobilebig){
+                width: 100%;
+            }
         }
         &__title{
             width: 100%;
@@ -488,9 +579,17 @@ body{
                 flex-direction: row;
                 justify-content: flex-end;
                 margin-bottom: 1rem;
+                &-next{
+                    display:flex;
+                    flex-direction: row;
+                    justify-content: end;
+                }
                 &-icon{
                     display: flex;
                     align-items: center;
+                    .fa-2x{
+                        font-size: 1em;
+                    }
                     
                 }
                 &-length{
@@ -593,8 +692,26 @@ body{
         left: 20%;
         z-index: -1;
         background-color: #F94C4C;
+        @include breakpoint(mobile){
+            width:60%;
+        }
+        @include breakpoint(mobilebig){
+            width:60%;
+        }
         &-news{
             font-size: 30px;
+            @include breakpoint(mobile){
+                white-space: nowrap;
+                display:flex;
+                justify-content: center;
+            }
+            @include breakpoint(mobilebig){
+                white-space: nowrap;
+                display:flex;
+                justify-content: center;
+            }
+            
+
             
         }
         &__box{
@@ -633,4 +750,20 @@ i{
     position: relative;
     width: 30%;
     left: 20%;
+    @include breakpoint(mobile){
+        width:100%;
+        left: 0%;
+    }
+    @include breakpoint(mobilebig){
+        width:100%;
+        left: 0%;
+    }
+}
+span.current{
+    // background-color: #33adff;
+    width: 100%;
+}
+span.step-links{
+    display: flex;
+    flex-direction: column;
 }
