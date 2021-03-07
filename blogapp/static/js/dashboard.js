@@ -11,13 +11,53 @@ $(".news__bonusinformation__journalists__user").on({
 });
 $(".dashboard__news__firstcolumn").on({
     mouseenter: function (event) {
-        $(".dashboard__news__firstcolumn__meta-title").css('color','red')
-        $( this ).find('a').css('color','#F94C4C');
+        $(".dashboard__news__firstcolumn__meta-title").css('color','#F94C4C')
+        
     },
     mouseleave: function (event) {
         $(".dashboard__news__firstcolumn__meta-title").css('color','white')
-        $( this ).find('a').css('color','white');
+        
     }
+});
+$(".dashboard__news__secondcolumn__first").on({
+    mouseenter: function (event) {
+        $(".dashboard__news__secondcolumn__first__meta-title").css('color','#F94C4C')
+        
+    },
+    mouseleave: function (event) {
+        $(".dashboard__news__secondcolumn__first__meta-title").css('color','white')
+        
+    }
+});
+$(".dashboard__news__secondcolumn__second").on({
+    mouseenter: function (event) {
+        $(".dashboard__news__secondcolumn__second__meta-title").css('color','#F94C4C')
+        
+    },
+    mouseleave: function (event) {
+        $(".dashboard__news__secondcolumn__second__meta-title").css('color','white')
+        
+    }
+});
+$(".navbar__mobile-icon").click(function() {
+    console.log("Wyświetl ikone")
+    
+    // $('html,body').animate({
+    //     scrollTop: $(".news__posts").offset().top},
+    //     'slow');
+});
+
+
+
+
+
+
+$("#news").click(function() {
+    console.log($(".news__posts"))
+    console.log($(".search"))
+    $('html,body').animate({
+        scrollTop: $(".news__posts").offset().top},
+        'slow');
 });
 $(document).ready(function (){
     
@@ -35,21 +75,6 @@ $(document).ready(function (){
         }
         
     })
-    // $(function() {
-    //     $('.news__bonusinformation__journalists__user').hover(function() {
-    //         console.log("bonus")
-    //       $('.news__bonusinformation__journalists__user__name').css('background-color', 'yellow');
-    //     }, function() {
-    //       // on mouseout, reset the background colour
-    //       $('#b').css('background-color', '');
-    //     });
-    //   });
-    // $('.news__bonusinformation__journalists__user').hover(
-    //     function(){
-    //         console.log("zmiana koloru journalisty")
-    //         $('.news__bonusinformation__journalists__user__name').css('color','#F94C4C')
-    //     }
-    // )
     $(".radio-btn").click(function(){
         var url = "{% url 'radio2' %}";
         console.log(url)
@@ -113,8 +138,9 @@ function onSubmit(event){
         radio2.value = false
     }
     let form = document.getElementById("form")
-    form.submit(function( e){
+    form.submit(function(e){
         e.preventDefault()
     })
     
 }
+
