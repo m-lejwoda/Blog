@@ -158,9 +158,15 @@
   width: 60%;
 }
 
+@media screen and (max-width: 1200px) {
+  .post__detail {
+    width: 80%;
+  }
+}
+
 .post__meta {
   display: flex;
-  width: 60%;
+  width: 100%;
   padding-top: 3rem;
   flex-direction: column;
 }
@@ -231,7 +237,6 @@
   border-radius: 0 4px 4px 0;
 }
 
-/* This is just for CodePen. */
 .form {
   max-width: 600px;
   font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;

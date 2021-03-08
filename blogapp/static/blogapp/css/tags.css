@@ -4,13 +4,21 @@
   justify-content: center;
   position: relative;
   padding-top: 3rem;
-  padding-left: 2rem;
+  padding-left: 4rem;
   padding-right: 2rem;
+  flex-wrap: wrap;
+  min-width: 600px;
 }
 
 .search__posts {
   width: 60%;
   margin-top: 5rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .search__posts {
+    width: 100%;
+  }
 }
 
 .search__posts-title {
@@ -26,13 +34,76 @@
   background-color: #1C1C1C;
 }
 
+.search__posts__post__bottom-next {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.search__posts__post__bottom-next button {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin-right: 2rem;
+  color: white;
+  background-color: #F94C4C;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 700px) {
+  .search__posts__post__bottom-next button {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .search__posts__post__bottom-next button {
+    font-size: 8px;
+    padding: 0.1rem 0.2rem 0.1rem 0.2rem;
+  }
+}
+
+.search__posts__post__bottom-next button:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px white, 2px 2px white, 2px 2px white;
+  transform: translateX(-3px);
+}
+
+@media screen and (max-width: 700px) {
+  .search__posts__post__bottom-next button:hover {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .search__posts__post__bottom-next button:hover {
+    font-size: 7px;
+  }
+}
+
+.search__posts__post__bottom-icon {
+  display: flex;
+  align-items: center;
+}
+
+.search__posts__post__bottom-icon .fa-2x {
+  font-size: 1em;
+}
+
+.search__posts__post__bottom-length {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+  font-weight: 700;
+}
+
 .search__posts__post__title {
   font-size: 2rem;
 }
 
 .search__posts__post__comments {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   font-family: 'Roboto';
 }
@@ -51,6 +122,7 @@
   flex-grow: 1;
   padding-top: 1rem;
   font-size: 1.2rem;
+  text-overflow: ellipsis;
 }
 
 .search__posts__post__meta {

@@ -1,5 +1,7 @@
 {% extends 'blogapp/main.html' %}
 {% load static %}
+{% load ads_tags %}
+{% load fontawesome_5 %}
 <link href="{% static 'blogapp/css/tags.css' %}" rel="stylesheet">
 {% block content %}
 <div class="search">
@@ -28,13 +30,18 @@
                     <div class="search__posts__post__meta__author__data">{{post.publish_on}}</div>
                 </div>
                 <div class="search__posts__post__shortdescription">{{post.short_description}}</div>
-
-                <div class="search__posts__post__comments"><span>Ilość komentarzy</span> <a
-                        href={% url 'post_detail' post.slug %}>Przejdz
-                        dalej</a></div>
+                <div class="search__posts__post__comments">
+                    {% comment %} <span>Ilość komentarzy</span> {% endcomment %}
+                    {% comment %} <a href={% url 'post_detail' post.slug %}>Przejdz dalej</a> {% endcomment %}
+                </div>
+                <div class="search__posts__post__bottom-next">
+                    <div class="search__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}</div>
+                    <div class="search__posts__post__bottom-length">{{post.comments.all|length}}</div>
+                    <button onClick="onClick('{% url 'post_detail' post.slug %}')">Przejdź</button>
+                </div>
             </div>
         </div>
-        {% comment %} {% endif %} {% endcomment %}
+
         {% endfor %}
         <div class="pagination">
 

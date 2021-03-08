@@ -614,7 +614,6 @@ body{
             @include breakpoint(mobile){
                 height:125px;
               }
-            
             &__meta{
                 display: flex;
                 justify-content: space-between;
@@ -707,6 +706,7 @@ body{
             &-description{
                 flex-grow:1;
                 padding-top:1rem;
+                text-overflow: ellipsis;
                 @include breakpoint(mobilebig){
                     font-size:15px;
                   }

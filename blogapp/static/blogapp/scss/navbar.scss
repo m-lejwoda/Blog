@@ -22,19 +22,15 @@
     padding-top: 2rem;
     position: sticky;
     @include breakpoint(laptop){
-      display:none;
+      display:flex;
     }
     &__mobile{
+      height:100px;
       display:none;
-      
       padding:1rem;
       justify-content: flex-end;
       @include breakpoint(laptop){
-        height:100px;
-        display:flex;
-        padding:1rem;
-        justify-content: flex-end;
-        align-items: flex-end;
+        display:none;
       }
       
       &-icon{
