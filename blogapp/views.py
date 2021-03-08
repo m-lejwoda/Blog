@@ -131,7 +131,7 @@ def post_detail(request,slug):
                 radioposts = EditorProfile.objects.all()
             else:
                 radioposts = radioposts=Post.objects.all()
-                print(radioposts)
+            print(radioposts)
   
         
     

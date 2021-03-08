@@ -10,11 +10,12 @@
 
 @media screen and (max-width: 900px) {
   .navbar {
-    display: none;
+    display: flex;
   }
 }
 
 .navbar__mobile {
+  height: 100px;
   display: none;
   padding: 1rem;
   justify-content: flex-end;
@@ -22,11 +23,7 @@
 
 @media screen and (max-width: 900px) {
   .navbar__mobile {
-    height: 100px;
-    display: flex;
-    padding: 1rem;
-    justify-content: flex-end;
-    align-items: flex-end;
+    display: none;
   }
 }
 
