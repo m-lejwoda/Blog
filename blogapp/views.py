@@ -64,8 +64,8 @@ def update_radio(request):
         user = User.objects.get(username=author)
         if(inp == "radio-two"):
             # data = Post.objects.filter(author=author)
-            print("Post.objects.filter(author=author)")
-            data = Post.objects.filter(author=user)
+            # print("Post.objects.filter(author=author)")
+            data = Post.objects.all().order_by()
         elif(inp == "radio-three"):
             data = Post.objects.all().order_by('-publish_on')
         else:
@@ -108,7 +108,7 @@ def radio_posts(request):
     author = request.GET.get('author')
     if identity == "radio-one":
         user= User.objects.get(username=author)
-        posts = Post.objects.filter(author=user).order_by('-publish_on')
+        posts = Post.objects.all().order_by('-clicks')
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
         return JsonResponse(result,safe=False)
