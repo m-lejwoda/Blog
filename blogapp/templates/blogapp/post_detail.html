@@ -132,13 +132,37 @@
     function onClick(page) {
         window.location.href = page
     }
-    console.log("wywołanie skryptu post__detail")
     var author = "{{post.author}}"
-    $("[name='switch-one']").click(function () {
-        console.log("popularne")
-        var id = $(this).attr("id");
-        console.log(id)
+    $(".radio-btn").each(function () {
+        if ($(this)[0].checked == true) {
+            $.ajax({
+                url: 'http://127.0.0.1:8000/radioposts/',
+                data: {
+                    id: $(this)[0].id,
+                    author: "{{post.author}}",
+                },
+                type: 'get',
+                success: function (response) {
+                    console.log("success")
+                    $('.switch__elements').empty()
+                    $.each(JSON.parse(response), function (i, item) {
+                        $('.switch__elements').append(
+                            '<div class="switch__elements__element" ' + 'id = "' + item
+                            .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item
+                            .fields
+                            .slug + '/&#39)' +
+                            '>' + '<img src="/static/images/' + item.fields.image +
+                            '"/>' +
+                            '<span>' + item.fields.title + '</span>' + '</div>'
+                        );
+                    });
+                }
 
+            });
+        }
+    })
+    $("[name='switch-one']").click(function () {
+        var id = $(this).attr("id");
         $.ajax({
             url: 'http://127.0.0.1:8000/radioposts/',
             data: {
@@ -157,7 +181,7 @@
                         .fields
                         .slug + '/&#39)' +
                         '>' + '<img src="/static/images/' + item.fields.image + '"/>' +
-                        '<span>' + item.fields.title +'</span>'+'</div>'
+                        '<span>' + item.fields.title + '</span>' + '</div>'
                     );
                 });
             }
