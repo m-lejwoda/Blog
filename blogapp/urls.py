@@ -13,6 +13,5 @@ urlpatterns = [
     path('radio/',views.update_radio,name="radio"),
     path('radio2/',views.radio_test,name="radio2"),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
-    
-    
+    path('radioposts/',views.radio_posts,name="radio_posts")
 ]

@@ -1,6 +1,26 @@
-    {% load static %}
-    {% for item in data|slice:":3"  %}
+    {% extends "blogapp/post_detail.html" %}
+    {% block radio2 %}
+    <form action="" id="form" name="form" method="POST">
+        {% csrf_token %}
+        <div class="switch-field" name="switch-field">
+            <input type="radio" id="radio-one" name="switch-one" class="radio-btn" value="true" checked>
+            <label for="radio-one" name="popular">Popularne</label>
+            <input type="radio" id="radio-two" name="switch-one" class="radio-btn" value="false" />
+            <label for="radio-two" name="author_posts">Posty Autora</label>
+            <input type="radio" id="radio-three" name="switch-one" class="radio-btn" value="false" />
+            <label for="radio-three" name="last_news">Ostatnie Newsy</label>
+        </div>
 
+    </form>
+
+    {% endblock radio2 %}
+
+
+    {% comment %} {% extends 'blogapp/post_detail.html' %}
+    {% load static %}
+    {% block radio %}
+    {% for item in data|slice:":3"  %}
+    radio2
     <div class="post__recommendation__post">
         <div class="post__recommendation__post-image">
             <img src={% static item.image.url %} alt="shakhur" />
@@ -8,3 +28,4 @@
         <div class="post__recommendation__post-description">{{item.short_description}}</div>
     </div>
     {% endfor %}
+    {% endblock %} {% endcomment %}
