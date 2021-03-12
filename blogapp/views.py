@@ -15,6 +15,8 @@ from hitcount.views import HitCountDetailView
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
+from django.core import serializers
 def blog(request):
     posts = Post.objects.all()
     tags = Tag.objects.all()
@@ -101,6 +103,33 @@ def logoutUser(request):
 
 #     return render(request,'blogapp/registerok.html')
 @csrf_exempt
+def radio_posts(request):
+    identity = request.GET.get('id')
+    author = request.GET.get('author')
+    if identity == "radio-one":
+        user= User.objects.get(username=author)
+        posts = Post.objects.filter(author=user).order_by('-publish_on')
+        threeposts = posts[0:3]
+        result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
+        return JsonResponse(result,safe=False)
+    if identity == "radio-two":
+        user= User.objects.get(username=author)
+        posts = Post.objects.filter(author=user).order_by('-publish_on')
+        threeposts = posts[0:3]
+        result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
+        return JsonResponse(result,safe=False)
+    if identity == "radio-three":
+        posts = Post.objects.all().order_by('-publish_on')[0:3]
+        threeposts = posts[0:3]
+        result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
+        return JsonResponse(result,safe=False)
+    else:
+        return None
+
+    
+
+
+@csrf_exempt
 def post_detail(request,slug):
     post = Post.objects.get(slug=slug)
     post.clicks = post.clicks + 1
@@ -132,15 +161,12 @@ def post_detail(request,slug):
             else:
                 radioposts = radioposts=Post.objects.all()
             print(radioposts)
-  
-        
-    
     comments = post.comments.filter()
     posts = Post.objects.all()
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
     context = {'post': post,'tags':tags,'editors':editors,'posts':posts,'comments':comments,'radioposts':radioposts}
-    return render(request,'blogapp/post_detail.html',context)
+    return render(request,'blogapp/radio2.html',context)
 @csrf_exempt
 
 # class PostDetailView(HitCountDetailView):

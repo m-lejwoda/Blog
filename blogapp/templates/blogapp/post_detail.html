@@ -60,19 +60,29 @@
             Zaloguj się aby dodać komentarz
         </div>
         {% endif %}
-        <form action="" id="form" name="form" method="POST">
+        {% comment %} <form action="" id="form" name="form" method="POST">
             {% csrf_token %}
             <div class="switch-field" name="switch-field">
-                <input type="radio" id="radio-one" name="switch-one" class="radio-btn" value="true" checked />
-                <label for="radio-one">Popularne</label>
+                <input type="radio" id="radio-one" name="switch-one" class="radio-btn" value="true" checked>
+                <label for="radio-one" name="popular">Popularne</label>
                 <input type="radio" id="radio-two" name="switch-one" class="radio-btn" value="false" />
-                <label for="radio-two">Posty Autora</label>
+                <label for="radio-two" name="author_posts">Posty Autora</label>
                 <input type="radio" id="radio-three" name="switch-one" class="radio-btn" value="false" />
-                <label for="radio-three">Ostatnie Newsy</label>
+                <label for="radio-three" name="last_news">Ostatnie Newsy</label>
             </div>
-        </form>
+        </form> {% endcomment %}
         <div id="radio2" class="post__recommendation__posts">
+            {% comment %} {% include 'blogapp/radio2.html' %} {% endcomment %}
+            {% block radio2 %}
+            {% endblock radio2 %}
+            <div class="switch__elements"></div>
+            {% comment %}
+
+            {% block radio %}
+            Radio
+            {% endblock %} {% endcomment %}
         </div>
+
     </div>
 </div>
 {% comment %} <div class="news__bonusinformation">
@@ -121,6 +131,33 @@
 <script>
     console.log("wywołanie skryptu post__detail")
     var author = "{{post.author}}"
-    console.log(author)
+    $("[name='switch-one']").click(function () {
+        console.log("popularne")
+        var id = $(this).attr("id");
+        console.log(id)
+
+        $.ajax({
+            url: 'http://127.0.0.1:8000/radioposts/',
+            data: {
+                id: id,
+                author: "{{post.author}}",
+            },
+            type: 'get',
+            success: function (response) {
+                console.log("success")
+                $('.switch__elements').empty()
+                $.each(JSON.parse(response), function (i, item) {
+                    console.log(item.fields)
+                    $('.switch__elements').append(
+                        '<div class="' + item.fields.title + '\" ' + 'id = "' + item
+                        .fields.slug + '\" ' + 'onClick = OnClick(' + item.fields
+                        .slug + ')' +
+                        '>' + item.fields.slug + '</div>'
+                    );
+                });
+            }
+
+        });
+    })
 </script>
 {% endblock extra_js %}
