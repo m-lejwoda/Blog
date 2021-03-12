@@ -129,6 +129,9 @@
 {% endblock %}
 {% block extra_js %}
 <script>
+    function onClick(page) {
+        window.location.href = page
+    }
     console.log("wywołanie skryptu post__detail")
     var author = "{{post.author}}"
     $("[name='switch-one']").click(function () {
@@ -150,8 +153,9 @@
                     console.log(item.fields)
                     $('.switch__elements').append(
                         '<div class="' + item.fields.title + '\" ' + 'id = "' + item
-                        .fields.slug + '\" ' + 'onClick = OnClick(' + item.fields
-                        .slug + ')' +
+                        .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item
+                        .fields
+                        .slug + '/&#39)' +
                         '>' + item.fields.slug + '</div>'
                     );
                 });
