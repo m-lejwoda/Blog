@@ -258,6 +258,7 @@ h2 {
     justify-content: space-between;
     margin-top:0.3rem;
     border-bottom: 3px solid #F94C4C;
+    flex-wrap:wrap;
     &__element{
         display:flex;
         flex-direction: column;
