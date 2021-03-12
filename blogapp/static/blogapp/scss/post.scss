@@ -84,12 +84,12 @@
         }
         &__posts{
             display:flex;
-            justify-content: space-evenly;
+            width: 100%;
+            flex-wrap: wrap;
         }
         &-popular{
             color:white;
             padding: 0.5rem;
-            // margin-right: 1rem;
             background-color: #F94C4C;
             font-weight: 700;
         }
@@ -250,4 +250,38 @@ h2 {
     padding:1rem;
     font-size:14px;
     font-weight: 500;
+}
+.switch__elements{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-top:0.3rem;
+    border-bottom: 3px solid #F94C4C;
+    &__element{
+        display:flex;
+        flex-direction: column;
+        width: 300px;
+        
+    span{
+        font-size:1.7rem;
+        font-weight:700;
+        word-wrap: break-word; 
+    }
+    img{
+        width:300px;
+        height:200px;
+        border: 1px solid white;
+    }
+    
+}
+    &__element:hover{
+        cursor:pointer;
+        span{
+            color: #F94C4C;
+        }
+    }
+}
+#form{
+    width:100%;
 }
