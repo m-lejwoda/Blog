@@ -12,20 +12,4 @@
         </div>
 
     </form>
-
     {% endblock radio2 %}
-
-
-    {% comment %} {% extends 'blogapp/post_detail.html' %}
-    {% load static %}
-    {% block radio %}
-    {% for item in data|slice:":3"  %}
-    radio2
-    <div class="post__recommendation__post">
-        <div class="post__recommendation__post-image">
-            <img src={% static item.image.url %} alt="shakhur" />
-        </div>
-        <div class="post__recommendation__post-description">{{item.short_description}}</div>
-    </div>
-    {% endfor %}
-    {% endblock %} {% endcomment %}
