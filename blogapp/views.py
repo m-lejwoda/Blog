@@ -17,6 +17,15 @@ from hitcount.views import HitCountMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.core import serializers
+def allnews(request):
+    posts=Post.objects.all().order_by('-publish_on')
+    tags = Tag.objects.all()
+    editors = EditorProfile.objects.all()
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj}
+    return render(request,'blogapp/news.html',context)
 def blog(request):
     posts = Post.objects.all()
     tags = Tag.objects.all()
@@ -63,8 +72,6 @@ def update_radio(request):
         author = request.POST.get('author',None)
         user = User.objects.get(username=author)
         if(inp == "radio-two"):
-            # data = Post.objects.filter(author=author)
-            # print("Post.objects.filter(author=author)")
             data = Post.objects.all().order_by()
         elif(inp == "radio-three"):
             data = Post.objects.all().order_by('-publish_on')
@@ -97,11 +104,6 @@ def registerPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
-# @csrf_exempt
-# def radio(request):
-#     print("radio")
-
-#     return render(request,'blogapp/registerok.html')
 @csrf_exempt
 def radio_posts(request):
     identity = request.GET.get('id')
@@ -168,18 +170,6 @@ def post_detail(request,slug):
     context = {'post': post,'tags':tags,'editors':editors,'posts':posts,'comments':comments,'radioposts':radioposts}
     return render(request,'blogapp/radio2.html',context)
 @csrf_exempt
-
-# class PostDetailView(HitCountDetailView):
-#     model = Post       
-#     count_hit = True    
-#     template = 'blogapp/post_detail.html'
-#     def get(self, request, *args, **kwargs):
-#         self.object = self.get_object()
-#         context = self.get_context_data(object=self.object)
-#         print(context)
-#         print(self.object)
-#         return context
-
 def tag_detail(request,tag):
     tags = Tag.objects.get(slug=tag)
     tag_name = Tag.objects.get(slug=tag)

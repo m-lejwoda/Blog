@@ -37,8 +37,6 @@
                 </div>
 
             </div>
-            {% comment %} {{comment.text}}
-            {{comment.post.slug}} {% endcomment %}
             {% endfor %}
         </div>
         <div class="post__comments-title"><span>Dodaj komentarz</span></div>
@@ -59,72 +57,16 @@
             Zaloguj się aby dodać komentarz
         </div>
         {% endif %}
-        {% comment %} <form action="" id="form" name="form" method="POST">
-            {% csrf_token %}
-            <div class="switch-field" name="switch-field">
-                <input type="radio" id="radio-one" name="switch-one" class="radio-btn" value="true" checked>
-                <label for="radio-one" name="popular">Popularne</label>
-                <input type="radio" id="radio-two" name="switch-one" class="radio-btn" value="false" />
-                <label for="radio-two" name="author_posts">Posty Autora</label>
-                <input type="radio" id="radio-three" name="switch-one" class="radio-btn" value="false" />
-                <label for="radio-three" name="last_news">Ostatnie Newsy</label>
-            </div>
-        </form> {% endcomment %}
         <div id="radio2" class="post__recommendation__posts">
-            {% comment %} {% include 'blogapp/radio2.html' %} {% endcomment %}
+
             {% block radio2 %}
             {% endblock radio2 %}
             <div class="switch__elements"></div>
-            {% comment %}
-
-            {% block radio %}
-            Radio
-            {% endblock %} {% endcomment %}
         </div>
 
     </div>
 </div>
-{% comment %} <div class="news__bonusinformation">
-    <div class="news__bonusinformation__box">
-        <div class="news__bonusinformation__title">Dodatkowe Informacje</div>
-        <div class="news__bonusinformation__events"
-            style="background-image: url('https://image-cdn.essentiallysports.com/wp-content/uploads/20200606005342/shakur-stevenson.jpg');background-repeat: no-repeat;background-size: cover; background-position:center center;">
-            dsadasdsa</div>
-        <div class="news__bonusinformation__title">Tagi</div>
 
-        <div class="news__bonusinformation__tags">
-            {% for tag in tags %}
-            <div class="news__bonusinformation__tags-tag" onClick="onClick('{% url 'tag_detail' tag.slug %}')">
-                {{tag}}
-            </div>
-            {% endfor %}
-        </div>
-        <div class="news__bonusinformation__events"
-            style="background-image: url('https://image-cdn.essentiallysports.com/wp-content/uploads/20200606005342/shakur-stevenson.jpg');background-repeat: no-repeat;background-size: cover; background-position:center center;">
-            dsadasdsa</div>
-        <div class="news__bonusinformation__title">Nasi Dziennikarze</div>
-        <div class="news__bonusinformation__journalists">
-            {% for editor in editors %}
-            <div class="news__bonusinformation__journalists__user"
-                onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
-                <div class="news__bonusinformation__journalists__user__image">
-                    <img src={% static editor.avatar.url %} />
-                </div>
-                <div class="news__bonusinformation__journalists__meta">
-                    <div class="news__bonusinformation__journalists__user__name">
-                        <a href={% url 'journalist_detail' editor.slug %}>{{editor.user.first_name}}
-                            {{editor.user.last_name}}</a>
-                    </div>
-                    <div class="news__bonusinformation__journalists__user__rank">
-                        {{editor.rank}}
-                    </div>
-                </div>
-            </div>
-
-            {% endfor %}
-        </div>
-    </div>
-</div> {% endcomment %}
 {% endblock %}
 {% block extra_js %}
 <script>
@@ -142,7 +84,6 @@
                 },
                 type: 'get',
                 success: function (response) {
-                    console.log("success")
                     $('.switch__elements').empty()
                     $.each(JSON.parse(response), function (i, item) {
                         $('.switch__elements').append(
@@ -170,10 +111,8 @@
             },
             type: 'get',
             success: function (response) {
-                console.log("success")
                 $('.switch__elements').empty()
                 $.each(JSON.parse(response), function (i, item) {
-                    console.log(item.fields)
                     $('.switch__elements').append(
                         '<div class="switch__elements__element" ' + 'id = "' + item
                         .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item
