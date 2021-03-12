@@ -36,12 +36,8 @@ class Post(models.Model):
         content = RichTextField()
         content2 = RichTextUploadingField(blank=True,null=True)
         clicks = models.IntegerField(default=0)
-        # comments = models.ForeignKey(Comment,on_delete=models.CASCADE)
-        # updated_on = models.DateField(auto_now=True)
-        # created_on = models.DateField(auto_now_add=True)
-        # publish_on = models.DateField()
         updated_on = models.DateTimeField(auto_now=True,null=False, blank=False,)
-        created_on = models.DateTimeField(auto_now=True,null=False, blank=False,)#auto_now_add
+        created_on = models.DateTimeField(auto_now=True,null=False, blank=False,)
         publish_on = models.DateTimeField(auto_now=True,null=False, blank=False,)
         list_display = ('title', 'category', 'tags', 'author', 'publish_on','created_on','updated_on')
         search_fields = ['title','byline','symbol']
@@ -70,7 +66,6 @@ class Link(models.Model):
 class Social(models.Model):
         content = models.URLField()
         url = models.URLField()
-        # slug = models.SlugField(max_length=128)
         name = models.CharField(max_length=32)
         def __str__(self):
             return self.name

@@ -9,7 +9,8 @@
                     Domowa</a>
             </li>
             <li class="navbar__mobile__panel__element"><a class="navbar__mobile-item">Rozpiski</a></li>
-            <li class="navbar__mobile__panel__element" id="news"><a href="#" class="navbar__mobile-item">Newsy</a></li>
+            <li class="navbar__mobile__panel__element" id="news"><a href="/news/" class="navbar__mobile-item">Newsy</a>
+            </li>
             {% if user.is_authenticated %}
             <li class="navbar__mobile__panel__element"><a class="navbar__mobile-item">Witaj {{user}}</a></li>
             <li class="navbar__mobile__panel__element"><a href="/logout/" class="navbar__mobile-item">Wyloguj się</a>
@@ -27,7 +28,7 @@
 <ul class="navbar">
     <li class="navbar__left"><a href={% url 'index' %} class="navbar__item">Strona Domowa</a></li>
     <li class="navbar__left"><a class="navbar__item">Rozpiski</a></li>
-    <li class="navbar__left" id="news"><a class="navbar__item">Newsy</a></li>
+    <li class="navbar__left"><a href="/news/" class=" navbar__item">Newsy</a></li>
     {% if user.is_authenticated %}
     <li class="navbar__right"><a class="navbar__item">Witaj {{user}}</a></li>
     <li class="navbar__right"><a href="/logout/" class="navbar__item">Wyloguj się</a></li>
@@ -37,19 +38,3 @@
     {% endif %}
 </ul>
 <script src={% static 'js/navbar.js' %} type="text/javascript"></script>
-{% comment %} <ul class="navbar__mobile__panel">
-    <div class="navbar__mobile__panel-elements">
-        <li class="navbar__mobile__panel__element"><a href={% url 'index' %} class="navbar__mobile-item">Strona
-                Domowa</a>
-        </li>
-        <li class="navbar__mobile__panel__element"><a class="navbar__mobile-item">Rozpiski</a></li>
-        <li class="navbar__mobile__panel__element" id="news"><a class="navbar__mobile-item">Newsy</a></li>
-        {% if user.is_authenticated %}
-        <li class="navbar__mobile__panel__element"><a class="navbar__mobile-item">Witaj {{user}}</a></li>
-        <li class="navbar__mobile__panel__element"><a href="/logout/" class="navbar__mobile-item">Wyloguj się</a></li>
-        {% else %}
-        <li class="navbar__mobile__panel__element"><a href="/login/" class="navbar__mobile-item">Zaloguj się</a></li>
-        <li class="navbar__mobile__panel__element"><a class="navbar__mobile-item">Zarejestruj się</a></li>
-        {% endif %}
-    </div>
-</ul> {% endcomment %}
