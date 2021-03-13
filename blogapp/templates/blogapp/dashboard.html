@@ -20,7 +20,7 @@
     </div>
     <div class="dashboard__news">
         {% for post in posts|slice:":3"  %}
-        {% if post.id == 1 %}
+        {% if forloop.counter == 1 %}
         <div class="dashboard__news__firstcolumn-container">
             <div class="dashboard__news__firstcolumn" onClick="onClick('{% url 'post_detail' post.slug %}')"
                 style="background-image: url({% static post.image.url %});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
@@ -31,7 +31,7 @@
 
             </div>
         </div>
-        {% elif post.id == 2 %}
+        {% elif forloop.counter == 2 %}
         <div class="dashboard__news__secondcolumn">
             <div class="dashboard__news__secondcolumn__first-container">
                 <div class="dashboard__news__secondcolumn__first" onClick="onClick('{% url 'post_detail' post.slug %}')"
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            {% elif post.id == 3 %}
+            {% elif forloop.counter == 3 %}
             <div class="dashboard__news__secondcolumn__second-container">
                 <div class="dashboard__news__secondcolumn__second"
                     onClick="onClick('{% url 'post_detail' post.slug %}')"
