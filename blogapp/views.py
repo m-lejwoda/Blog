@@ -27,7 +27,7 @@ def allnews(request):
     context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj}
     return render(request,'blogapp/news.html',context)
 def blog(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-publish_on')
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
     paginator = Paginator(posts, 10)
@@ -104,7 +104,7 @@ def registerPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
-@csrf_exempt
+# @csrf_exempt
 def radio_posts(request):
     identity = request.GET.get('id')
     author = request.GET.get('author')
