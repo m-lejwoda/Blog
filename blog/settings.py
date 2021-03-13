@@ -127,7 +127,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+CORS_ORIGIN_ALLOW = True
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
@@ -135,7 +135,8 @@ STATICFILES_DIRS = (
 )
 SVG_DIRS=[
     # "C:\\Users\\Michal\\blogapp\\static\\blogapp\\svg"
-    r'C:\Users\Michal\blog\blogapp\static\blogapp\svg'
+    # r'C:\Users\Michal\blog\blogapp\static\blogapp\svg'
+    os.path.join(BASE_DIR, 'my-svgs')
 ]
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
