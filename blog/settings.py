@@ -143,7 +143,7 @@ SVG_DIRS=[
     # r'C:\Users\Michal\blog\blogapp\static\blogapp\svg'
     os.path.join(BASE_DIR, 'svg')
 ]
-print(os.path.join(BASE_DIR, 'svg'))
+
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
 ADS_GOOGLE_ADSENSE_CLIENT = None  # 'ca-pub-xxxxxxxxxxxxxxxx'
