@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ads',
     'sekizai',
     'fontawesome_5',
+    'storages'
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 MIDDLEWARE = [
@@ -200,4 +201,7 @@ ADS_VIEWPORTS = {
     'lg': 'd-none img-fluid d-lg-block d-xl-none',
     'xl': 'd-none img-fluid d-xl-block',
 }
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
