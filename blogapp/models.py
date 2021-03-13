@@ -24,6 +24,10 @@ class Tag(models.Model):
         def __str__(self):
             return self.name
 
+class Poster(models.Model):
+    image = models.ImageField(default="")
+    date = models.DateTimeField(default=timezone.now)
+
 class Post(models.Model):
         author = models.ForeignKey(User,on_delete=models.CASCADE)
         category = models.ForeignKey(Category,on_delete=models.CASCADE)
