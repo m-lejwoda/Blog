@@ -136,7 +136,7 @@ STATICFILES_DIRS = (
 SVG_DIRS=[
     # "C:\\Users\\Michal\\blogapp\\static\\blogapp\\svg"
     # r'C:\Users\Michal\blog\blogapp\static\blogapp\svg'
-    os.path.join(BASE_DIR, 'my-svgs')
+    os.path.join(BASE_DIR, 'svg')
 ]
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
