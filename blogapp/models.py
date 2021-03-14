@@ -87,6 +87,8 @@ class EditorProfile(models.Model):
         def __str__(self):
             return self.user.username
 
+class MainNews(models.Model):
+    post = models.ManyToManyField(Post,related_name='posts')
 
 def editor_create_slug(instance,new_slug=None):
     slug = slugify(instance.user.first_name) +"_"+ slugify(instance.user.last_name)
