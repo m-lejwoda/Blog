@@ -1,5 +1,8 @@
 @mixin breakpoint($point){
-  @if $point == mobile{
+  @if $point == smallmobile{
+    @media screen and(max-width:500px){@content;}
+  }
+  @else if $point == mobile{
     @media screen and(max-width:600px){@content;}
   }
   @else if $point == laptop{
@@ -21,8 +24,12 @@
     list-style: none;
     padding-top: 2rem;
     position: sticky;
+    
     @include breakpoint(laptop){
       display:flex;
+    }
+    @include breakpoint(smallmobile){
+      display:none;
     }
     &__mobile{
       height:50px;
