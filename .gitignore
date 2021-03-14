@@ -114,6 +114,6 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
-/blogapp/settings.py
+/blog/settings.py
 
 
