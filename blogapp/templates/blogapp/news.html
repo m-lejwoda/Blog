@@ -22,7 +22,7 @@
     <div class="search__posts">
         {% for post in posts %}
         <div class="search__posts__post">
-            <div class="search__posts__post__image"><img src={%static post.image.url%} /></div>
+            <div class="search__posts__post__image"><img src={{ post.image.url }} /></div>
             <div class="search__posts__post__information">
                 <div class="search__posts__post__title">{{post.title}}</div>
                 <div class="search__posts__post__meta">
@@ -81,7 +81,7 @@
                 <div class="news__bonusinformation__journalists__user"
                     onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
                     <div class="news__bonusinformation__journalists__user__image">
-                        <img src={% static editor.avatar.url %} />
+                        <img src={{ editor.avatar.url }} />
                     </div>
                     <div class="news__bonusinformation__journalists__meta">
                         <div class="news__bonusinformation__journalists__user__name">
