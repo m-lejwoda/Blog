@@ -14,6 +14,12 @@
   }
 }
 
+@media screen and (max-width: 500px) {
+  .navbar {
+    display: none;
+  }
+}
+
 .navbar__mobile {
   height: 50px;
   display: none;
