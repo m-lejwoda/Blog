@@ -114,6 +114,9 @@
             success: function (response) {
                 $('.switch__elements').empty()
                 $.each(JSON.parse(response), function (i, item) {
+                    console.log(item)
+                    console.log(item.fields.image)
+                    console.log(item.fields.image.url)
                     $('.switch__elements').append(
                         '<div class="switch__elements__element" ' + 'id = "' + item
                         .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item
