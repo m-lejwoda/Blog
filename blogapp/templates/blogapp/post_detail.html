@@ -86,6 +86,7 @@
                 success: function (response) {
                     $('.switch__elements').empty()
                     $.each(JSON.parse(response), function (i, item) {
+                        console.log(item.fields.image)
                         $('.switch__elements').append(
                             '<div class="switch__elements__element" ' + 'id = "' + item
                             .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item
@@ -104,7 +105,7 @@
     $("[name='switch-one']").click(function () {
         var id = $(this).attr("id");
         $.ajax({
-            url: 'http://127.0.0.1:8000/radioposts/',
+            url: 'https://sportywalki.herokuapp.com/radioposts/',
             data: {
                 id: id,
                 author: "{{post.author}}",
