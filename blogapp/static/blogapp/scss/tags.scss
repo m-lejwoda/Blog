@@ -30,7 +30,11 @@
     padding-right:2rem;
     flex-wrap: wrap;
     // min-width: 600px;
-    
+    @include breakpoint(mobilebig){
+        padding-left: 0.2rem;
+        padding-right:0.2rem;
+        margin-top: 0.2rem;
+      } 
     &__posts{
         width:60%;
         margin-top: 5rem;
