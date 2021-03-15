@@ -34,7 +34,6 @@
     &__mobile{
       height:50px;
       display:none;
-      padding:1rem;
       justify-content: flex-end;
       overflow: hidden;
       @include breakpoint(laptop){
@@ -44,7 +43,11 @@
       &-icon{
         display:flex;
         justify-content: end;
-        bottom:50px;
+        height: 180%;
+        padding:1rem;
+      }
+      &-icon:hover{
+        cursor: pointer;
       }
     }
     &__right{
@@ -86,8 +89,9 @@
     }
     &__mobile{
       &__panel{
+        display:none;
         top:60px;
-        transform: translateX(100%);
+        // transform: translateX(100%);
         transition: 1s transform ease-in-out;
         z-index: 100;
         li{
@@ -168,11 +172,22 @@ li .navbar__left:hover{
 // .navbar__mobile-icon:hover{
 //   cursor:pointer;
 // }
-.navbar__mobile-icon:focus ~ .navbar__mobile__panel, .navbar__mobile__panel:hover{
-  transform: translateX(0);
-}
+// .navbar__mobile-icon:focus ~ .navbar__mobile__panel, .navbar__mobile__panel:hover{
+//   transform: translateX(0);
+// }
 
 a.navbar__mobile-item:hover{
   color:#F94C4C
 
+}
+
+.text-warning-anim {
+  opacity: 1;
+  transform: translateX(100%);
+  transition: opacity 0.2s ease-out, transform 1s;
+}
+.text-warning-anim2 {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 0.2s ease-out, transform 1s;
 }
