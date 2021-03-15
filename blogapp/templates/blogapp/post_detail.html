@@ -104,6 +104,7 @@
     })
     $("[name='switch-one']").click(function () {
         var id = $(this).attr("id");
+        console.log(id)
         $.ajax({
             url: 'https://sportywalki.herokuapp.com/radioposts/',
             data: {
