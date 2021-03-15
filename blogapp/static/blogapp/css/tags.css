@@ -9,6 +9,14 @@
   flex-wrap: wrap;
 }
 
+@media screen and (max-width: 700px) {
+  .search {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    margin-top: 0.2rem;
+  }
+}
+
 .search__posts {
   width: 60%;
   margin-top: 5rem;
