@@ -103,6 +103,8 @@
     })
     $("[name='switch-one']").click(function () {
         var id = $(this).attr("id");
+        console.log(id)
+        console.log("{{post.author}}")
         $.ajax({
             url: 'http://127.0.0.1:8000/radioposts/',
             data: {

@@ -48,9 +48,11 @@ class Post(models.Model):
         list_filter = ['publish_on','created_on']
         date_hierarchy = 'pub_date'
         hit_count_generic = GenericRelation(HitCount, object_id_field='object_p',related_query_name='hit_count_generic_relation')
-        
+        @property
+        def get_absolute_image_url(self):
+            return '%s' % (self.image.url)
         def __str__(self):
-            return self.title
+            return self.slug
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
