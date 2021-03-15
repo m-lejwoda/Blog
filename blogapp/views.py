@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Post,Tag,EditorProfile,Comment,Poster
+from .models import Post,Tag,EditorProfile,Comment,Poster,MainNews
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CreateUserForm,CommentForm
@@ -31,10 +31,11 @@ def blog(request):
     posters = Poster.objects.all()
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
+    mainnews = MainNews.objects.all()
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters}
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters,'mainnews':mainnews}
     return render(request,'blogapp/dashboard.html',context)
 
 def main(request):
@@ -47,7 +48,8 @@ def post(request):
     posts = Post.objects.all()
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
-    context = {'posts': posts, 'tags':tags, 'editors': editors}
+    mainnews = MainNews.objects.all()
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'mainnews':mainnews}
     return render(request,'blogapp/dashboard.html',context)
 def loginPage(request):
     if request.method == 'POST':

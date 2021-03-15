@@ -56,7 +56,7 @@
         color: #FFFFFF;
         white-space: nowrap;
         @include breakpoint(desktop){
-          font-size:30px;
+          font-size:20px;
         }
         @include breakpoint(laptop){
           display:none;
@@ -74,7 +74,7 @@
         line-height: 62px;
         color: #FFFFFF;
         @include breakpoint(desktop){
-          font-size:30px;
+          font-size:20px;
         }
         @include breakpoint(laptop){
           display:none;
