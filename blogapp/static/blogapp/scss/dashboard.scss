@@ -20,8 +20,6 @@
     
   
   }
-
-//animations
 @keyframes zoom {
     0% {
       background-size: 100% 100%;
@@ -41,9 +39,6 @@
 }
 body{
     background-color: #1C1C1C;
-    
-    // position: relative;
-    
 }
 
 .freewords{
@@ -154,21 +149,12 @@ body{
             top:70%;
             font-size:45px;
             
-        }
-        
-        
-        // @include breakpoint(mobilebig){
-        //     left:3%;
-        //     top:65%;
-        //     font-size:80px;
-            
-        // }
-        
+        } 
     }
     &-kickboxing{
         position: absolute;
         top:60%;
-        right: -5%;
+        right: -8%;
         font-family: 'Pridi';
         font-style: normal;
         font-weight: normal;
@@ -176,6 +162,10 @@ body{
         font-size: 80px;
         color: rgba(255, 255, 255, 0.3);
         transform: rotate(90.05deg); 
+        @include breakpoint(desktop){
+            right:-15%;
+            
+        }
         @include breakpoint(laptop){
             left: 40%;
             top: 80%;
@@ -254,15 +244,11 @@ body{
             position: relative;
             color:red;
             background-size: 100% 100%;
-            // transition: opacity 1s ease-in-out;
-            // z-index: 5;
-            
             &__meta{
                 position: absolute;
                 bottom:0;
                 height: 40%;
                 width:100%;
-                // background-color: rgba(255, 255, 255, 0.7);
                 display:flex;
                 justify-content: center;
                 align-items: center;
@@ -317,7 +303,6 @@ body{
                     bottom:0;
                     height: 40%;
                     width:100%;
-                    // background-color: rgba(255, 255, 255, 0.7);
                     display:flex;
                     justify-content: center;
                     align-items: center;
@@ -357,7 +342,6 @@ body{
                     bottom:0;
                     height: 40%;
                     width:100%;
-                    // background-color: rgba(255, 255, 255, 0.7);
                     display:flex;
                     justify-content: center;
                     align-items: center;
@@ -386,34 +370,40 @@ body{
         position: absolute;
         background-color: #F94C4C;
         height: 100%;
-        // width: 30%;
         left: 20%;
         z-index: -1;
         width: 30%;
-        
+        @include breakpoint(desktop){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
+        @include breakpoint(laptop){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
+        @include breakpoint(mobilebig){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
         @include breakpoint(mobile){
             display:flex;
             width:100%;
             justify-content: center;
             left:0;
             background-color:transparent;
+          }
+          
 
-          }
-          @include breakpoint(mobilebig){
-            display:flex;
-            width:100%;
-            justify-content: center;
-            left:0;
-            background-color:transparent;
-          }
-
-          @include breakpoint(laptop){
-            display:flex;
-            width:100%;
-            justify-content: center;
-            left:0;
-            background-color:transparent;
-          }
+          
         
           
         
@@ -433,20 +423,26 @@ body{
             padding-top:3rem;
             
             justify-content: center;
-            @include breakpoint(mobile){
-                padding-top:2rem;
-                width:70%;
-                background-color: #F94C4C;
-    
-              }
-            @include breakpoint(mobilebig){
-                width:70%;
+            @include breakpoint(desktop){
+                width:50%;
                 background-color: #F94C4C;
             }
             @include breakpoint(laptop){
                 width:70%;
                 background-color: #F94C4C;
             }
+            @include breakpoint(mobilebig){
+                width:70%;
+                background-color: #F94C4C;
+            }
+            @include breakpoint(mobile){
+                padding-top:2rem;
+                width:70%;
+                background-color: #F94C4C;
+    
+              }
+            
+            
 
         }
         
@@ -486,15 +482,16 @@ body{
         padding-top:6rem;
         width:40%;
         margin:0 auto;
-        @include breakpoint(mobile){
-            width: 100%;
-        }
-        @include breakpoint(desktopsmall){
-            width:100%;
+        @include breakpoint(desktop){
+            width:70%;
         }
         @include breakpoint(laptop){
             width:100%;
         }
+        @include breakpoint(mobile){
+            width: 100%;
+        }
+        
         &__box{
             width:60%;
             margin: 0 auto;
@@ -521,7 +518,6 @@ body{
         }
         &__journalists{
             width:100%;
-            // border: 2px solid white;
             background-color: #1C1C1C;
             &__meta{
                 display:flex;
@@ -673,7 +669,6 @@ body{
                         background-color: #F94C4C;
                         font-size:17px;
                         font-weight: 600;
-                        // border: none
                     }
                     button:hover{
                         cursor:pointer;
@@ -760,9 +755,6 @@ body{
                         font-size:10px;
                         padding: 0.1rem 0.2rem 0.1rem 0.2rem;
                           }
-                      
-                    
-                    // border: none
                 }
                 button:hover{
                     cursor:pointer;
@@ -772,7 +764,6 @@ body{
                     2px 2px white;
                     
                     transform: translateX(-3px);
-                    // font-size:20px;
                     @include breakpoint(mobilebig){
                         font-size:10px;
                       }
@@ -840,15 +831,17 @@ body{
         left: 20%;
         z-index: -1;
         background-color: #F94C4C;
-        @include breakpoint(mobile){
-            width: 60%;
+        @include breakpoint(desktop){
+            width:40%;
+            left:30%;
         }
         @include breakpoint(mobilebig){
             width:60%;
         }
-        // @include breakpoint(laptop){
-        //     width:60%;
-        // }
+        @include breakpoint(mobile){
+            width: 60%;
+        }
+        
         &-news{
             font-size: 23px;
             @include breakpoint(mobile){
@@ -902,7 +895,6 @@ i{
 .pagination{
     position: relative;
     width: 100%;
-    // left: 20%;
     @include breakpoint(mobile){
         width:100%;
         left: 0%;
@@ -913,7 +905,6 @@ i{
     }
 }
 span.current{
-    // background-color: #33adff;
     width: 100%;
 }
 span.step-links{
