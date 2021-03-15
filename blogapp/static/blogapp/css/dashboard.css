@@ -172,7 +172,7 @@ body {
 .freewords-kickboxing {
   position: absolute;
   top: 60%;
-  right: -5%;
+  right: -8%;
   font-family: 'Pridi';
   font-style: normal;
   font-weight: normal;
@@ -180,6 +180,12 @@ body {
   font-size: 80px;
   color: rgba(255, 255, 255, 0.3);
   transform: rotate(90.05deg);
+}
+
+@media screen and (max-width: 1200px) {
+  .freewords-kickboxing {
+    right: -15%;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -453,7 +459,17 @@ body {
   width: 30%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1200px) {
+  .dashboard__redbox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    left: 0;
+    background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 900px) {
   .dashboard__redbox {
     display: flex;
     width: 100%;
@@ -473,7 +489,7 @@ body {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 500px) {
   .dashboard__redbox {
     display: flex;
     width: 100%;
@@ -499,9 +515,15 @@ body {
   justify-content: center;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1200px) {
   .dashboard__redbox__box {
-    padding-top: 2rem;
+    width: 50%;
+    background-color: #F94C4C;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .dashboard__redbox__box {
     width: 70%;
     background-color: #F94C4C;
   }
@@ -514,8 +536,9 @@ body {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 500px) {
   .dashboard__redbox__box {
+    padding-top: 2rem;
     width: 70%;
     background-color: #F94C4C;
   }
@@ -561,19 +584,19 @@ body {
   margin: 0 auto;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1200px) {
   .news__bonusinformation {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 1400px) {
-  .news__bonusinformation {
-    width: 100%;
+    width: 70%;
   }
 }
 
 @media screen and (max-width: 900px) {
+  .news__bonusinformation {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 500px) {
   .news__bonusinformation {
     width: 100%;
   }
@@ -1029,13 +1052,20 @@ body {
   background-color: #F94C4C;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1200px) {
+  .news__redbox {
+    width: 40%;
+    left: 30%;
+  }
+}
+
+@media screen and (max-width: 700px) {
   .news__redbox {
     width: 60%;
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 500px) {
   .news__redbox {
     width: 60%;
   }
