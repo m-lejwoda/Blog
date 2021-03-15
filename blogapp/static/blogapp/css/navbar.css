@@ -97,7 +97,6 @@
 }
 
 .navbar__mobile__panel {
-  display: none;
   top: 60px;
   transition: 1s transform ease-in-out;
   z-index: 100;
@@ -110,6 +109,7 @@
   flex-direction: column;
   align-items: flex-end;
   box-sizing: border-box;
+  display: none;
 }
 
 .navbar__mobile__panel li {
@@ -124,7 +124,7 @@
   position: absolute;
   right: 0;
   height: 100%;
-  width: 97%;
+  width: 100%;
   background: #1C1C1C;
 }
 
@@ -187,10 +187,12 @@ a.navbar__mobile-item:hover {
   opacity: 1;
   transform: translateX(100%);
   transition: opacity 0.2s ease-out, transform 1s;
+  visibility: visible !important;
 }
 
 .text-warning-anim2 {
   opacity: 1;
   transform: translateX(0%);
   transition: opacity 0.2s ease-out, transform 1s;
+  visibility: visible !important;
 }
