@@ -22,27 +22,6 @@
     {% endblock %}
     <script>
         console.log("wywołanie scriptu ")
-        $(".navbar__mobile-icon").click(function () {
-            $('.navbar__mobile__panel').addClass("text-warning-anim");
-            if ($('.navbar__mobile__panel').is(":visible")) {
-                console.log("100")
-                $('.navbar__mobile__panel').removeClass("text-warning-anim2")
-                $('.navbar__mobile__panel').removeClass("text-warning-anim")
-                $('.navbar__mobile__panel').addClass("text-warning-anim").delay(1000).hide(1);
-
-            } else {
-
-                $('.navbar__mobile__panel').show(1).addClass("text-warning-anim2");
-
-            }
-            //    $('.navbar__mobile__panel')
-            //    $('.navbar__mobile__panel').hide();
-            //    console.log("ukrywam")
-            //} else {
-            //    $('.navbar__mobile__panel').show();
-            //    console.log("odkrywam")
-            //}
-        });
     </script>
 
     {% block extra_js %}
