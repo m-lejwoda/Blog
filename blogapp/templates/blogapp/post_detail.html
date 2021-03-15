@@ -77,7 +77,7 @@
     $(".radio-btn").each(function () {
         if ($(this)[0].checked == true) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/radioposts/',
+                url: 'https://sportywalki.herokuapp.com/radioposts/',
                 data: {
                     id: $(this)[0].id,
                     author: "{{post.author}}",
