@@ -373,6 +373,13 @@ body{
         left: 20%;
         z-index: -1;
         width: 30%;
+        @include breakpoint(desktopsmall){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
         @include breakpoint(desktop){
             display:flex;
             width:100%;
@@ -421,12 +428,16 @@ body{
         &__box{
             display:flex;
             padding-top:3rem;
-            
             justify-content: center;
+            @include breakpoint(desktopsmall){
+                width:50%;
+                background-color: #F94C4C;
+              }
             @include breakpoint(desktop){
                 width:50%;
                 background-color: #F94C4C;
             }
+            
             @include breakpoint(laptop){
                 width:70%;
                 background-color: #F94C4C;
@@ -456,8 +467,6 @@ body{
     flex:1;
     &__bonusinformation{
         padding-top:5rem;
-        
-        
         &__events{
             width: 100%;
             margin: 0 auto;
@@ -482,6 +491,9 @@ body{
         padding-top:6rem;
         width:40%;
         margin:0 auto;
+        @include breakpoint(desktopsmall){
+            width:70%;
+        }
         @include breakpoint(desktop){
             width:70%;
         }
@@ -831,15 +843,20 @@ body{
         left: 20%;
         z-index: -1;
         background-color: #F94C4C;
+        @include breakpoint(desktopsmall){
+            width:60%;
+            // left:30%;
+        }
         @include breakpoint(desktop){
             width:40%;
             left:30%;
         }
         @include breakpoint(mobilebig){
-            width:60%;
+            width:40%;
+            
         }
         @include breakpoint(mobile){
-            width: 60%;
+            width: 40%;
         }
         
         &-news{

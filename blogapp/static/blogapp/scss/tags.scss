@@ -15,7 +15,7 @@
       @media screen and(max-width:1800px){@content;}
     }
     @else if $point == desktopsmall{
-        @media screen and(max-width:1200px){@content;}
+        @media screen and(max-width:1400px){@content;}
     }
   
   }
@@ -29,13 +29,26 @@
     padding-left: 4rem;
     padding-right:2rem;
     flex-wrap: wrap;
-    min-width: 600px;
+    // min-width: 600px;
     
     &__posts{
         width:60%;
         margin-top: 5rem;
         @include breakpoint(desktopsmall){
             width: 100%;
+        }
+        @include breakpoint(desktop){
+            width: 100%;
+        }
+        @include breakpoint(mobilebig){
+            padding-top: 0.3rem;
+            padding-left: 0.3rem;
+            padding-right:0.3rem;
+        }
+        @include breakpoint(mobile){
+            padding-top: 0.3rem;
+            padding-left: 0.3rem;
+            padding-right:0.3rem;
         }
         &-title{
             display:flex;
@@ -133,6 +146,14 @@
                 justify-content: space-between;
                 font-size:1rem;
                 padding-right: 2rem;
+                @include breakpoint(mobile){
+                    display:none;
+
+                }
+                @include breakpoint(mobilebig){
+                    display:none;
+                    
+                }
             }
 
             &__information{

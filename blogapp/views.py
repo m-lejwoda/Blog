@@ -24,7 +24,9 @@ def allnews(request):
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj}
+    posters = Poster.objects.all()
+
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters}
     return render(request,'blogapp/news.html',context)
 def blog(request):
     posts = Post.objects.all().order_by('-publish_on')
