@@ -24,6 +24,12 @@
     padding-right:2rem;
     margin-top: 2rem;
     justify-content: center;
+    @include breakpoint(mobile){
+        padding-left: 0;
+        padding-right:0;
+        margin-top: 0;
+      }
+      
     &__addcomment{
         margin-top:1rem;
         margin-bottom: 1rem;
@@ -86,6 +92,7 @@
             display:flex;
             width: 100%;
             flex-wrap: wrap;
+            
         }
         &-popular{
             color:white;
@@ -172,6 +179,7 @@
         &__tags{
             display:flex;
             flex-direction: row;
+            flex-wrap: wrap;
             &-tag{
                 padding: 0.5rem;
                 font-size:0.8rem;
@@ -180,6 +188,7 @@
                 margin-right: 1rem;
                 font-weight: 700;
                 white-space: nowrap;
+                margin-bottom:0.5rem;
             }
             &-tag:hover{
                 cursor: pointer;
