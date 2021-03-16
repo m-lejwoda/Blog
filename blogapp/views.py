@@ -17,6 +17,8 @@ from hitcount.views import HitCountMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.core import serializers
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 def allnews(request):
     posts=Post.objects.all().order_by('-publish_on')
     tags = Tag.objects.all()
@@ -118,18 +120,43 @@ def radio_posts(request):
         posts = Post.objects.all().order_by('-clicks')
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
-        return JsonResponse(result,safe=False)
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
+        
     if identity == "radio-two":
         user= User.objects.get(username=author)
         posts = Post.objects.filter(author=user).order_by('-publish_on')
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
-        return JsonResponse(result,safe=False)
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
     if identity == "radio-three":
         posts = Post.objects.all().order_by('-publish_on')[0:3]
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
-        return JsonResponse(result,safe=False)
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
     else:
         return None
 
