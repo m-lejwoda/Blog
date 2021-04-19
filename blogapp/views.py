@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Post,Tag,EditorProfile,Comment
+from .models import Post,Tag,EditorProfile,Comment,Poster,MainNews
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CreateUserForm,CommentForm
@@ -17,6 +17,8 @@ from hitcount.views import HitCountMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.core import serializers
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 def allnews(request):
     posts=Post.objects.all().order_by('-publish_on')
     tags = Tag.objects.all()
@@ -24,16 +26,20 @@ def allnews(request):
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj}
+    posters = Poster.objects.all()
+
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters}
     return render(request,'blogapp/news.html',context)
 def blog(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-publish_on')
+    posters = Poster.objects.all()
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
+    mainnews = MainNews.objects.all()
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj}
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters,'mainnews':mainnews}
     return render(request,'blogapp/dashboard.html',context)
 
 def main(request):
@@ -46,7 +52,8 @@ def post(request):
     posts = Post.objects.all()
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
-    context = {'posts': posts, 'tags':tags, 'editors': editors}
+    mainnews = MainNews.objects.all()
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'mainnews':mainnews}
     return render(request,'blogapp/dashboard.html',context)
 def loginPage(request):
     if request.method == 'POST':
@@ -104,7 +111,7 @@ def registerPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
-@csrf_exempt
+# @csrf_exempt
 def radio_posts(request):
     identity = request.GET.get('id')
     author = request.GET.get('author')
@@ -113,18 +120,43 @@ def radio_posts(request):
         posts = Post.objects.all().order_by('-clicks')
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
-        return JsonResponse(result,safe=False)
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
+        
     if identity == "radio-two":
         user= User.objects.get(username=author)
         posts = Post.objects.filter(author=user).order_by('-publish_on')
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
-        return JsonResponse(result,safe=False)
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
     if identity == "radio-three":
         posts = Post.objects.all().order_by('-publish_on')[0:3]
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
-        return JsonResponse(result,safe=False)
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
     else:
         return None
 

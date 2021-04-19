@@ -24,6 +24,10 @@ class Tag(models.Model):
         def __str__(self):
             return self.name
 
+class Poster(models.Model):
+    image = models.ImageField(default="")
+    date = models.DateTimeField(default=timezone.now)
+
 class Post(models.Model):
         author = models.ForeignKey(User,on_delete=models.CASCADE)
         category = models.ForeignKey(Category,on_delete=models.CASCADE)
@@ -44,9 +48,11 @@ class Post(models.Model):
         list_filter = ['publish_on','created_on']
         date_hierarchy = 'pub_date'
         hit_count_generic = GenericRelation(HitCount, object_id_field='object_p',related_query_name='hit_count_generic_relation')
-        
+        @property
+        def get_absolute_image_url(self):
+            return '%s' % (self.image.url)
         def __str__(self):
-            return self.title
+            return self.slug
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -83,6 +89,8 @@ class EditorProfile(models.Model):
         def __str__(self):
             return self.user.username
 
+class MainNews(models.Model):
+    post = models.ManyToManyField(Post,related_name='posts')
 
 def editor_create_slug(instance,new_slug=None):
     slug = slugify(instance.user.first_name) +"_"+ slugify(instance.user.last_name)
