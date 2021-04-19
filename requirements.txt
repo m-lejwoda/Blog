@@ -1,4 +1,4 @@
-
+boto3
 decorator==4.4.2
 defusedxml==0.6.0
 Deprecated==1.2.7
