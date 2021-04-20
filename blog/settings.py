@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'ads',
     'sekizai',
     'fontawesome_5',
-    'storages'
+    'storages',
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 MIDDLEWARE = [
@@ -200,9 +200,11 @@ ADS_VIEWPORTS = {
     'xl': 'd-none img-fluid d-xl-block',
 }
 AWS_S3_REGION_NAME = 'eu-central-1'
-AWS_ACCESS_KEY_ID = os.environ.get('AKIA54HC2YWMBEI3YRU5')
-AWS_SECRET_ACCESS_KEY = os.environ.get('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')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('sportywalkibucket')
+AWS_ACCESS_KEY_ID = 'AKIA54HC2YWMBEI3YRU5'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'sportywalkibucket'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_QUERYSTRING_AUTH = False
+
