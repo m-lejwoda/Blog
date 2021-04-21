@@ -8,7 +8,7 @@
             <li class="navbar__mobile__panel__element"><a href={% url 'index' %} class="navbar__mobile-item">Strona
                     Domowa</a>
             </li>
-            <li class="navbar__mobile__panel__element"><a class="navbar__mobile-item">Rozpiski</a></li>
+            <li class="navbar__mobile__panel__element"><a href="/schedule/" class="navbar__mobile-item">Rozpiski</a></li>
             <li class="navbar__mobile__panel__element" id="news"><a href="/news/" class="navbar__mobile-item">Newsy</a>
             </li>
             {% if user.is_authenticated %}
@@ -27,7 +27,7 @@
 </div>
 <ul class="navbar">
     <li class="navbar__left"><a href={% url 'index' %} class="navbar__item">Strona Domowa</a></li>
-    <li class="navbar__left"><a class="navbar__item">Rozpiski</a></li>
+    <li class="navbar__left"><a class="navbar__item" href="/schedule/">Rozpiski</a></li>
     <li class="navbar__left"><a href="/news/" class=" navbar__item">Newsy</a></li>
     {% if user.is_authenticated %}
     <li class="navbar__right"><a class="navbar__item">Witaj {{user}}</a></li>

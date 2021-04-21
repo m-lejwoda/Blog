@@ -204,6 +204,7 @@ def post_detail(request,slug):
 @csrf_exempt
 def tag_detail(request,tag):
     tags = Tag.objects.get(slug=tag)
+    posters = Poster.objects.all().order_by('-date')
     tag_name = Tag.objects.get(slug=tag)
     posts1 = Post.objects.filter(tags=tags.id).order_by('-publish_on')
     tags = Tag.objects.all()
@@ -211,16 +212,27 @@ def tag_detail(request,tag):
     paginator = Paginator(posts1, 8)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'tag_name':tag_name}
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'tag_name':tag_name,'posters' : posters}
     return render(request,'blogapp/tags.html',context)
 
 def journalist_detail(request,journalist_slug):
     journalist = EditorProfile.objects.get(slug=journalist_slug)
+    posters = Poster.objects.all().order_by('-date')
     posts1 = Post.objects.filter(author=journalist.user)
     paginator = Paginator(posts1, 8)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'journalist':journalist}
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'journalist':journalist,'posters' : posters}
     return render(request,'blogapp/journalist.html',context)
+
+def schedule(request):
+    posters = Poster.objects.all().order_by('-date')
+    editors = EditorProfile.objects.all()
+    tags = Tag.objects.all()
+    paginator = Paginator(posters, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'posters' : posters, 'tags':tags, 'editors': editors ,'page_obj': page_obj}
+    return render(request,'blogapp/schedule.html',context)

@@ -70,7 +70,7 @@
                 {% for post in page_obj %}
                 {% if forloop.counter == 1 %}
                 <div class="news__posts__firstpost-container">
-                    <div class="news__posts__firstpost"
+                    <div class="news__posts__firstpost" onClick="onClick('{% url 'post_detail' post.slug %}')"
                         style="background-image: url({{ post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
                         <div class="news__posts__firstpost__meta__comment">
                             {% fa5_icon 'comment' 'fa fa-2x' %}

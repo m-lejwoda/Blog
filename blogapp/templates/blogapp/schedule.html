@@ -7,8 +7,9 @@
 <div class="search">
     <div class=news__redbox>
         <div class="news__redbox__box">
+            {% comment %} <span class="news__redbox-news">Aktualne newsy</span> {% endcomment %}
             <div class="search__posts-title">
-                Artykuły użytkownika: {{journalist.user}}
+                Rozpiski
             </div>
         </div>
 
@@ -19,53 +20,29 @@
         </div>
     </div>
     <div class="search__posts">
-        {% for post in posts %}
-        <div class="search__posts__post">
-            <div class="search__posts__post__image"><img src={{ post.image.url }} /></div>
-            <div class="search__posts__post__information">
-                <div class="search__posts__post__title">{{post.title}}</div>
-                <div class="search__posts__post__meta">
-                    <div class="search__posts__post__meta__author">{{post.author}}</div>
-                    <div class="search__posts__post__meta__author__data">{{post.publish_on}}</div>
-                </div>
-                <div class="search__posts__post__shortdescription">{{post.short_description}}</div>
-                <div class="search__posts__post__comments">
-                </div>
-                <div class="search__posts__post__bottom-next">
-                    <div class="search__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}</div>
-                    <div class="search__posts__post__bottom-length">{{post.comments.all|length}}</div>
-                    <button onClick="onClick('{% url 'post_detail' post.slug %}')">Przejdź</button>
-                </div>
-            </div>
-        </div>
-
+        <div class="search__posts__posters">
+        {% for poster in page_obj %}
+            <div class="search__posts__posters__image"><img src={{ poster.image.url }}></div>
         {% endfor %}
+        </div>
         <div class="pagination">
-
             <span class="step-links">
-                {% if posts.has_next %}
-                <div class="pagination__step-links">
-                    <a href="?page={{ posts.next_page_number }}">Następna</a>
-                    <a href="?page={{ posts.paginator.num_pages }}">Ostatnia &raquo;</a>
-                </div>
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Pierwsza strona</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Poprzednia strona</a>
                 {% endif %}
-                {% if posts.has_previous %}
-                <div class="pagination__step-links">
-                    <a href="?page=1">&laquo; Pierwsza strona</a>
-                    <a href="?page={{ posts.previous_page_number }}">Poprzednia strona</a>
-                </div>
+
+                <span class="current">
+                    Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Następna</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Ostatnia &raquo;</a>
                 {% endif %}
-                <div class="pagination__current">
-                    <span class="current">
-                        Strona {{ posts.number }} z {{ posts.paginator.num_pages }}.
-                    </span>
-                </div>
-
-
             </span>
         </div>
     </div>
-
     <div class="news__bonusinformation">
         <div class="news__bonusinformation__box">
             <div class="news__bonusinformation__events"
