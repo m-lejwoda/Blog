@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext
-
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'ads',
     'sekizai',
     'fontawesome_5',
-    'storages',
+    'storages'
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 MIDDLEWARE = [
@@ -91,7 +91,7 @@ DATABASES = {
 }
 
 import dj_database_url
-db_from_env = dj_database_url.config(default = 'postgres://dncxarjuyhuzxv:da697d6d8e39a60004472fa12e5e828a74b83ad02e4a8d3f289978bb76685c65@ec2-52-19-170-215.eu-west-1.compute.amazonaws.com:5432/d2cdlug43c2oc8')
+db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
 # Password validation
@@ -199,12 +199,11 @@ ADS_VIEWPORTS = {
     'lg': 'd-none img-fluid d-lg-block d-xl-none',
     'xl': 'd-none img-fluid d-xl-block',
 }
+django_heroku.settings(locals())
 AWS_S3_REGION_NAME = 'eu-central-1'
-AWS_ACCESS_KEY_ID = 'AKIA54HC2YWMBEI3YRU5'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'sportywalkibucket'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_QUERYSTRING_AUTH = False
-
