@@ -113,4 +113,11 @@ GitHub.sublime-settings
 !.vscode/tasks.json 
 !.vscode/launch.json 
 !.vscode/extensions.json 
+<<<<<<< HEAD
 .history
+=======
+.history
+#/blog/settings.py
+
+
+>>>>>>> releasev1.0.2

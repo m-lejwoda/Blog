@@ -1,13 +1,25 @@
 .login {
   display: flex;
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
+  justify-content: center;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 900px) {
+  .login__illustration {
+    display: none;
+  }
 }
 
 .login__box {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
+  min-width: 350px;
+  max-width: 500px;
+  padding-right: 2rem;
 }
 
 .login__box__rest-label {

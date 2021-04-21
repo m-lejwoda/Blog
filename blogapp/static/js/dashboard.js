@@ -1,39 +1,113 @@
 
-$(document).ready(function (){
-    console.log("początkowy ajax")
-    $.ajax({
-        url: "/radio/",
-        type: 'POST',
-        data:{
-            radio: "radio",
-            input: "radio-one",
-            author: author
-        },
-        success: function(response){
-            console.log(response)
-            $('#radio2').html(response);
-        }
+
+$(".navbar__mobile-icon").click(function () {
+    $('.navbar__mobile__panel').addClass("text-warning-anim");
+    if ($('.navbar__mobile__panel').is(":visible")) {
+        console.log("100")
+        $('.navbar__mobile__panel').removeClass("text-warning-anim2")
+        $('.navbar__mobile__panel').removeClass("text-warning-anim")
+        $('.navbar__mobile__panel').addClass("text-warning-anim").delay(1000).hide(1);
+
+    } else {
+
+        $('.navbar__mobile__panel').show(1).addClass("text-warning-anim2");
+
+    }
+});
+$(".news__bonusinformation__journalists__user").on({
+    mouseenter: function (event) {
+        $(".news__bonusinformation__journalists__user__name").css('color','red')
+        $( this ).find('a').css('color','#F94C4C');
+    },
+    mouseleave: function (event) {
+        $(".news__bonusinformation__journalists__user__name").css('color','red')
+        $( this ).find('a').css('color','white');
+    }
+});
+$(".dashboard__news__firstcolumn").on({
+    mouseenter: function (event) {
+        $(".dashboard__news__firstcolumn__meta-title").css('color','#F94C4C')
         
-    })
-    $(".radio-btn").click(function(){
-        var url = "{% url 'radio2' %}";
-        console.log(url)
-        $.ajax({
-            url: "/radio/",
-            type: 'POST',
-            data:{
-                radio: "radio",
-                input: $(this)[0].id,
-                author: author
-            },
-            success: function(response){
-                console.log(response)
-                $('#radio2').html(response);
-            }
+    },
+    mouseleave: function (event) {
+        $(".dashboard__news__firstcolumn__meta-title").css('color','white')
+        
+    }
+});
+$(".dashboard__news__secondcolumn__first").on({
+    mouseenter: function (event) {
+        $(".dashboard__news__secondcolumn__first__meta-title").css('color','#F94C4C')
+        
+    },
+    mouseleave: function (event) {
+        $(".dashboard__news__secondcolumn__first__meta-title").css('color','white')
+        
+    }
+});
+$(".dashboard__news__secondcolumn__second").on({
+    mouseenter: function (event) {
+        $(".dashboard__news__secondcolumn__second__meta-title").css('color','#F94C4C')
+        
+    },
+    mouseleave: function (event) {
+        $(".dashboard__news__secondcolumn__second__meta-title").css('color','white')
+        
+    }
+});
+$(".navbar__mobile-icon").click(function() {
+    console.log("Wyświetl ikone")
+    
+    // $('html,body').animate({
+    //     scrollTop: $(".news__posts").offset().top},
+    //     'slow');
+});
+
+
+
+
+
+
+$("#news").click(function() {
+    console.log($(".news__posts"))
+    console.log($(".search"))
+    $('html,body').animate({
+        scrollTop: $(".news__posts").offset().top},
+        'slow');
+});
+// $(document).ready(function (){
+//     $.ajax({
+//         url: "/radio/",
+//         type: 'POST',
+//         data:{
+//             radio: "radio",
+//             input: "radio-one",
+//             author: author
+//         },
+//         success: function(response){
+//             console.log(response)
+//             $('#radio2').html(response);
+//         }
+        
+//     })
+//     $(".radio-btn").click(function(){
+//         var url = "{% url 'radio2' %}";
+//         console.log(url)
+//         $.ajax({
+//             url: "/radio/",
+//             type: 'POST',
+//             data:{
+//                 radio: "radio",
+//                 input: $(this)[0].id,
+//                 author: author
+//             },
+//             success: function(response){
+//                 console.log(response)
+//                 $('#radio2').html(response);
+//             }
             
-        })
-    })
-})
+//         })
+//     })
+// })
 function onClick(page) {
     window.location.href = page
 }
@@ -78,8 +152,9 @@ function onSubmit(event){
         radio2.value = false
     }
     let form = document.getElementById("form")
-    form.submit(function( e){
+    form.submit(function(e){
         e.preventDefault()
     })
     
 }
+

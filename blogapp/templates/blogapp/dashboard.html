@@ -2,6 +2,8 @@
 {% load hitcount_tags %}
 {% load static %}
 {% load ads_tags %}
+{% load fontawesome_5 %}
+
 <link href="{% static 'blogapp/css/dashboard.css' %}" rel="stylesheet">
 {% block content %}
 <div class="freewords">
@@ -17,33 +19,39 @@
         <div class=dashboard__redbox__box><span class="dashboard__redbox-news">Najważniejsze</span></div>
     </div>
     <div class="dashboard__news">
-        {% for post in posts|slice:":3"  %}
-        {% if post.id == 1 %}
-        <div class="dashboard__news__firstcolumn" onClick="onClick('{% url 'post_detail' post.slug %}')"
-            style="background-image: url({% static post.image.url %});background-repeat: no-repeat;background-size: cover; background-position:center center;">
-            <div class="dashboard__news__firstcolumn__meta">
-                <div class="dashboard__news__firstcolumn__meta-title">{{post.title}}</div>
-            </div>
-        </div>
-        {% elif post.id == 2 %}
-        <div class="dashboard__news__secondcolumn">
-            <div class="dashboard__news__secondcolumn__first" onClick="onClick('{% url 'post_detail' post.slug %}')"
-                style="background-image: url({% static post.image.url %});background-repeat: no-repeat;background-size: cover; background-position:center center;">
-                <div class="dashboard__news__secondcolumn__first__meta">
-                    <div class="dashboard__news__secondcolumn__first__meta-title">{{post.title}}</div>
-                </div>
-            </div>
-            {% elif post.id == 3 %}
-            <div class="dashboard__news__secondcolumn__second" onClick="onClick('{% url 'post_detail' post.slug %}')"
-                style="background-image: url({% static post.image.url %});background-repeat: no-repeat;background-size: cover; background-position:center center;">
-                <div class="dashboard__news__secondcolumn__second__meta">
-                    <div class="dashboard__news__secondcolumn__second__meta-title">{{post.title}}</div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-        {% endfor %}
+        <div class="dashboard__news__firstcolumn-container">
+            <div class="dashboard__news__firstcolumn"
+                onClick="onClick('{% url 'post_detail' mainnews.0.post.all.0.slug %}')"
+                style="background-image: url({{ mainnews.0.post.all.0.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
 
+                <div class="dashboard__news__firstcolumn__meta">
+                    <div class="dashboard__news__firstcolumn__meta-title">{{mainnews.0.post.all.0.title}}</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="dashboard__news__secondcolumn">
+            <div class="dashboard__news__secondcolumn__first-container">
+                <div class="dashboard__news__secondcolumn__first"
+                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.1.slug %}')"
+                    style="background-image: url({{ mainnews.0.post.all.1.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+                    <div class="dashboard__news__secondcolumn__first__meta">
+                        <div class="dashboard__news__secondcolumn__first__meta-title">{{mainnews.0.post.all.1.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard__news__secondcolumn__second-container">
+                <div class="dashboard__news__secondcolumn__second"
+                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.2.slug %}')"
+                    style="background-image: url({{ mainnews.0.post.all.2.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+                    <div class="dashboard__news__secondcolumn__second__meta">
+                        <div class="dashboard__news__secondcolumn__second__meta-title">{{mainnews.0.post.all.2.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="news">
         <div class=news__redbox>
@@ -59,27 +67,26 @@
         </div>
         <div class="news__box">
             <div class="news__posts">
-
                 {% for post in page_obj %}
-
-                {% if post.id == 1 %}
-                <div class="news__posts__firstpost"
-                    style="background-image: url({% static post.image.url %});background-repeat: no-repeat;background-size: cover; background-position:center center;">
-                    <div class="news__posts__firstpost__meta">
-                        <div class="news__posts__firstpost__meta-title">{{post.title}}</div>
-                        <div class="news__posts__firstpost__meta__bottom">
-                            <div class="news__posts__post__bottom-comment"><button>Komentuj(0)</button></div>
-                            <div class="news__posts__post__bottom-next">
-                                <button onClick="onClick('{% url 'post_detail' post.slug %}')">Przejdź</button>
-
+                {% if forloop.counter == 1 %}
+                <div class="news__posts__firstpost-container">
+                    <div class="news__posts__firstpost" onClick="onClick('{% url 'post_detail' post.slug %}')"
+                        style="background-image: url({{ post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+                        <div class="news__posts__firstpost__meta__comment">
+                            {% fa5_icon 'comment' 'fa fa-2x' %}
+                            <div class="news__posts__firstpost__meta__comment-length">
+                                {{post.comments.all|length}}
                             </div>
+                        </div>
+                        <div class="news__posts__firstpost__meta">
+                            <div class="news__posts__firstpost__meta-title">{{post.title}}</div>
                         </div>
                     </div>
                 </div>
                 {% else %}
                 <div class=" news__posts__post">
                     <div class="news__posts__post-image">
-                        <img src={% static post.image.url %} alt="shakhur" />
+                        <img src={{ post.image.url }} alt="obraz nie został wczytany" />
                     </div>
                     <div class="news__posts__post__information">
                         <div class="news__posts__post-title">{{post.title}}</div>
@@ -89,10 +96,11 @@
                         </div>
                         <div class="news__posts__post-description">{{post.short_description}}</div>
                         <div class="news__posts__post__bottom">
-                            <div class="news__posts__post__bottom-comment">
-                                <button>Komentuj({{post.comments.all|length}})
 
-                                </button></div>
+                            <div class="news__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}
+                            </div>
+                            <div class="news__posts__post__bottom-length">{{post.comments.all|length}}
+                            </div>
                             <div class="news__posts__post__bottom-next"><button
                                     onClick="onClick('{% url 'post_detail' post.slug %}')">Przejdź</button></div>
                         </div>
@@ -121,10 +129,9 @@
             </div>
             <div class="news__bonusinformation">
                 <div class="news__bonusinformation__box">
-                    {% comment %} <div class="news__bonusinformation__title">Dodatkowe Informacje</div> {% endcomment %}
                     <div class="news__bonusinformation__events"
-                        style="background-image: url('https://image-cdn.essentiallysports.com/wp-content/uploads/20200606005342/shakur-stevenson.jpg');background-repeat: no-repeat;background-size: cover; background-position:center center;">
-                        dsadasdsa</div>
+                        style="background-image: url({{ posters.0.image.url }});background-repeat: no-repeat;background-position:center center;background-size: 100% 100%;">
+                    </div>
                     <div class="news__bonusinformation__title">Tagi</div>
 
                     <div class="news__bonusinformation__tags">
@@ -136,15 +143,16 @@
                         {% endfor %}
                     </div>
                     <div class="news__bonusinformation__events"
-                        style="background-image: url('https://image-cdn.essentiallysports.com/wp-content/uploads/20200606005342/shakur-stevenson.jpg');background-repeat: no-repeat;background-size: cover; background-position:center center;">
-                        dsadasdsa</div>
-                    <div class="news__bonusinformation__title">Nasi Dziennikarze</div>
+                        style="background-image: url({{ posters.1.image.url }});background-repeat: no-repeat; background-position:center center; background-size: 100% 100%;">
+                    </div>
+                    <div class="news__bonusinformation__title">Nasi Dziennikarze
+                    </div>
                     <div class="news__bonusinformation__journalists">
                         {% for editor in editors %}
                         <div class="news__bonusinformation__journalists__user"
                             onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
                             <div class="news__bonusinformation__journalists__user__image">
-                                <img src={% static editor.avatar.url %} />
+                                <img src={{ editor.avatar.url }} />
                             </div>
                             <div class="news__bonusinformation__journalists__meta">
                                 <div class="news__bonusinformation__journalists__user__name">
@@ -159,7 +167,6 @@
 
                         {% endfor %}
                     </div>
-                    {% comment %} {% render_ads_zone 'zone_name' %} {% endcomment %}
                 </div>
             </div>
         </div>

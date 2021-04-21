@@ -1,101 +1,8 @@
-// @mixin google-font($family) {
-//     @import url("http://fonts.googleapis.com/css?family=#{$family}");
-//   }
-// @include google-font("Droid Sans");
-// @include google-font("Abril Fatface");
-// @include google-font("Cabin");
-// @include google-font("Calistoga");
-// .navbar{
-//     display: flex;
-//     overflow:hidden;
-//     width: 100%;
-//     justify-content: center;
-//     position:sticky;
-//     top:0%;
-//     z-index: 3;
-    
-//     &__main{
-//         &__icon{
-            
-//             width: 50%;
-//         }
-//     }
-//     &__options{
-        
-//         background-color: #778da9;
-//         color: white;
-//         width: 100%;
-//         display:flex;
-//         justify-content: space-between;
-//         font-size: 20px;
-//         &__left{
-//             padding-left: 1rem;
-//             display: flex;
-//             align-items: center;
-//             justify-content: center;
-//             white-space: nowrap;
-//             &-options{
-//                 margin-left:1rem;
-//                 display: flex;
-//                 height:100%;
-//                 align-items: center;
-//             }
-//             &-option{
-//                 padding: 1rem;
-//                 height: 100%;
-//                 display: flex;
-//                 align-items: center;
-//                 font-family: 'Cabin';
-                
-//             }
-//             &-option:hover{
-//                 background-color:#415a77;
-//                 cursor: pointer;
-                
-//             }
-//         }
-//         &__right{
-//             padding-right: 1rem;
-//             display: flex;
-//             align-items: center;
-//             justify-content: center;
-//             white-space: nowrap;
-//             &-login{
-//                 padding: 1rem;
-//             }
-//             &-register{
-//                 padding: 1rem;
-//             }
-//         }
-        
-//     }
-//     &__options::before{
-//         border-radius: 0 0 50% 50%;
-//     }
-// }
-// .nav{
-//     display: flex;
-//     flex-direction: column;
-//     // display: inline-block;
-//     width: 70%;
-//     // height: 200px;
-//     margin: 0 auto;
-// }
-// a{
-//     color: white
-// }
-// body{
-//     position: relative;
-// }
-// $breakpoints:(
-//   'phone': 360px,
-//   'tablet': 768px,
-//   'desktop':1366px,
-//   'LGdesktop': 1920px
-// )!default;
-
 @mixin breakpoint($point){
-  @if $point == mobile{
+  @if $point == smallmobile{
+    @media screen and(max-width:500px){@content;}
+  }
+  @else if $point == mobile{
     @media screen and(max-width:600px){@content;}
   }
   @else if $point == laptop{
@@ -107,9 +14,9 @@
   @else if $point == LGdesktop{
     @media screen and(max-width:1800px){@content;}
   }
-
 }
 @import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
+
 .navbar{
     display: flex;
     color: white;
@@ -117,19 +24,42 @@
     list-style: none;
     padding-top: 2rem;
     position: sticky;
+    
     @include breakpoint(laptop){
+      display:flex;
+    }
+    @include breakpoint(smallmobile){
       display:none;
+    }
+    &__mobile{
+      height:50px;
+      display:none;
+      justify-content: flex-end;
+      overflow: hidden;
+      @include breakpoint(laptop){
+        display:flex;
+      }
+      
+      &-icon{
+        display:flex;
+        justify-content: end;
+        height: 180%;
+        padding:1rem;
+      }
+      &-icon:hover{
+        cursor: pointer;
+      }
     }
     &__right{
         font-family: 'Rochester';
         font-style: normal;
         font-weight: normal;
-        font-size: 48px;
+        font-size: 30px;
         line-height: 62px;
         color: #FFFFFF;
         white-space: nowrap;
         @include breakpoint(desktop){
-          font-size:28px;
+          font-size:20px;
         }
         @include breakpoint(laptop){
           display:none;
@@ -143,11 +73,11 @@
         font-family: 'Rochester';
         font-style: normal;
         font-weight: normal;
-        font-size: 48px;
+        font-size: 30px;
         line-height: 62px;
         color: #FFFFFF;
         @include breakpoint(desktop){
-          font-size:30px;
+          font-size:20px;
         }
         @include breakpoint(laptop){
           display:none;
@@ -156,6 +86,51 @@
     }
     &__left:hover{
         cursor:pointer
+    }
+    &__mobile{
+      &__panel{
+        
+        top:60px;
+        // transform: translateX(100%);
+        transition: 1s transform ease-in-out;
+        z-index: 100;
+        li{
+          color:black !important;
+          background: #1C1C1C;
+        }
+          padding: 0;
+          list-style-type: none;
+        display: flex;
+        position: absolute;
+        width:100%;
+        height:100%;
+        flex-direction: column;
+        align-items: flex-end;
+        box-sizing: border-box;
+        display:none;
+        &-elements{
+         display:flex;
+         flex-direction: column;
+         box-sizing: border-box;
+         position: absolute;
+         right:0;
+         height:100%;
+         width: 100%; 
+         background: #1C1C1C;
+        }
+        &__element{
+          color:black;
+          a{
+            display:flex;
+            padding:10px;
+            box-sizing: border-box;
+            text-decoration: none;
+            align-items: center;
+            font-size: 3rem;
+
+          }
+        }
+      }
     }
 }
   a.navbar__item {
@@ -195,4 +170,27 @@
 li .navbar__left:hover{
     cursor:pointer;
 }
+// .navbar__mobile-icon:hover{
+//   cursor:pointer;
+// }
+// .navbar__mobile-icon:focus ~ .navbar__mobile__panel, .navbar__mobile__panel:hover{
+//   transform: translateX(0);
+// }
 
+a.navbar__mobile-item:hover{
+  color:#F94C4C
+
+}
+
+.text-warning-anim {
+  opacity: 1;
+  transform: translateX(100%);
+  transition: opacity 0.2s ease-out, transform 1s;
+  visibility: visible !important;
+}
+.text-warning-anim2 {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 0.2s ease-out, transform 1s;
+  visibility: visible !important;
+}

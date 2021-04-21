@@ -1,3 +1,24 @@
+@mixin breakpoint($point){
+    @if $point == mobile{
+      @media screen and(max-width:500px){@content;}
+    }
+    @if $point == mobilebig{
+        @media screen and(max-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen and(max-width:900px){@content;}
+    }
+    @else if $point == desktop{
+      @media screen and(max-width:1400px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and(max-width:1800px){@content;}
+    }
+    @else if $point == desktopsmall{
+        @media screen and(max-width:1400px){@content;}
+    }
+  
+  }
 
 .search{
     width:100%;
@@ -5,27 +26,133 @@
     justify-content: center;
     position:relative;
     padding-top: 3rem;
-    padding-left: 2rem;
+    padding-left: 4rem;
     padding-right:2rem;
+    flex-wrap: wrap;
+    // min-width: 600px;
+    @include breakpoint(mobilebig){
+        padding-left: 0.2rem;
+        padding-right:0.2rem;
+        margin-top: 0.2rem;
+      } 
+    
     &__posts{
         width:60%;
         margin-top: 5rem;
+        @include breakpoint(desktopsmall){
+            width: 100%;
+        }
+        @include breakpoint(desktop){
+            width: 100%;
+        }
+        @include breakpoint(mobilebig){
+            padding-top: 0.3rem;
+            padding-left: 0.3rem;
+            padding-right:0.3rem;
+        }
+        @include breakpoint(mobile){
+            padding-top: 0.3rem;
+            padding-left: 0.3rem;
+            padding-right:0.3rem;
+        }
         &-title{
             display:flex;
             justify-content: center;
             font-size: 22px;
+        }
+        &__posters{
+            display:flex;
+            margin-top:1rem;
+            width:100%;
+            flex-wrap:wrap;
+            justify-content: center;
+            &__image{
+                display:flex;
+                justify-content: center;
+                width: 50%;
+                height:400px;
+                min-width: 300px;
+                margin-bottom:2rem;
+                image{
+                    
+                    width: 300px;
+                    height:400px;
+                }
+                img{
+                    width: 300px;
+                    height: 400px;
+                }
+            }
         }
         &__post{
             display:flex;
             margin-top:1rem;
             border: 2px solid white;
             background-color: #1C1C1C;
+            // min-width: 600px;
+            &__bottom{
+                &-next{
+                    display:flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    button{
+                        padding: 0.5rem 1rem 0.5rem 1rem;
+                        margin-right:2rem;
+                        color:white;
+                        background-color: #F94C4C;
+                        font-size:17px;
+                        font-weight: 600;
+                        @include breakpoint(mobilebig){
+                        font-size:13px;
+                          }
+                          @include breakpoint(mobile){
+                            font-size:8px;
+                            padding: 0.1rem 0.2rem 0.1rem 0.2rem;
+                              }
+                          
+                        
+                        // border: none
+                    }
+                    button:hover{
+                        cursor:pointer;
+                        box-shadow:
+                        1px 1px white,
+                        2px 2px white,
+                        2px 2px white;
+                        
+                        transform: translateX(-3px);
+                        // font-size:20px;
+                        @include breakpoint(mobilebig){
+                            font-size:10px;
+                          }
+                        @include breakpoint(mobilebig){
+                            font-size:7px;
+                          }
+                    }
+                }
+                &-icon{
+                    display: flex;
+                    align-items: center;
+                    .fa-2x{
+                        font-size: 1em;
+                    }
+                    
+                }
+                &-length{
+                    display: flex;
+                    align-items: center;
+                    margin-left:0.5rem;
+                    margin-right:1rem;
+                    font-weight: 700;
+                }
+                
+            }
             &__title{
                 font-size: 2rem;
             }
             &__comments{
                 display:flex;
-                justify-content: end;
+                justify-content: flex-end;
                 align-items: center;
                 font-family: 'Roboto';
                 span{
@@ -41,12 +168,21 @@
                 flex-grow: 1;
                 padding-top: 1rem;
                 font-size: 1.2rem;
+                text-overflow: ellipsis;
             }
             &__meta{
                 display: flex;
                 justify-content: space-between;
                 font-size:1rem;
                 padding-right: 2rem;
+                @include breakpoint(mobile){
+                    display:none;
+
+                }
+                @include breakpoint(mobilebig){
+                    display:none;
+                    
+                }
             }
 
             &__information{

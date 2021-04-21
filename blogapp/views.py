@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Post,Tag,EditorProfile,Comment
+from .models import Post,Tag,EditorProfile,Comment,Poster,MainNews
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CreateUserForm,CommentForm
@@ -15,14 +15,31 @@ from hitcount.views import HitCountDetailView
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.http import HttpResponse, HttpResponseRedirect
-def blog(request):
-    posts = Post.objects.all()
+from django.http import JsonResponse
+from django.core import serializers
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+def allnews(request):
+    posts=Post.objects.all().order_by('-publish_on')
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj}
+    posters = Poster.objects.all()
+
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters}
+    return render(request,'blogapp/news.html',context)
+def blog(request):
+    posts = Post.objects.all().order_by('-publish_on')
+    posters = Poster.objects.all()
+    tags = Tag.objects.all()
+    editors = EditorProfile.objects.all()
+    mainnews = MainNews.objects.all()
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters,'mainnews':mainnews}
     return render(request,'blogapp/dashboard.html',context)
 
 def main(request):
@@ -35,7 +52,8 @@ def post(request):
     posts = Post.objects.all()
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
-    context = {'posts': posts, 'tags':tags, 'editors': editors}
+    mainnews = MainNews.objects.all()
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'mainnews':mainnews}
     return render(request,'blogapp/dashboard.html',context)
 def loginPage(request):
     if request.method == 'POST':
@@ -61,9 +79,7 @@ def update_radio(request):
         author = request.POST.get('author',None)
         user = User.objects.get(username=author)
         if(inp == "radio-two"):
-            # data = Post.objects.filter(author=author)
-            print("Post.objects.filter(author=author)")
-            data = Post.objects.filter(author=user)
+            data = Post.objects.all().order_by()
         elif(inp == "radio-three"):
             data = Post.objects.all().order_by('-publish_on')
         else:
@@ -96,10 +112,57 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 # @csrf_exempt
-# def radio(request):
-#     print("radio")
+def radio_posts(request):
+    identity = request.GET.get('id')
+    author = request.GET.get('author')
+    if identity == "radio-one":
+        user= User.objects.get(username=author)
+        posts = Post.objects.all().order_by('-clicks')
+        threeposts = posts[0:3]
+        result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
+        
+    if identity == "radio-two":
+        user= User.objects.get(username=author)
+        posts = Post.objects.filter(author=user).order_by('-publish_on')
+        threeposts = posts[0:3]
+        result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
+    if identity == "radio-three":
+        posts = Post.objects.all().order_by('-publish_on')[0:3]
+        threeposts = posts[0:3]
+        result=serializers.serialize('json',threeposts,fields=('title','image','slug'))
+        y = json.loads(result)
+        dictionary = {}
+        for el in y:
+            post = Post.objects.get(slug=el['fields']['slug'])
+            url = post.image.url
+            absoluteurl = {"image": url}
+            el['fields'].update(absoluteurl)
+        endpoint = json.dumps(y)
+        return JsonResponse(endpoint,safe=False)
+    else:
+        return None
 
-#     return render(request,'blogapp/registerok.html')
+    
+
+
 @csrf_exempt
 def post_detail(request,slug):
     post = Post.objects.get(slug=slug)
@@ -131,31 +194,17 @@ def post_detail(request,slug):
                 radioposts = EditorProfile.objects.all()
             else:
                 radioposts = radioposts=Post.objects.all()
-                print(radioposts)
-  
-        
-    
+            print(radioposts)
     comments = post.comments.filter()
     posts = Post.objects.all()
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
     context = {'post': post,'tags':tags,'editors':editors,'posts':posts,'comments':comments,'radioposts':radioposts}
-    return render(request,'blogapp/post_detail.html',context)
+    return render(request,'blogapp/radio2.html',context)
 @csrf_exempt
-
-# class PostDetailView(HitCountDetailView):
-#     model = Post       
-#     count_hit = True    
-#     template = 'blogapp/post_detail.html'
-#     def get(self, request, *args, **kwargs):
-#         self.object = self.get_object()
-#         context = self.get_context_data(object=self.object)
-#         print(context)
-#         print(self.object)
-#         return context
-
 def tag_detail(request,tag):
     tags = Tag.objects.get(slug=tag)
+    posters = Poster.objects.all().order_by('-date')
     tag_name = Tag.objects.get(slug=tag)
     posts1 = Post.objects.filter(tags=tags.id).order_by('-publish_on')
     tags = Tag.objects.all()
@@ -163,16 +212,27 @@ def tag_detail(request,tag):
     paginator = Paginator(posts1, 8)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'tag_name':tag_name}
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'tag_name':tag_name,'posters' : posters}
     return render(request,'blogapp/tags.html',context)
 
 def journalist_detail(request,journalist_slug):
     journalist = EditorProfile.objects.get(slug=journalist_slug)
+    posters = Poster.objects.all().order_by('-date')
     posts1 = Post.objects.filter(author=journalist.user)
     paginator = Paginator(posts1, 8)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
     tags = Tag.objects.all()
     editors = EditorProfile.objects.all()
-    context = {'posts': posts, 'tags':tags, 'editors': editors,'journalist':journalist}
+    context = {'posts': posts, 'tags':tags, 'editors': editors,'journalist':journalist,'posters' : posters}
     return render(request,'blogapp/journalist.html',context)
+
+def schedule(request):
+    posters = Poster.objects.all().order_by('-date')
+    editors = EditorProfile.objects.all()
+    tags = Tag.objects.all()
+    paginator = Paginator(posters, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'posters' : posters, 'tags':tags, 'editors': editors ,'page_obj': page_obj}
+    return render(request,'blogapp/schedule.html',context)

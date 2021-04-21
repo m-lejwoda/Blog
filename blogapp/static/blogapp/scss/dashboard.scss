@@ -1,358 +1,35 @@
-// @mixin google-font($family) {
-//     @import url("http://fonts.googleapis.com/css?family=#{$family}");
-//   }
-// @include google-font("Droid Sans");
-// @include google-font("Abril Fatface");
-// @include google-font("Cabin");
-// @include google-font("Calistoga");
-// .dashboard{
-//     display: flex;
-//     width: 70%;
-//     flex-wrap:wrap;
-//     margin: 0 auto;
-//     background-color: #1b263b;
-//     min-height: 100vh;
-//     color: white;
-//     &__mainnews{
-//         display: flex;
-//         flex-wrap: wrap;
-//         height: 600px;
-//         width:100%;
-//         &__rest{
-//             width:50%;
-//         }
-//         &__first{
-//             width:50%;
-//             background-color:black;
-//             z-index: 1;
-//             position: relative;
-//             &__title{
-//                 display: flex;
-//                 justify-content: center;
-//                 font-size:3rem;
-//                 color:white;
-//                 font-family: 'Abril Fatface';
-//             }
-//             &__description{
-//                 display: flex;
-//                 justify-content: center;
-//                 color: white;
-//             }
-//             &__tags{
-//                 color:white;
-//                 display: flex;
-//                 justify-content: center;
-//                 padding: 2px 5px 7px 10px;
-                
-//                 &__tag{
-//                     // border: 1px solid black;
-//                     padding: 2px 5px 2px 5px;
-//                     background-color: rgba(0, 0, 0, 0.7);
-//                     font-family: 'Roboto', sans-serif;
-//                     line-height: 13px;
-//                     font-weight: 500;
-//                     text-transform: uppercase;
-//                     transition: background-color 0.3s ease;
-//                     z-index:2;
-//                 }
-//                 &__tag:hover{
-//                     cursor: pointer;
-//                     color: white;
-//                     background-color:rgb(100, 157, 223)
-//                 }
-//             }
-//             &__meta{
-//                 position: absolute;
-//                 bottom: 0;
-//                 width: 100%;
-//                 margin-bottom:2rem;
-//             }
-//         }
-//         &__first:hover{
-//             cursor: pointer;
-//             opacity: 0.7;
-//         }
-//         &__second{
-//             width:100%;
-//             height: 50%;
-//             position: relative;
-//             background-color:black;
-//             z-index: 1;
-//             &__title{
-//                 display: flex;
-//                 justify-content: center;
-//                 font-size:3rem;
-//                 color:white;
-//                 font-family: 'Abril Fatface';
-//             }
-//             &__description{
-//                 display: flex;
-//                 justify-content: center;
-//                 color: white;
-//             }
-//             &__tags{
-//                 color:white;
-//                 display: flex;
-//                 justify-content: center;
-//                 padding: 2px 5px 7px 10px;
-                
-//                 &__tag{
-//                     // border: 1px solid black;
-//                     padding: 2px 5px 2px 5px;
-//                     background-color: rgba(0, 0, 0, 0.7);
-//                     font-family: 'Roboto', sans-serif;
-//                     line-height: 18px;
-//                     font-weight: 500;
-//                     text-transform: uppercase;
-//                     transition: background-color 0.3s ease;
-//                 }
-//                 &__tag:hover{
-//                     cursor: pointer;
-//                     color: white;
-//                     background-color:rgb(100, 157, 223)
-//                 }
-//             }
-//             &__meta{
-//                 position: absolute;
-//                 bottom: 0;
-//                 width: 100%;
-//                 margin-bottom:2rem;
-//             }
-//         }
-//         &__second:hover{
-//             cursor: pointer;
-//             opacity: 0.7;
-//         }
-//         &__third{
-//             width: 100%;
-//             height: 50%;
-//             position: relative;
-//             background-color:black;
-//             z-index: 1;
-//             &__title{
-//                 display: flex;
-//                 justify-content: center;
-//                 font-size:3rem;
-//                 color:white;
-//                 font-family: 'Abril Fatface';
-//             }
-//             &__description{
-//                 display: flex;
-//                 justify-content: center;
-//                 color: white;
-//             }
-//             &__tags{
-//                 color:white;
-//                 display: flex;
-//                 justify-content: center;
-//                 padding: 2px 5px 7px 10px;
-//                 align-items: end;
-                
-//                 &__tag{
-//                     // border: 1px solid black;
-//                     padding: 2px 5px 2px 5px;
-//                     background-color: rgba(0, 0, 0, 0.7);
-//                     font-family: 'Roboto', sans-serif;
-//                     line-height: 13px;
-//                     font-weight: 500;
-//                     text-transform: uppercase;
-//                     transition: background-color 0.3s ease;
-//                 }
-//                 &__tag:hover{
-//                     cursor: pointer;
-//                     color: white;
-//                     background-color:rgb(100, 157, 223)
-//                 }
-//             }
-//             &__meta{
-//                 position: absolute;
-//                 bottom: 0;
-//                 width: 100%;
-//                 margin-bottom:2rem;
-//             }
-//         }
-//         &__third:hover{
-//             cursor: pointer;
-//             opacity: 0.7;
-//         }
-//     }
-// }
-// .news{
-//     display:flex;
-//     background-color: #1b263b;
-//     flex-direction: column;
-//     width: 60%;
-//     &__lastnews{
-//         width:60%;
-//         min-width: 700px;
-//         &__firstpost{
-//             margin-bottom: 2rem;
-//             position: relative;
-//         }
-//         &__firstpost{
-            
-//             &__meta{
-//                 bottom:0;
-//                 color:white;
-//                 font-size:1em;
-//                 // background-color:red;
-//                 position: absolute;
-//                 // width: 100%;
-//                 display: flex;
-//                 flex-wrap: wrap;
-//                 // padding: 1rem;
-//                 padding:1rem;
-//             }
-//             &__shortdescription{
-//                 width:100%;
-//                 display: none;
-//             }
-//             &__title{
-//                 width: 100%;
-//                 display: flex;
-//                 justify-content: center;
-//                 font-size:3rem;
-//                 color:white;
-//                 font-family: 'Abril Fatface';
-//             }
-//             &__author{
-//                 width:50%;
-//                 color: grey;
-//             }
-//             &__comments{
-//                 width: 50%;
-//                 display: flex;
-//                 justify-content: flex-end;
-//             }
-            
-//         }
-//         &__post{
-//             color:white;
-//             // padding:1rem;
-//             display:flex;
-//             flex-wrap:wrap;
-//             margin-bottom:2rem;
-//             width:100%;
-//             background-color: #415a77;
-//             &__comments{
-//                 width: 100%;
-//                 display: flex;
-//                 justify-content: space-around;
-//                 align-items: end;
-//                 padding-left: 2rem;
-//                 padding-right: 2rem;
-//             }
-//             &__image{
-//                 display:flex;
-//                 height:100%;
-//                 width:40%;
-//                 flex-wrap: wrap;
-//                 img{
-//                     width:280px;
-//                     height:150px;
-//                 } 
-//             }
-//             &__meta{
-//                 font-size:14px;
-//                 display: flex;
-//                 justify-content: space-between;
-//                 width: 100%;
-//                 padding-left: 2rem;
-//                 padding-right: 2rem;
-//             }
-//             &__title{
-//                 width:100%;
-//                 font-size: 20px;
-//                 font-family: 'Abril Fatface';
-//                 font-weight: 900;
-                
-//             }
-//             &__information{
-//                 height:150px;
-//                 width:60%;
-//                 display: flex;
-//                 flex-wrap: wrap;
-//             }
-//             &__shortdescription{
-//                 flex-grow:1;
-//                 padding-left: 2rem;
-//                 padding-right: 2rem;
-//             }
-//         }
-//     }
-//     &__bonusinformation{
-//         width:40%;
-//         min-width: 460px;
-//         &__tags{
-//             margin-bottom:2rem;
-//             background-color:  black;
-//             display:flex;
-//             flex-wrap:wrap;
-//             justify-content: center;
-//             background-color: #415a77;
-//             &__tag{
-//                 background-color:grey;
-//                 padding: 0.2em 1em 0.2em 1em;
-//                 font-size:1.2em;
-//                 border: solid 1px white;
-//                 margin-right:1em;
-//                 margin-bottom:0.5em;
-//                 margin-top:0.5em;
-//             }
-//             &__tag:hover{
-//                 cursor:pointer;
-//             }
-//         }
-//         &__journalists{
-//             background-color: #415a77;
-//             &__user{
-                
-//                 display:flex;
-//                 font-family: 'Abril Fatface', sans-serif;
-//                 align-items: center;
-//                 flex-wrap:wrap;
-//                 &__name{
-//                     display:flex;
-//                     width:100%;
-//                 }
-//             img{
-//                 width:100px;
-//                 height:70px;
-//             }
-//         }
-//         }
-
-//     }
-// }
-// body{
-//     margin: 0;
-// }
-// .pagination{
-//     display: flex;
-//     justify-content: center;
-//     color: white;
-// }
 @mixin breakpoint($point){
     @if $point == mobile{
-      @media screen and(max-width:500px){@content;}
+      @media screen  and (max-width:500px){@content;}
     }
-    @if $point == mobilebig{
-        @media screen and(max-width:700px){@content;}
+    @else if $point == mobilebig{
+        @media screen  and (max-width:700px){@content;}
     }
     @else if $point == laptop{
-      @media screen and(max-width:900px){@content;}
+      @media screen  and (max-width:900px){@content;}
     }
     @else if $point == desktop{
-      @media screen and(max-width:1400px){@content;}
-    }
-    @else if $point == LGdesktop{
-      @media screen and(max-width:1800px){@content;}
+      @media screen  and (max-width:1200px){@content;}
     }
     @else if $point == desktopsmall{
-        @media screen and(max-width:1200px){@content;}
+        @media screen and(max-width:1400px){@content;}
     }
+    @else if $point == LGdesktop{
+      @media screen and (min-width:1401px){@content;}
+    }
+    
   
   }
+@keyframes zoom {
+    0% {
+      background-size: 100% 100%;
+    }
+    100% {
+      background-size: 110% 110%;
+    }
+    
+  }
+
 *{
     margin: 0;
     padding: 0;
@@ -362,13 +39,21 @@
 }
 body{
     background-color: #1C1C1C;
-    // position: relative;
-    
 }
 
 .freewords{
     height:500px;
     position: relative;
+    @include breakpoint(mobilebig){
+        height: 250px;
+    }
+    @include breakpoint(mobile){
+        height: 250px;
+    }
+    @include breakpoint(laptop){
+        height: 250px;
+        
+    }
     &-title{
         position: absolute;
         top:10%;
@@ -378,9 +63,13 @@ body{
         font-size: 64px;
         line-height: 78px;
         left:5%;
+        @include breakpoint(mobile){
+            display:none;
+        }
         @include breakpoint(laptop){
             display:none;
-          }
+        }
+        
     }
     &-box{
         position: absolute;
@@ -391,9 +80,25 @@ body{
         color: rgba(255, 255, 255, 0.3);
         right: 20%;
         top: 0%;
+        white-space: nowrap;
         @include breakpoint(laptop){
             right: 10%;
+            font-size: 100px;
+            
           }
+          @include breakpoint(mobile){
+            left:3%;
+            top:0%;
+            font-size: 100px;
+        }
+        @include breakpoint(mobilebig){
+            left:3%;
+            top:0%;
+        }
+        @include breakpoint(laptop){
+            left:3%;
+            top:0%;
+        }
         
     }
     &-mma{
@@ -405,9 +110,18 @@ body{
         color: rgba(255, 255, 255, 0.3);
         left:3%;
         top:50%;
+        white-space: nowrap;
         @include breakpoint(laptop){
+            left: 56%;
+            top: 10%;
             font-size: 100px;
-          }
+        }
+        @include breakpoint(mobile){
+            left:3%;
+            top:30%;
+            font-size:100px;
+        }
+        
     }
     &-muaythai{
         position: absolute;
@@ -417,21 +131,65 @@ body{
         font-style: normal;
         font-weight: normal;
         font-size: 96px;
+        white-space: nowrap;
         color: rgba(255, 255, 255, 0.3);
+        @include breakpoint(laptop){
+            left: 3%;
+            top: 45%;
+            font-size: 70px;
+        }
+        @include breakpoint(mobilebig){
+            left:3%;
+            top:50%;
+            font-size:80px;
+            
+        }
+        @include breakpoint(mobile){
+            left:3%;
+            top:70%;
+            font-size:45px;
+            
+        } 
     }
     &-kickboxing{
         position: absolute;
         top:60%;
-        right: -5%;
+        right: -8%;
         font-family: 'Pridi';
         font-style: normal;
         font-weight: normal;
+        white-space: nowrap;
         font-size: 80px;
         color: rgba(255, 255, 255, 0.3);
         transform: rotate(90.05deg); 
+        @include breakpoint(desktop){
+            right:-15%;
+            
+        }
         @include breakpoint(laptop){
-            right: -25%;
-          }  
+            left: 40%;
+            top: 80%;
+            right: 0%;
+            transform: rotate(0deg);
+            font-size: 50px;
+            
+        }
+        @include breakpoint(mobilebig){
+            left:20%;
+            top:80%;
+            right: 0%;
+            transform: rotate(0deg); 
+            font-size:70px;
+            
+        }
+          @include breakpoint(mobile){
+            left:3%;
+            top:90%;
+            right: 0%;
+            transform: rotate(0deg); 
+            font-size:37px;
+        }
+        
     }
 }
 .dashboard{
@@ -440,54 +198,104 @@ body{
     margin-top:2rem;
     padding-left: 2rem;
     padding-right: 2rem;
-    @include breakpoint(bigmobile){
+    @include breakpoint(mobile){
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    @include breakpoint(mobilebig){
         padding-left: 0.5rem;
         padding-right: 0.5rem;
       }
     &__news{
         padding-top:10rem;
+        @include breakpoint(mobile){
+            padding-top:6rem;
+          }
         width: 100%;
         height:700px;
         display:flex;
-        
-        &__firstcolumn{
+        @include breakpoint(mobile){
+            flex-direction: column;
+        }
+        @include breakpoint(mobilebig){
+            flex-direction: column;
+        }
+        &__firstcolumn-container{
             width: 60%;
             height: 100%;
-            max-width: 60%;
+            display:block;
+            overflow: hidden;
+            background-size: 100% 100%;
+            @include breakpoint(mobile){
+                width: 100%;
+                height:33%;
+            }
+            @include breakpoint(mobilebig){
+                width: 100%;
+                height:33%;
+            }
+        }
+        &__firstcolumn{
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
             background-color: #1C1C1C;
             border: 2px solid white;
             position: relative;
             color:red;
-            transform: scale(1);
+            background-size: 100% 100%;
             &__meta{
                 position: absolute;
                 bottom:0;
                 height: 40%;
                 width:100%;
-                background-color: rgba(255, 255, 255, 0.7);
                 display:flex;
                 justify-content: center;
                 align-items: center;
-                color:black;
+                color:white;
+                font-weight: 600;
                 font-size:40px;
                 &-title{
-                    color:black;
+                    color:white;
                     font-size:40px;
+                    @include breakpoint(mobile){
+                        font-size: 25px;
+                        text-align: center;
+                    }
+                    @include breakpoint(mobilebig){
+                        font-size: 25px;
+                        text-align: center;
+                    }
                 }
             }
         }
+        
         &__firstcolumn:hover{
-            // cursor:pointer;
-            transform: scale(1.1);
+            cursor:pointer;
+            animation: zoom 2s infinite;
+            filter: brightness(80%);
         }
+        
         &__secondcolumn{
             width:40%;
             background-color: #1C1C1C;
+            @include breakpoint(mobile){
+                width:100%;
+                height:66%;
+              }
+            @include breakpoint(mobilebig){
+                width:100%;
+                height:66%;
+              }
             :hover{
                 cursor: pointer;
             }
-            &__first{
+            &__first-container{
                 height: 50%;
+                overflow: hidden;
+            }
+            &__first{
+                height: 100%;
                 border: 2px solid white;
                 position: relative;
                 &__meta{
@@ -495,23 +303,38 @@ body{
                     bottom:0;
                     height: 40%;
                     width:100%;
-                    background-color: rgba(255, 255, 255, 0.7);
                     display:flex;
                     justify-content: center;
                     align-items: center;
-                    color:black;
+                    color:white;
+                    font-weight: 600;
                     font-size:30px;
                     &-title{
-                        color:black;
+                        color:white;
                         font-size:30px;
+                        @include breakpoint(mobile){
+                            font-size: 25px;
+                            text-align: center;
+                          }
+                          @include breakpoint(mobilebig){
+                            font-size: 25px;
+                            text-align: center;
+                          }
                     }
                 }
             }
             &__first:hover{
                 cursor: pointer;
+                animation: zoom 2s infinite;
+                filter: brightness(80%);
+            }
+            
+            &__second-container{
+                height: 50%;
+                overflow: hidden;
             }
             &__second{
-                height: 50%;
+                height: 100%;
                 border: 2px solid white;
                 position: relative;
                 &__meta{
@@ -519,20 +342,27 @@ body{
                     bottom:0;
                     height: 40%;
                     width:100%;
-                    background-color: rgba(255, 255, 255, 0.7);
                     display:flex;
                     justify-content: center;
                     align-items: center;
-                    color:black;
+                    color:white;
+                    font-weight: 600;
                     font-size:30px;
+                    
                     &-title{
-                        color:black;
+                        color:white;
                         font-size:30px;
+                        @include breakpoint(mobile){
+                            font-size: 25px;
+                            text-align: center;
+                          }
                     }
                 }
             }
             &__second:hover{
                 cursor: pointer;
+                animation: zoom 2s infinite;
+                filter: brightness(80%);
             }
         }
     }
@@ -540,18 +370,90 @@ body{
         position: absolute;
         background-color: #F94C4C;
         height: 100%;
-        width: 30%;
         left: 20%;
         z-index: -1;
+        width: 30%;
+        @include breakpoint(desktopsmall){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
+        @include breakpoint(desktop){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
+        @include breakpoint(laptop){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
+        @include breakpoint(mobilebig){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
+        @include breakpoint(mobile){
+            display:flex;
+            width:100%;
+            justify-content: center;
+            left:0;
+            background-color:transparent;
+          }
+          
+
+          
+        
+          
+        
+          
+        
         &-news{
             
             font-size: 40px;
+            @include breakpoint(mobile){
+                font-size: 25px;
+                
+              }
             
         }
         &__box{
             display:flex;
             padding-top:3rem;
             justify-content: center;
+            @include breakpoint(desktopsmall){
+                width:50%;
+                background-color: #F94C4C;
+              }
+            @include breakpoint(desktop){
+                width:50%;
+                background-color: #F94C4C;
+            }
+            
+            @include breakpoint(laptop){
+                width:70%;
+                background-color: #F94C4C;
+            }
+            @include breakpoint(mobilebig){
+                width:70%;
+                background-color: #F94C4C;
+            }
+            @include breakpoint(mobile){
+                padding-top:2rem;
+                width:70%;
+                background-color: #F94C4C;
+    
+              }
+            
+            
 
         }
         
@@ -565,8 +467,6 @@ body{
     flex:1;
     &__bonusinformation{
         padding-top:5rem;
-        
-        
         &__events{
             width: 100%;
             margin: 0 auto;
@@ -592,11 +492,33 @@ body{
         width:40%;
         margin:0 auto;
         @include breakpoint(desktopsmall){
+            width:70%;
+        }
+        @include breakpoint(desktop){
+            width:70%;
+        }
+        @include breakpoint(laptop){
             width:100%;
         }
+        @include breakpoint(mobile){
+            width: 100%;
+        }
+        
         &__box{
             width:60%;
             margin: 0 auto;
+            @include breakpoint(mobile){
+                width: 100%;
+            }
+            @include breakpoint(mobilebig){
+                width: 100%;
+            }
+            @include breakpoint(desktopsmall){
+            width:100%;
+        }
+        @include breakpoint(laptop){
+            width:100%;
+        }
         }
         &__title{
             width: 100%;
@@ -608,7 +530,6 @@ body{
         }
         &__journalists{
             width:100%;
-            // border: 2px solid white;
             background-color: #1C1C1C;
             &__meta{
                 display:flex;
@@ -637,8 +558,8 @@ body{
                     width: 100px;
                     height:100px;
                     img{
-                        width:100%;
-                        height:100%;
+                        width: 100px;
+                        height: 100px;
                     }
                 }
             }
@@ -662,6 +583,10 @@ body{
                 font-size:17px;
                 font-weight: 700;
                 margin-bottom:1rem;
+                @include breakpoint(mobile){
+                    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+                    font-size:14px;
+                }
             }
             &-tag:hover{
                 cursor: pointer;
@@ -684,16 +609,43 @@ body{
             height:500px;
             margin-bottom:2rem;
             position: relative;
+            @include breakpoint(mobile){
+                height:300px;
+              }
+            &-container{
+                overflow: hidden;
+            }
             &__meta{
                 padding:1rem;
                 position:absolute;
-                height:30%;
-                background-color: rgba(255, 255, 255, 0.7);
-                color: black;
-                bottom: 0%;
-                width: 100%;
+                bottom: 10%;
                 display:flex;
-                flex-direction: column;
+                flex-direction: row;
+                color:white;
+                background-color:#F94C4C;
+                @include breakpoint(mobile){
+                    padding:0,5rem;
+                  }
+                &__comment{
+                    position: absolute;
+                    top:10%;
+                    right:0%;
+                    background-color:#F94C4C;
+                    margin-left:2rem;
+                    display:flex;
+                    flex-direction: row;
+                    i{
+                        padding-left: 0.5rem;
+                        font-size:1em;
+                    }
+                    &-length{
+                        display:flex;
+                        align-items: center;
+                        font-weight: 700;
+                        padding-left:1rem;
+                        padding-right: 1rem;
+                    }
+                }
                 &__data{
                     display:flex;
                     justify-content: space-between;
@@ -702,20 +654,33 @@ body{
                 }
                 &-title{
                     flex-grow:1;
-                    font-size:40px;
-                    color:black;
+                    font-size:25px;
+                    @include breakpoint(mobile){
+                        font-size: 18px;
+                      }
+                    
                 }
                 &__bottom{
                     display: flex;
                     justify-content: end;
+                    &-icon{
+                        display: flex;
+                        align-items: center;
+                        
+                    }
+                    &-length{
+                        display: flex;
+                        align-items: center;
+                        margin-left:1rem;
+                        margin-right:1rem;
+                    }
                     button{
                         padding: 0.5rem 1rem 0.5rem 1rem;
                         margin-right:2rem;
                         color:white;
-                        background-color: black;
+                        background-color: #F94C4C;
                         font-size:17px;
                         font-weight: 600;
-                        // border: none
                     }
                     button:hover{
                         cursor:pointer;
@@ -723,6 +688,10 @@ body{
                     }
                 }
             }
+        }
+        &__firstpost:hover{
+            cursor: pointer;
+            animation: zoom 2s infinite;
         }
         &__post{
             width:100%;
@@ -736,13 +705,19 @@ body{
             @include breakpoint(mobile){
                 height:125px;
               }
-            
+            &-image{
+                @include breakpoint(mobile){
+                    width:100px;
+                    height: 125px;
+                  }
+            }
             &__meta{
                 display: flex;
                 justify-content: space-between;
                 margin-right: 2rem;
                 @include breakpoint(mobile){
                     margin-right: 0.5rem;
+                    display:none;
                 }
             }
             &__bottom{
@@ -751,37 +726,66 @@ body{
                 flex-direction: row;
                 justify-content: flex-end;
                 margin-bottom: 1rem;
+                width: 100%;
+                &-next{
+                    display:flex;
+                    flex-direction: row;
+                    justify-content: end;
+                }
+                &-icon{
+                    display: flex;
+                    align-items: center;
+                    .fa-2x{
+                        font-size: 1em;
+                        @include breakpoint(mobile){
+                            font-size: 0.8em; 
+                        }
+                    }
+                    
+                }
+                &-length{
+                    display: flex;
+                    align-items: center;
+                    margin-left:0.5rem;
+                    margin-right:1rem;
+                    font-weight: 700;
+                    @include breakpoint(mobile){
+                        font-size: 0.8rem; 
+                    }
+                }
                 button{
                     padding: 0.5rem 1rem 0.5rem 1rem;
                     margin-right:2rem;
-                    color:black;
-                    background-color: white;
+                    color:white;
+                    background-color: #F94C4C;
                     font-size:17px;
                     font-weight: 600;
                     @include breakpoint(mobilebig){
                     font-size:13px;
                       }
                       @include breakpoint(mobile){
-                        font-size:8px;
+                        font-size:10px;
                         padding: 0.1rem 0.2rem 0.1rem 0.2rem;
                           }
-                      
-                    
-                    // border: none
                 }
                 button:hover{
                     cursor:pointer;
-                    font-size:20px;
+                    box-shadow:
+                    1px 1px white,
+                    2px 2px white,
+                    2px 2px white;
+                    
+                    transform: translateX(-3px);
                     @include breakpoint(mobilebig){
                         font-size:10px;
                       }
                     @include breakpoint(mobilebig){
-                        font-size:7px;
+                        font-size:11px;
                       }
                 }
             }
             &-title{
-                font-size:40px;
+                font-size:25px;
                 text-transform: uppercase;
                 display:flex;
                 justify-content: center;
@@ -803,6 +807,7 @@ body{
             &-description{
                 flex-grow:1;
                 padding-top:1rem;
+                text-overflow: ellipsis;
                 @include breakpoint(mobilebig){
                     font-size:15px;
                   }
@@ -821,7 +826,7 @@ body{
                 @include breakpoint(mobile){
                     font-size:10px;
                     min-width: 100px;
-                    height: 120px;
+                    height: 121px;
                 }
                 img{
                     width:100%;
@@ -838,14 +843,53 @@ body{
         left: 20%;
         z-index: -1;
         background-color: #F94C4C;
+        @include breakpoint(desktopsmall){
+            width:60%;
+            // left:30%;
+        }
+        @include breakpoint(desktop){
+            width:40%;
+            left:30%;
+        }
+        @include breakpoint(mobilebig){
+            width:40%;
+            
+        }
+        @include breakpoint(mobile){
+            width: 40%;
+        }
+        
         &-news{
-            font-size: 30px;
+            font-size: 23px;
+            @include breakpoint(mobile){
+                white-space: nowrap;
+                display:flex;
+                justify-content: center;
+            }
+            @include breakpoint(mobilebig){
+                white-space: nowrap;
+                display:flex;
+                justify-content: center;
+            }
+            
+
             
         }
         &__box{
             display:flex;
             padding-top: 2rem;
             justify-content: center;
+        }
+    }
+    &__redbox2__v2{
+        position: absolute;
+        height: 100%;
+        width: 20%;
+        right: 10.5%;
+        z-index: -1;
+        background-color: #F94C4C;
+        @include breakpoint(desktopsmall){
+            display:none;
         }
     }
     &__redbox2{
@@ -860,12 +904,38 @@ body{
         }
         &-news{
             font-size: 30px;
+            text-align: center;
         }
         &__box{
             display:flex;
-            padding-top: 2rem;
+            padding-top: 1rem;
             justify-content: center;
+            
         }
     }
 
+}
+i{
+.fa-comment{
+    color:black !important;
+}
+}
+.pagination{
+    position: relative;
+    width: 100%;
+    @include breakpoint(mobile){
+        width:100%;
+        left: 0%;
+    }
+    @include breakpoint(mobilebig){
+        width:100%;
+        left: 0%;
+    }
+}
+span.current{
+    width: 100%;
+}
+span.step-links{
+    display: flex;
+    flex-direction: column;
 }

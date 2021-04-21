@@ -2,45 +2,43 @@
 {% load svg %}
 <link href="{% static 'blogapp/css/register.css' %}" rel="stylesheet">
 <div class="register">
-<div class="register__background">
-    {% comment %} {% svg 'rainbow' %} {% endcomment %}
-</div>
-
-<div class="register__form">
-<div class="register__form__vector">
-    {% svg 'login' %}
-</div>
-<div class="register__form__data">
-
-<form method="POST" action="">
-    {% csrf_token %} 
-    <div class="register__form__data-title">
-        <h1>Rejestracja</h1>
+    <div class="register__background">
     </div>
-    
-        <div class="register__form__data-label">Nazwa użytkownika</div>
-        <div class="register__form__data-input">{{form.username}}</div>
-        <div class="register__form__data-label">Adres Email</div>
-        <div class="register__form__data-input">{{form.email}}</div>
-        <div class="register__form__data-label">Hasło</div>
-        <div class="register__form__data-input">{{form.password1}}</div>
-        <div class="register__form__data-label">Powtórz hasło</div>
-        <div class="register__form__data-input">{{form.password2}}</div>
-        {% comment %} {{form.errors}} {% endcomment %}
-        {% if form.errors %}
-  
-    {% for key,value in form.errors.items %} 
-    <div class="error">{{ value }}</div>
-    {% endfor %}
-  
-{% endif %}
-  
-    <div class="register__form__data-submit">
-        <input type="submit" value="Stwórz użytkownika"></input>
+
+    <div class="register__form">
+        <div class="register__form__vector">
+            {% svg 'login' %}
+        </div>
+        <div class="register__form__data">
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="register__form__data-title">
+                    <h1>Rejestracja</h1>
+                </div>
+
+                <div class="register__form__data-label">Nazwa użytkownika</div>
+                <div class="register__form__data-input">{{form.username}}</div>
+                <div class="register__form__data-label">Adres Email</div>
+                <div class="register__form__data-input">{{form.email}}</div>
+                <div class="register__form__data-label">Hasło</div>
+                <div class="register__form__data-input">{{form.password1}}</div>
+                <div class="register__form__data-label">Powtórz hasło</div>
+                <div class="register__form__data-input">{{form.password2}}</div>
+                {% if form.errors %}
+
+                {% for key,value in form.errors.items %}
+                <div class="error">{{ value }}</div>
+                {% endfor %}
+
+                {% endif %}
+
+                <div class="register__form__data-submit">
+                    <input type="submit" value="Stwórz użytkownika"></input>
+                </div>
+
+            </form>
+        </div>
     </div>
-    
-</form>
-</div>
-</div>
 
 </div>

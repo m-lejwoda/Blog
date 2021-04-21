@@ -1,18 +1,19 @@
 {% extends 'blogapp/main.html' %}
 {% load static %}
+{% load ads_tags %}
+{% load fontawesome_5 %}
 <link href="{% static 'blogapp/css/tags.css' %}" rel="stylesheet">
 {% block content %}
 <div class="search">
     <div class=news__redbox>
         <div class="news__redbox__box">
-            {% comment %} <span class="news__redbox-news">Aktualne newsy</span> {% endcomment %}
             <div class="search__posts-title">
                 Artykuły użytkownika: {{journalist.user}}
             </div>
         </div>
 
     </div>
-    <div class="news__redbox2">
+    <div class="news__redbox2__v2">
         <div class="news__redbox2__box">
             <span class="news__redbox2-news">Dodatkowe Informacje</span>
         </div>
@@ -20,7 +21,7 @@
     <div class="search__posts">
         {% for post in posts %}
         <div class="search__posts__post">
-            <div class="search__posts__post__image"><img src={%static post.image.url%} /></div>
+            <div class="search__posts__post__image"><img src={{ post.image.url }} /></div>
             <div class="search__posts__post__information">
                 <div class="search__posts__post__title">{{post.title}}</div>
                 <div class="search__posts__post__meta">
@@ -28,13 +29,16 @@
                     <div class="search__posts__post__meta__author__data">{{post.publish_on}}</div>
                 </div>
                 <div class="search__posts__post__shortdescription">{{post.short_description}}</div>
-
-                <div class="search__posts__post__comments"><span>Ilość komentarzy</span> <a
-                        href={% url 'post_detail' post.slug %}>Przejdz
-                        dalej</a></div>
+                <div class="search__posts__post__comments">
+                </div>
+                <div class="search__posts__post__bottom-next">
+                    <div class="search__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}</div>
+                    <div class="search__posts__post__bottom-length">{{post.comments.all|length}}</div>
+                    <button onClick="onClick('{% url 'post_detail' post.slug %}')">Przejdź</button>
+                </div>
             </div>
         </div>
-        {% comment %} {% endif %} {% endcomment %}
+
         {% endfor %}
         <div class="pagination">
 
@@ -64,10 +68,9 @@
 
     <div class="news__bonusinformation">
         <div class="news__bonusinformation__box">
-            {% comment %} <div class="news__bonusinformation__title">Dodatkowe Informacje</div> {% endcomment %}
             <div class="news__bonusinformation__events"
-                style="background-image: url('https://image-cdn.essentiallysports.com/wp-content/uploads/20200606005342/shakur-stevenson.jpg');background-repeat: no-repeat;background-size: cover; background-position:center center;">
-                dsadasdsa</div>
+                style="background-image: url({{posters.0.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+            </div>
             <div class="news__bonusinformation__title">Tagi</div>
 
             <div class="news__bonusinformation__tags">
@@ -76,25 +79,19 @@
                     {{tag}}
                 </div>
                 {% endfor %}
-                {% comment %} <div class="news__bonusinformation__tags-tag">Madrimov</div>
-                <div class="news__bonusinformation__tags-tag">Floyd</div>
-                <div class="news__bonusinformation__tags-tag">Ksw</div>
-                <div class="news__bonusinformation__tags-tag">Fen</div>
-                <div class="news__bonusinformation__tags-tag">Kevin Gastelum</div>
-                <div class="news__bonusinformation__tags-tag">Paulo Costa</div>
-                <div class="news__bonusinformation__tags-tag">Israel Adesanya</div>
-                <div class="news__bonusinformation__tags-tag">Dimitry Bivol</div> {% endcomment %}
+
 
             </div>
             <div class="news__bonusinformation__events"
-                style="background-image: url('https://image-cdn.essentiallysports.com/wp-content/uploads/20200606005342/shakur-stevenson.jpg');background-repeat: no-repeat;background-size: cover; background-position:center center;">
-                dsadasdsa</div>
+                style="background-image: url({{posters.1.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+            </div>
             <div class="news__bonusinformation__title">Nasi Dziennikarze</div>
             <div class="news__bonusinformation__journalists">
                 {% for editor in editors %}
-                <div class="news__bonusinformation__journalists__user">
+                <div class="news__bonusinformation__journalists__user"
+                    onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
                     <div class="news__bonusinformation__journalists__user__image">
-                        <img src={% static editor.avatar.url %} />
+                        <img src={{ editor.avatar.url }} />
                     </div>
                     <div class="news__bonusinformation__journalists__meta">
                         <div class="news__bonusinformation__journalists__user__name">
@@ -106,6 +103,7 @@
                         </div>
                     </div>
                 </div>
+
                 {% endfor %}
             </div>
         </div>

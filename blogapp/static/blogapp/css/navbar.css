@@ -10,15 +10,45 @@
 
 @media screen and (max-width: 900px) {
   .navbar {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .navbar {
     display: none;
   }
+}
+
+.navbar__mobile {
+  height: 50px;
+  display: none;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 900px) {
+  .navbar__mobile {
+    display: flex;
+  }
+}
+
+.navbar__mobile-icon {
+  display: flex;
+  justify-content: end;
+  height: 180%;
+  padding: 1rem;
+}
+
+.navbar__mobile-icon:hover {
+  cursor: pointer;
 }
 
 .navbar__right {
   font-family: 'Rochester';
   font-style: normal;
   font-weight: normal;
-  font-size: 48px;
+  font-size: 30px;
   line-height: 62px;
   color: #FFFFFF;
   white-space: nowrap;
@@ -26,7 +56,7 @@
 
 @media screen and (max-width: 1400px) {
   .navbar__right {
-    font-size: 28px;
+    font-size: 20px;
   }
 }
 
@@ -45,14 +75,14 @@
   font-family: 'Rochester';
   font-style: normal;
   font-weight: normal;
-  font-size: 48px;
+  font-size: 30px;
   line-height: 62px;
   color: #FFFFFF;
 }
 
 @media screen and (max-width: 1400px) {
   .navbar__left {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 
@@ -64,6 +94,51 @@
 
 .navbar__left:hover {
   cursor: pointer;
+}
+
+.navbar__mobile__panel {
+  top: 60px;
+  transition: 1s transform ease-in-out;
+  z-index: 100;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  box-sizing: border-box;
+  display: none;
+}
+
+.navbar__mobile__panel li {
+  color: black !important;
+  background: #1C1C1C;
+}
+
+.navbar__mobile__panel-elements {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background: #1C1C1C;
+}
+
+.navbar__mobile__panel__element {
+  color: black;
+}
+
+.navbar__mobile__panel__element a {
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+  text-decoration: none;
+  align-items: center;
+  font-size: 3rem;
 }
 
 a.navbar__item {
@@ -102,4 +177,22 @@ a:hover:after {
 
 li .navbar__left:hover {
   cursor: pointer;
+}
+
+a.navbar__mobile-item:hover {
+  color: #F94C4C;
+}
+
+.text-warning-anim {
+  opacity: 1;
+  transform: translateX(100%);
+  transition: opacity 0.2s ease-out, transform 1s;
+  visibility: visible !important;
+}
+
+.text-warning-anim2 {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 0.2s ease-out, transform 1s;
+  visibility: visible !important;
 }
