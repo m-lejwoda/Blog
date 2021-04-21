@@ -1,0 +1,244 @@
+@import url("https://fonts.googleapis.com/css2?family=Rochester&display=swap");
+.navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  list-style: none;
+  padding-top: 2rem;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+@media screen and (max-width: 900px) {
+  .navbar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .navbar {
+    display: none;
+  }
+}
+
+.navbar__mobile {
+  height: 50px;
+  display: none;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 900px) {
+  .navbar__mobile {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.navbar__mobile-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  height: 180%;
+  padding: 1rem;
+}
+
+.navbar__mobile-icon:hover {
+  cursor: pointer;
+}
+
+.navbar__right {
+  font-family: 'Rochester';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 62px;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1400px) {
+  .navbar__right {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .navbar__right {
+    display: none;
+  }
+}
+
+.navbar__right:hover {
+  cursor: pointer;
+}
+
+.navbar__left {
+  white-space: nowrap;
+  font-family: 'Rochester';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 62px;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 1400px) {
+  .navbar__left {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .navbar__left {
+    display: none;
+  }
+}
+
+.navbar__left:hover {
+  cursor: pointer;
+}
+
+.navbar__mobile__panel {
+  top: 60px;
+  -webkit-transition: 1s -webkit-transform ease-in-out;
+  transition: 1s -webkit-transform ease-in-out;
+  transition: 1s transform ease-in-out;
+  transition: 1s transform ease-in-out, 1s -webkit-transform ease-in-out;
+  z-index: 100;
+  padding: 0;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: none;
+}
+
+.navbar__mobile__panel li {
+  color: black !important;
+  background: #1C1C1C;
+}
+
+.navbar__mobile__panel-elements {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background: #1C1C1C;
+}
+
+.navbar__mobile__panel__element {
+  color: black;
+}
+
+.navbar__mobile__panel__element a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-decoration: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3rem;
+}
+
+a.navbar__item {
+  font-family: 'Rochester';
+  color: white;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  display: inline-block;
+  padding: 15px 20px;
+  position: relative;
+}
+
+a:after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #fff;
+  -webkit-transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+
+a:hover:after {
+  width: 100%;
+  left: 0;
+}
+
+@media screen and (max-height: 300px) {
+  ul {
+    margin-top: 40px;
+  }
+}
+
+li .navbar__left:hover {
+  cursor: pointer;
+}
+
+a.navbar__mobile-item:hover {
+  color: #F94C4C;
+}
+
+.text-warning-anim {
+  opacity: 1;
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+  -webkit-transition: opacity 0.2s ease-out, -webkit-transform 1s;
+  transition: opacity 0.2s ease-out, -webkit-transform 1s;
+  transition: opacity 0.2s ease-out, transform 1s;
+  transition: opacity 0.2s ease-out, transform 1s, -webkit-transform 1s;
+  visibility: visible !important;
+}
+
+.text-warning-anim2 {
+  opacity: 1;
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+  -webkit-transition: opacity 0.2s ease-out, -webkit-transform 1s;
+  transition: opacity 0.2s ease-out, -webkit-transform 1s;
+  transition: opacity 0.2s ease-out, transform 1s;
+  transition: opacity 0.2s ease-out, transform 1s, -webkit-transform 1s;
+  visibility: visible !important;
+}
+/*# sourceMappingURL=navbar.css.map */
