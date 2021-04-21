@@ -1,4 +1,4 @@
-# Blog
-Previous changes
+# Sporty Walki
 TODO
+
 Implementacja silnika ElasticSearch
