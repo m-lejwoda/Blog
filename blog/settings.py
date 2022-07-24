@@ -10,17 +10,25 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext
+from django.core.management.utils import get_random_secret_key
+import environ
+import dj_database_url
 import django_heroku
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = 'gafsfasfasfa3424235235'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -90,7 +98,7 @@ DATABASES = {
     }
 }
 
-import dj_database_url
+
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
@@ -207,3 +215,4 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'

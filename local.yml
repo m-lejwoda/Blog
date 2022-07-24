@@ -1,0 +1,38 @@
+version: "3.3"
+
+volumes:
+  local_postgres_data:
+  local_postgres_data_backups:
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: content_db
+#    image: postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
+      - ./.current_db:/init_db
+    env_file:
+      - ./.envs/.local/.db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+  web:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
