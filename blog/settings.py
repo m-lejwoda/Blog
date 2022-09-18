@@ -13,7 +13,7 @@ from django.utils.translation import gettext
 from django.core.management.utils import get_random_secret_key
 import environ
 import dj_database_url
-import django_heroku
+# import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,10 +27,11 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = os.environ.get('SECRET_KEY')
+
 SECRET_KEY = env('SECRET_KEY')
 # SECRET_KEY = 'gafsfasfasfa3424235235'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -91,16 +92,28 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {'default': dj_database_url.config(default="postgres://postgres:postgres@localhost:5432/postgres"}
+# DATABASES = {'default': dj_database_url.config(default='postgres://postgres:postgres@localhost:5432/postgres')}
+# DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
+# postgres://debug:debug@db:5432/test
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432
     }
 }
-
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+print(DATABASES)
+#
+#
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# print("db_from_env")
+# print(db_from_env)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -207,7 +220,7 @@ ADS_VIEWPORTS = {
     'lg': 'd-none img-fluid d-lg-block d-xl-none',
     'xl': 'd-none img-fluid d-xl-block',
 }
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 AWS_S3_REGION_NAME = 'eu-central-1'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
