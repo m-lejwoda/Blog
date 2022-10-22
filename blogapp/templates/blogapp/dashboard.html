@@ -1,11 +1,13 @@
 {% extends 'blogapp/main.html' %}
 {% load hitcount_tags %}
+{% load cms_tags sekizai_tags menu_tags %}
 {% load static %}
 {% load ads_tags %}
 {% load fontawesome_5 %}
-
 <link href="{% static 'blogapp/css/dashboard.css' %}" rel="stylesheet">
 {% block content %}
+
+{#    {% cms_toolbar %}#}
 <div class="freewords">
     <span class="freewords-title">Sporty walki z humorem <br> od nas dla was</span>
     <span class="freewords-box">BOKS</span>
@@ -13,6 +15,7 @@
     <span class="freewords-muaythai">MUAY THAI</span>
     <span class="freewords-kickboxing">KICK-BOXING</span>
 </div>
+
 
 <div class="dashboard">
     <div class="dashboard__redbox">
@@ -105,6 +108,7 @@
                             <div class="news__posts__post__bottom-next"><button
 {#                                    onClick="onClick('{% url 'post_detail' post.slug %}')"#}
                             >Przejdź</button></div>
+                            {% placeholder "contecnic" %}
                         </div>
                     </div>
                 </div>
@@ -127,7 +131,15 @@
                         {% endif %}
                     </span>
                 </div>
-
+<div>
+        {% placeholder "Main Article" %}
+    </div>
+    <div>
+        {% placeholder "Second Article" %}
+    </div>
+    <div>
+        {% placeholder "Third Article" %}
+    </div>
             </div>
             <div class="news__bonusinformation">
                 <div class="news__bonusinformation__box">

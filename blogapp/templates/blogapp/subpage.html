@@ -1,0 +1,26 @@
+{% extends 'blogapp/main.html' %}
+{% load cms_tags cms_tags static menu_tags sekizai_tags %}
+
+{% block content %}
+<div id="container" class="container">
+    <div class="row">
+        <aside id="secondary" class="widget-area">
+            {% block sidebar %}{% endblock %}
+            {% placeholder side_menu %}
+        </aside><!-- #secondary -->
+
+        <main id="primary" class="site-main">
+            {% block custom_content %}
+              {% placeholder custom_content %}
+            {% endblock %}
+
+            {% block main %}{% endblock %}
+
+            {% block plugins %}
+              {% placeholder plugin_one %}
+              {% placeholder plugin_two %}
+            {% endblock %}
+        </main><!-- #main -->
+    </div>
+</div>
+{% endblock %}

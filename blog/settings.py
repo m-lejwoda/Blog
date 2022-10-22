@@ -65,6 +65,7 @@ INSTALLED_APPS = [
 CKEDITOR_UPLOAD_PATH = "uploads/"
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    "cms.middleware.utils.ApphookReloadMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -103,7 +104,7 @@ TEMPLATES = [
     },
 ]
 #TODO FIX it later
-INTERNAL_IPS = ["127.0.0.1", "10.0.2.2","0.0.0.0", "172.22.0.3"]
+INTERNAL_IPS = ["127.0.0.1", "10.0.2.2","0.0.0.0", "172.22.0.3", "172.22.0.2"]
 
 # def show_toolbar(request):
 #     return True
@@ -151,7 +152,11 @@ DATABASES = {
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 CMS_TEMPLATES = [
-    ('home.html', 'Home page template'),
+    ('blogapp/dashboard.html', 'Dashboard'),
+    ('blogapp/subpage.html', 'Subpage'),
+    ('blogapp/main.html', 'Main'),
+    ('home.html','Home'),
+
 ]
 
 
@@ -182,7 +187,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -262,15 +267,15 @@ ADS_VIEWPORTS = {
 # TODO check this one
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_ALLOW_ALL = True
-X_FRAME_OPTIONS = "ALLOWALL"
-
+# X_FRAME_OPTIONS = "ALLOWALL"
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 # django_heroku.settings(locals())
 SITE_ID = 1
-AWS_S3_REGION_NAME = 'eu-central-1'
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# AWS_S3_REGION_NAME = 'eu-central-1'
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'

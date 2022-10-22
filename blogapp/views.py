@@ -19,6 +19,11 @@ from django.http import JsonResponse
 from django.core import serializers
 import json
 from django.core.serializers.json import DjangoJSONEncoder
+
+def test(request):
+    return render(request,'blogapp/test.html')
+
+
 def allnews(request):
     posts=Post.objects.all().order_by('-publish_on')
     tags = Tag.objects.all()
@@ -30,6 +35,8 @@ def allnews(request):
 
     context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters}
     return render(request,'blogapp/news.html',context)
+
+
 def blog(request):
     posts = Post.objects.all().order_by('-publish_on')
     posters = Poster.objects.all()
@@ -39,6 +46,7 @@ def blog(request):
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    print("lest see blog")
     context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters,'mainnews':mainnews}
     return render(request,'blogapp/dashboard.html',context)
 

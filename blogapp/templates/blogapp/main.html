@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags %}
+{% load cms_tags sekizai_tags menu_tags %}
 {% load static %}
 {% load fontawesome_5 %}
 {% comment %} <script src={% static 'js/dashboard.js' %} type="text/javascript"></script> {% endcomment %}
@@ -23,7 +23,6 @@
     {% include 'blogapp/navbar.html' %}
     {% block content %}
     {% endblock %}
-    {% placeholder "content" %}
 {#    <script>#}
 {#        console.log("wywołanie scriptu ")#}
 {#    </script>#}
