@@ -39,4 +39,5 @@ whitenoise
 django-storages==1.10.0
 django-cms==3.7.0
 django-sekizai==3.0.1
+django-model-utils==4.1.0
 

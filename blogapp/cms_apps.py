@@ -6,7 +6,8 @@ class BlogApp(CMSApp):
     app_name = 'blog_app'
     name = 'Blog'
 
-    def get_urls(self, page=None, language=None, **kwargs):
+    def get_urls(self):
         return ['blogapp.urls']
+
 
 apphook_pool.register(BlogApp)

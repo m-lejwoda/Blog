@@ -4,15 +4,18 @@ from django.contrib.auth.models import User
 from django import forms
 from .models import Comment
 
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username','email','password1','password2']
+        fields = ['username', 'email', 'password1', 'password2']
+
 
 class CommentForm(ModelForm):
     class Meta:
-        model= Comment
-        fields=['post','author','text']
+        model = Comment
+        fields = ['post', 'author', 'text']
+
     def clean(self):
         data = self.cleaned_data
         first_name = data.get('post')

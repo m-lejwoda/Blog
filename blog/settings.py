@@ -106,29 +106,11 @@ TEMPLATES = [
 #TODO FIX it later
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2","0.0.0.0", "172.22.0.3", "172.22.0.2"]
 
-# def show_toolbar(request):
-#     return True
-# DEBUG_TOOLBAR_CONFIG = {
-#     "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
-# }
-
 import socket
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
 
 WSGI_APPLICATION = 'blog.wsgi.application'
-
-# if DEBUG:
-#     import socket  # only if you haven't already imported this
-#     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-#     INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-# DATABASES = {'default': dj_database_url.config(default="postgres://postgres:postgres@localhost:5432/postgres"}
-# DATABASES = {'default': dj_database_url.config(default='postgres://postgres:postgres@localhost:5432/postgres')}
-# DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
-# postgres://debug:debug@db:5432/test
 
 DATABASES = {
     'default': {
@@ -140,16 +122,6 @@ DATABASES = {
         'PORT': 5432
     }
 }
-
-#
-#
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# print("db_from_env")
-# print(db_from_env)
-# DATABASES['default'].update(db_from_env)
-
-# Password validation
-# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 CMS_TEMPLATES = [
     ('blogapp/dashboard.html', 'Dashboard'),
