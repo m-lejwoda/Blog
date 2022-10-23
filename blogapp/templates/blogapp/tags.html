@@ -1,5 +1,6 @@
 {% extends 'blogapp/main.html' %}
 {% load static %}
+{% load cms_tags sekizai_tags menu_tags %}
 {% load ads_tags %}
 {% load fontawesome_5 %}
 <link href="{% static 'blogapp/css/tags.css' %}" rel="stylesheet">
@@ -64,9 +65,10 @@
     </div>
     <div class="news__bonusinformation">
         <div class="news__bonusinformation__box">
-            <div class="news__bonusinformation__events"
-                style="background-image: url({{posters.0.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-            </div>
+            {% static_placeholder 'first_event' %}
+{#            <div class="news__bonusinformation__events"#}
+{#                style="background-image: url({{posters.0.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
+{#            </div>#}
             <div class="news__bonusinformation__title">Tagi</div>
 
             <div class="news__bonusinformation__tags">
@@ -78,9 +80,10 @@
 
 
             </div>
-            <div class="news__bonusinformation__events"
-                style="background-image: url({{posters.1.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-            </div>
+            {% static_placeholder 'second_event' %}
+{#            <div class="news__bonusinformation__events"#}
+{#                style="background-image: url({{posters.1.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
+{#            </div>#}
             <div class="news__bonusinformation__title">Nasi Dziennikarze</div>
             <div class="news__bonusinformation__journalists">
                 {% for editor in editors %}

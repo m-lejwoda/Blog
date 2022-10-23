@@ -81,10 +81,10 @@ class TagView(ListView):
     paginate_by = 2
     template_name = 'blogapp/tags.html'
 
-    def get_queryset(self):
-        print(self.kwargs)
-        print(type(self.kwargs['tag']))
-        return super(TagView, self).get_queryset().filter(tags=self.kwargs['tag'])
+    # def get_queryset(self):
+    #     print(self.kwargs)
+    #     print(type(self.kwargs['tag']))
+    #     return super(TagView, self).get_queryset().filter(tags=self.kwargs['tag'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
