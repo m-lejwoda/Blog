@@ -76,6 +76,79 @@ class LogoutView(View):
         return redirect('login')
 
 
+class TagView(ListView):
+    model = Post
+    paginate_by = 2
+    template_name = 'blogapp/tags.html'
+
+    def get_queryset(self):
+        print(self.kwargs)
+        print(type(self.kwargs['tag']))
+        return super(TagView, self).get_queryset().filter(tags=self.kwargs['tag'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        print("koniec contextu")
+        # print("context")
+        # print(context)
+        # print("kwargs")
+        # print(**kwargs)
+        #
+        # tag = 1
+        # tags = Tag.objects.get(slug=tag)
+        # posters = Poster.objects.all().order_by('-date')
+        # tag_name = Tag.objects.get(slug=tag)
+        # posts1 = Post.objects.filter(tags=tags.id).order_by('-publish_on')
+        # tags = Tag.objects.all()
+        # editors = EditorProfile.objects.all()
+        # paginator = Paginator(posts1, 8)
+        # # page_number = request.GET.get('page')
+        # # posts = paginator.get_page(page_number)
+        # context = {
+        #     # 'posts': posts
+        #      'tags': tags, 'editors': editors, 'tag_name': tag_name, 'posters': posters}
+        # # return render(request, 'blogapp/tags.html', context)
+        return context
+
+
+class SingleArticleView(View):
+
+    @staticmethod
+    def get(request, slug):
+        post = Post.objects.get(slug=slug)
+        post.clicks = post.clicks + 1
+        post.save()
+        radioposts = Post.objects.all()
+        comments = post.comments.filter()
+        posts = Post.objects.all()
+        tags = Tag.objects.all()
+        editors = EditorProfile.objects.all()
+        context = {'post': post, 'tags': tags, 'editors': editors, 'posts': posts, 'comments': comments,
+                   'radioposts': radioposts}
+        return render(request, 'blogapp/radio2.html', context)
+
+    # @staticmethod
+    # def post(request):
+    #     if 'textar' in request.POST:
+    #         user = User.objects.get(username=request.user)
+    #         text = request.POST.get("textar", None)
+    #         data = {
+    #             'post': post.id,
+    #             'author': user.id,
+    #             'text': text}
+    #         form = CommentForm(data)
+    #         if form.is_valid():
+    #             form.save()
+    #     if 'radio' in request.POST:
+    #         radio = request.POST.get("input", None)
+    #         if (radio == "radio-two"):
+    #             radioposts = Tag.objects.all()
+    #         elif (radio == "radio-three"):
+    #             radioposts = EditorProfile.objects.all()
+    #         else:
+    #             radioposts = Post.objects.all()
+
 
 def allnews(request):
     posts = Post.objects.all().order_by('-publish_on')
@@ -235,60 +308,54 @@ def radio_posts(request):
         return None
 
 
-@csrf_exempt
-def post_detail(request, slug):
-    post = Post.objects.get(slug=slug)
-    post.clicks = post.clicks + 1
-    post.save()
-    radioposts = Post.objects.all()
-    if request.method == "POST":
-        print(request.POST)
-        if 'textar' in request.POST:
-            print("text area znow się ładuje")
-            user = User.objects.get(username=request.user)
-            text = request.POST.get("textar", None)
-            print(text)
-            data = {
-                'post': post.id,
-                'author': user.id,
-                'text': text}
-            form = CommentForm(data)
-            if form.is_valid():
-                print("form zwalidowany")
-                form.save()
-
-        if 'radio' in request.POST:
-            print("radio znow się ładuje")
-            radio = request.POST.get("input", None)
-            if (radio == "radio-two"):
-                radioposts = Tag.objects.all()
-            elif (radio == "radio-three"):
-                radioposts = EditorProfile.objects.all()
-            else:
-                radioposts = radioposts = Post.objects.all()
-            print(radioposts)
-    comments = post.comments.filter()
-    posts = Post.objects.all()
-    tags = Tag.objects.all()
-    editors = EditorProfile.objects.all()
-    context = {'post': post, 'tags': tags, 'editors': editors, 'posts': posts, 'comments': comments,
-               'radioposts': radioposts}
-    return render(request, 'blogapp/radio2.html', context)
+# @csrf_exempt
+# def post_detail(request, slug):
+#     post = Post.objects.get(slug=slug)
+#     post.clicks = post.clicks + 1
+#     post.save()
+#     radioposts = Post.objects.all()
+#     if request.method == "POST":
+#         if 'textar' in request.POST:
+#             user = User.objects.get(username=request.user)
+#             text = request.POST.get("textar", None)
+#             data = {
+#                 'post': post.id,
+#                 'author': user.id,
+#                 'text': text}
+#             form = CommentForm(data)
+#             if form.is_valid():
+#                 form.save()
+#
+#         if 'radio' in request.POST:
+#             radio = request.POST.get("input", None)
+#             if (radio == "radio-two"):
+#                 radioposts = Tag.objects.all()
+#             elif (radio == "radio-three"):
+#                 radioposts = EditorProfile.objects.all()
+#             else:
+#                 radioposts = Post.objects.all()
+#     comments = post.comments.filter()
+#     posts = Post.objects.all()
+#     tags = Tag.objects.all()
+#     editors = EditorProfile.objects.all()
+#     context = {'post': post, 'tags': tags, 'editors': editors, 'posts': posts, 'comments': comments,
+#                'radioposts': radioposts}
+#     return render(request, 'blogapp/radio2.html', context)
 
 
-@csrf_exempt
-def tag_detail(request, tag):
-    tags = Tag.objects.get(slug=tag)
-    posters = Poster.objects.all().order_by('-date')
-    tag_name = Tag.objects.get(slug=tag)
-    posts1 = Post.objects.filter(tags=tags.id).order_by('-publish_on')
-    tags = Tag.objects.all()
-    editors = EditorProfile.objects.all()
-    paginator = Paginator(posts1, 8)
-    page_number = request.GET.get('page')
-    posts = paginator.get_page(page_number)
-    context = {'posts': posts, 'tags': tags, 'editors': editors, 'tag_name': tag_name, 'posters': posters}
-    return render(request, 'blogapp/tags.html', context)
+# @csrf_exempt
+# def tag_detail(request, tag):
+#     tags = Tag.objects.get(slug=tag)
+#     posters = Poster.objects.all().order_by('-date')
+#     tag_name = Tag.objects.get(slug=tag)
+#     posts1 = Post.objects.filter(tags=tags.id).order_by('-publish_on')
+#     tags = Tag.objects.all()
+#     editors = EditorProfile.objects.all()
+#     paginator = Paginator(posts1, 8)
+#     page_number = request.GET.get('page')
+#     posts = paginator.get_page(page_number)
+#     context = {'posts': posts, 'tags': tags, 'editors': editors, 'tag_name': tag_name, 'posters': posters}
+#     return render(request, 'blogapp/tags.html', context)
 
 
 def journalist_detail(request, journalist_slug):
