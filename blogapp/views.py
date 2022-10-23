@@ -120,11 +120,12 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 # @csrf_exempt
+
 def radio_posts(request):
     identity = request.GET.get('id')
     author = request.GET.get('author')
     if identity == "radio-one":
-        user= User.objects.get(username=author)
+        user = User.objects.get(username=author)
         posts = Post.objects.all().order_by('-clicks')
         threeposts = posts[0:3]
         result=serializers.serialize('json',threeposts,fields=('title','image','slug'))

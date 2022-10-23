@@ -7,118 +7,120 @@
 <link href="{% static 'blogapp/css/dashboard.css' %}" rel="stylesheet">
 {% block content %}
 
-{#    {% cms_toolbar %}#}
-<div class="freewords">
-    <span class="freewords-title">Sporty walki z humorem <br> od nas dla was</span>
-    <span class="freewords-box">BOKS</span>
-    <span class="freewords-mma">MMA</span>
-    <span class="freewords-muaythai">MUAY THAI</span>
-    <span class="freewords-kickboxing">KICK-BOXING</span>
-</div>
-
-
-<div class="dashboard">
-    <div class="dashboard__redbox">
-        <div class=dashboard__redbox__box><span class="dashboard__redbox-news">Najważniejsze</span></div>
+    {#    {% cms_toolbar %}#}
+    <div class="freewords">
+        <span class="freewords-title">Sporty walki z humorem <br> od nas dla was</span>
+        <span class="freewords-box">BOKS</span>
+        <span class="freewords-mma">MMA</span>
+        <span class="freewords-muaythai">MUAY THAI</span>
+        <span class="freewords-kickboxing">KICK-BOXING</span>
     </div>
-    <div class="dashboard__news">
-        <div class="dashboard__news__firstcolumn-container">
-            <div class="dashboard__news__firstcolumn"
-{#                onClick="onClick('{% url 'post_detail' mainnews.0.post.all.0.slug %}')"#}
-                style="background-image: url({{ mainnews.0.post.all.0.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
 
-                <div class="dashboard__news__firstcolumn__meta">
-                    <div class="dashboard__news__firstcolumn__meta-title">{{mainnews.0.post.all.0.title}}</div>
+
+    <div class="dashboard">
+        <div class="dashboard__redbox">
+            <div class=dashboard__redbox__box><span class="dashboard__redbox-news">Najważniejsze</span></div>
+        </div>
+        {% placeholder hot_articles %}
+        {#    <div class="dashboard__news">#}
+        {#        <div class="dashboard__news__firstcolumn-container">#}
+        {#            <div class="dashboard__news__firstcolumn"#}
+        {#                onClick="onClick('{% url 'post_detail' mainnews.0.post.all.0.slug %}')"#}
+        {#                style="background-image: url({{ mainnews.0.post.all.0.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
+        {#                <div class="dashboard__news__firstcolumn__meta">#}
+        {#                    <div class="dashboard__news__firstcolumn__meta-title">{{mainnews.0.post.all.0.title}}</div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <div class="dashboard__news__secondcolumn">#}
+        {#            <div class="dashboard__news__secondcolumn__first-container">#}
+        {#                <div class="dashboard__news__secondcolumn__first"#}
+        {#                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.1.slug %}')"#}
+        {#                    style="background-image: url({{ mainnews.0.post.all.1.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
+        {#                    <div class="dashboard__news__secondcolumn__first__meta">#}
+        {#                        <div class="dashboard__news__secondcolumn__first__meta-title">{{mainnews.0.post.all.1.title}}#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#            <div class="dashboard__news__secondcolumn__second-container">#}
+        {#                <div class="dashboard__news__secondcolumn__second"#}
+        {#                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.2.slug %}')"#}
+        {#                    style="background-image: url({{ mainnews.0.post.all.2.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
+        {#                    <div class="dashboard__news__secondcolumn__second__meta">#}
+        {#                        <div class="dashboard__news__secondcolumn__second__meta-title">{{mainnews.0.post.all.2.title}}#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#    </div>#}
+
+        <div class="news">
+            <div class=news__redbox>
+                <div class="news__redbox__box">
+                    <span class="news__redbox-news">Aktualne newsy</span>
                 </div>
 
             </div>
-        </div>
-        <div class="dashboard__news__secondcolumn">
-            <div class="dashboard__news__secondcolumn__first-container">
-                <div class="dashboard__news__secondcolumn__first"
-{#                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.1.slug %}')"#}
-                    style="background-image: url({{ mainnews.0.post.all.1.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-                    <div class="dashboard__news__secondcolumn__first__meta">
-                        <div class="dashboard__news__secondcolumn__first__meta-title">{{mainnews.0.post.all.1.title}}
-                        </div>
-                    </div>
+            <div class="news__redbox2">
+                <div class="news__redbox2__box">
+                    <span class="news__redbox2-news">Dodatkowe Informacje</span>
                 </div>
             </div>
-            <div class="dashboard__news__secondcolumn__second-container">
-                <div class="dashboard__news__secondcolumn__second"
-{#                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.2.slug %}')"#}
-                    style="background-image: url({{ mainnews.0.post.all.2.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-                    <div class="dashboard__news__secondcolumn__second__meta">
-                        <div class="dashboard__news__secondcolumn__second__meta-title">{{mainnews.0.post.all.2.title}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="news">
-        <div class=news__redbox>
-            <div class="news__redbox__box">
-                <span class="news__redbox-news">Aktualne newsy</span>
-            </div>
-
-        </div>
-        <div class="news__redbox2">
-            <div class="news__redbox2__box">
-                <span class="news__redbox2-news">Dodatkowe Informacje</span>
-            </div>
-        </div>
-        <div class="news__box">
-            <div class="news__posts">
-                {% for post in page_obj %}
-                {% if forloop.counter == 1 %}
-                <div class="news__posts__firstpost-container">
-                    <div class="news__posts__firstpost"
-{#                         onClick="onClick('{% url 'post_detail' post.slug %}')"#}
-                        style="background-image: url({{ post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-                        <div class="news__posts__firstpost__meta__comment">
-                            {% fa5_icon 'comment' 'fa fa-2x' %}
-                            <div class="news__posts__firstpost__meta__comment-length">
-                                {{post.comments.all|length}}
+            <div class="news__box">
+                <div class="news__posts">
+                    {% for post in page_obj %}
+                        {% if forloop.counter == 1 %}
+                            <div class="news__posts__firstpost-container">
+                                <div class="news__posts__firstpost"
+                                                                 onClick="onClick('{% url 'post_detail' post.slug %}')"
+                                     style="background-image: url({{ post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+                                    <div class="news__posts__firstpost__meta__comment">
+                                        {% fa5_icon 'comment' 'fa fa-2x' %}
+                                        <div class="news__posts__firstpost__meta__comment-length">
+                                            {{ post.comments.all|length }}
+                                        </div>
+                                    </div>
+                                    <div class="news__posts__firstpost__meta">
+                                        <div class="news__posts__firstpost__meta-title">{{ post.title }}</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="news__posts__firstpost__meta">
-                            <div class="news__posts__firstpost__meta-title">{{post.title}}</div>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div class=" news__posts__post">
-                    <div class="news__posts__post-image">
-{#                        <img src={{ post.image.url }} alt="obraz nie został wczytany" />#}
-                    </div>
-                    <div class="news__posts__post__information">
-                        <div class="news__posts__post-title">{{post.title}}</div>
-                        <div class="news__posts__post__meta">
-                            <div class="news__posts__post__meta-author">{{post.author}}</div>
-                            <div class="news__posts__post__meta-data">{{post.publish_on}}</div>
-                        </div>
-                        <div class="news__posts__post-description">{{post.short_description}}</div>
-                        <div class="news__posts__post__bottom">
+                        {% else %}
+                            <div class=" news__posts__post">
+                                <div class="news__posts__post-image">
+{#                                                            <img src={{ post.image.url }} alt="obraz nie został wczytany" />#}
+                                </div>
+                                <div class="news__posts__post__information">
+                                    <div class="news__posts__post-title">{{ post.title }}</div>
+                                    <div class="news__posts__post__meta">
+                                        <div class="news__posts__post__meta-author">{{ post.author }}</div>
+                                        <div class="news__posts__post__meta-data">{{ post.publish_on }}</div>
+                                    </div>
+                                    <div class="news__posts__post-description">{{ post.short_description }}</div>
+                                    <div class="news__posts__post__bottom">
 
-                            <div class="news__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}
+                                        <div class="news__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}
+                                        </div>
+                                        <div class="news__posts__post__bottom-length">{{ post.comments.all|length }}
+                                        </div>
+                                        <div class="news__posts__post__bottom-next">
+                                            <button
+                                                                                        onClick="onClick('{% url 'post_detail' post.slug %}')"
+                                            >Przejdź
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="news__posts__post__bottom-length">{{post.comments.all|length}}
-                            </div>
-                            <div class="news__posts__post__bottom-next"><button
-{#                                    onClick="onClick('{% url 'post_detail' post.slug %}')"#}
-                            >Przejdź</button></div>
-                            {% placeholder "contecnic" %}
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-                <div class="pagination">
+                        {% endif %}
+                    {% endfor %}
+                    <div class="pagination">
                     <span class="step-links">
                         {% if page_obj.has_previous %}
-                        <a href="?page=1">&laquo; Pierwsza strona</a>
-                        <a href="?page={{ page_obj.previous_page_number }}">Poprzednia strona</a>
+                            <a href="?page=1">&laquo; Pierwsza strona</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">Poprzednia strona</a>
                         {% endif %}
 
                         <span class="current">
@@ -126,65 +128,58 @@
                         </span>
 
                         {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">Następna</a>
-                        <a href="?page={{ page_obj.paginator.num_pages }}">Ostatnia &raquo;</a>
+                            <a href="?page={{ page_obj.next_page_number }}">Następna</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">Ostatnia &raquo;</a>
                         {% endif %}
                     </span>
+                    </div>
                 </div>
-<div>
-        {% placeholder "Main Article" %}
-    </div>
-    <div>
-        {% placeholder "Second Article" %}
-    </div>
-    <div>
-        {% placeholder "Third Article" %}
-    </div>
-            </div>
-            <div class="news__bonusinformation">
-                <div class="news__bonusinformation__box">
-                    <div class="news__bonusinformation__events"
-                        style="background-image: url({{ posters.0.image.url }});background-repeat: no-repeat;background-position:center center;background-size: 100% 100%;">
-                    </div>
-                    <div class="news__bonusinformation__title">Tagi</div>
+                <div class="news__bonusinformation">
+                    <div class="news__bonusinformation__box">
+                        {% placeholder 'first_event' %}
+{#                        <div class="news__bonusinformation__events"#}
+{#                             style="background-image: url({{ posters.0.image.url }});background-repeat: no-repeat;background-position:center center;background-size: 100% 100%;">#}
+{#                        </div>#}
+                        <div class="news__bonusinformation__title">Tagi</div>
 
-                    <div class="news__bonusinformation__tags">
-                        {% for tag in tags %}
-                        <div class="news__bonusinformation__tags-tag"
-                            onClick="onClick('{% url 'tag_detail' tag.slug %}')">
-                            {{tag}}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="news__bonusinformation__events"
-                        style="background-image: url({{ posters.1.image.url }});background-repeat: no-repeat; background-position:center center; background-size: 100% 100%;">
-                    </div>
-                    <div class="news__bonusinformation__title">Nasi Dziennikarze
-                    </div>
-                    <div class="news__bonusinformation__journalists">
-                        {% for editor in editors %}
-                        <div class="news__bonusinformation__journalists__user"
-                            onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
-                            <div class="news__bonusinformation__journalists__user__image">
-                                <img src={{ editor.avatar.url }} />
-                            </div>
-                            <div class="news__bonusinformation__journalists__meta">
-                                <div class="news__bonusinformation__journalists__user__name">
-                                    <a href={% url 'journalist_detail' editor.slug %}>{{editor.user.first_name}}
-                                        {{editor.user.last_name}}</a>
+                        <div class="news__bonusinformation__tags">
+                            {% for tag in tags %}
+                                <div class="news__bonusinformation__tags-tag"
+                                     onClick="onClick('{% url 'tag_detail' tag.slug %}')">
+                                    {{ tag }}
                                 </div>
-                                <div class="news__bonusinformation__journalists__user__rank">
-                                    {{editor.rank}}
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
+                        {% placeholder 'second_event' %}
+{#                        <div class="news__bonusinformation__events"#}
+{#                             style="background-image: url({{ posters.1.image.url }});background-repeat: no-repeat; background-position:center center; background-size: 100% 100%;">#}
+{#                        </div>#}
+                        <div class="news__bonusinformation__title">Nasi Dziennikarze
+                        </div>
+                        <div class="news__bonusinformation__journalists">
+                            {% for editor in editors %}
+                                <div class="news__bonusinformation__journalists__user"
+                                     onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
+                                    <div class="news__bonusinformation__journalists__user__image">
+                                        <img src={{ editor.avatar.url }}/>
+                                    </div>
+                                    <div class="news__bonusinformation__journalists__meta">
+                                        <div class="news__bonusinformation__journalists__user__name">
+                                            <a href={% url 'journalist_detail' editor.slug %}>{{ editor.user.first_name }}
+                                                {{ editor.user.last_name }}</a>
+                                        </div>
+                                        <div class="news__bonusinformation__journalists__user__rank">
+                                            {{ editor.rank }}
+                                        </div>
+                                    </div>
+                                </div>
 
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
