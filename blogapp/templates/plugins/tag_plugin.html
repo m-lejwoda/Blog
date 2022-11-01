@@ -1,0 +1,8 @@
+<div class="news__bonusinformation__title">Tagi</div>
+<div class="news__bonusinformation__tags">
+    {% for tag in tags %}
+        <div class="news__bonusinformation__tags-tag" onClick="onClick('{% url 'tag_detail' tag.slug %}')">
+            {{ tag }}
+        </div>
+    {% endfor %}
+</div>

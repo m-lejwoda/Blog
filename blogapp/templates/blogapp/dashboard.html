@@ -74,7 +74,7 @@
                         {% if forloop.counter == 1 %}
                             <div class="news__posts__firstpost-container">
                                 <div class="news__posts__firstpost"
-                                                                 onClick="onClick('{% url 'post_detail' post.slug %}')"
+                                     onClick="onClick('{% url 'post_detail' post.slug %}')"
                                      style="background-image: url({{ post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
                                     <div class="news__posts__firstpost__meta__comment">
                                         {% fa5_icon 'comment' 'fa fa-2x' %}
@@ -90,7 +90,7 @@
                         {% else %}
                             <div class=" news__posts__post">
                                 <div class="news__posts__post-image">
-{#                                                            <img src={{ post.image.url }} alt="obraz nie został wczytany" />#}
+                                    {#                                                            <img src={{ post.image.url }} alt="obraz nie został wczytany" />#}
                                 </div>
                                 <div class="news__posts__post__information">
                                     <div class="news__posts__post-title">{{ post.title }}</div>
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="news__posts__post__bottom-next">
                                             <button
-                                                                                        onClick="onClick('{% url 'post_detail' post.slug %}')"
+                                                    onClick="onClick('{% url 'post_detail' post.slug %}')"
                                             >Przejdź
                                             </button>
                                         </div>
@@ -137,23 +137,23 @@
                 <div class="news__bonusinformation">
                     <div class="news__bonusinformation__box">
                         {% static_placeholder 'first_event' %}
-{#                        <div class="news__bonusinformation__events"#}
-{#                             style="background-image: url({{ posters.0.image.url }});background-repeat: no-repeat;background-position:center center;background-size: 100% 100%;">#}
-{#                        </div>#}
-                        <div class="news__bonusinformation__title">Tagi</div>
+                        {#                        <div class="news__bonusinformation__events"#}
+                        {#                             style="background-image: url({{ posters.0.image.url }});background-repeat: no-repeat;background-position:center center;background-size: 100% 100%;">#}
+                        {#                        </div>#}
 
-                        <div class="news__bonusinformation__tags">
-                            {% for tag in tags %}
-                                <div class="news__bonusinformation__tags-tag"
-                                     onClick="onClick('{% url 'tag_detail' tag.slug %}')">
-                                    {{ tag }}
-                                </div>
-                            {% endfor %}
-                        </div>
+                        {% static_placeholder 'tag_plugin' %}
+                        {#                        <div class="news__bonusinformation__tags">#}
+                        {#                            {% for tag in tags %}#}
+                        {#                                <div class="news__bonusinformation__tags-tag"#}
+                        {#                                     onClick="onClick('{% url 'tag_detail' tag.slug %}')">#}
+                        {#                                    {{ tag }}#}
+                        {#                                </div>#}
+                        {#                            {% endfor %}#}
+                        {#                        </div>#}
                         {% static_placeholder 'second_event' %}
-{#                        <div class="news__bonusinformation__events"#}
-{#                             style="background-image: url({{ posters.1.image.url }});background-repeat: no-repeat; background-position:center center; background-size: 100% 100%;">#}
-{#                        </div>#}
+                        {#                        <div class="news__bonusinformation__events"#}
+                        {#                             style="background-image: url({{ posters.1.image.url }});background-repeat: no-repeat; background-position:center center; background-size: 100% 100%;">#}
+                        {#                        </div>#}
                         <div class="news__bonusinformation__title">Nasi Dziennikarze
                         </div>
                         <div class="news__bonusinformation__journalists">

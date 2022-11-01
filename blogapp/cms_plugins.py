@@ -1,8 +1,7 @@
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase, CMSPlugin
-from blogapp.models import Post, Poster
+from blogapp.models import Post, Poster, Tag
 from django.db import models
-
 
 """CMS Plugin models"""
 
@@ -54,7 +53,6 @@ class HotArticlesPlugin(CMSPluginBase):
         return context
 
 
-
 @plugin_pool.register_plugin
 class EventPlugin(CMSPluginBase):
     model = Event
@@ -64,4 +62,15 @@ class EventPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(EventPlugin, self).render(context, instance, placeholder)
+        return context
+
+
+@plugin_pool.register_plugin
+class TagPlugin(CMSPluginBase):
+    name = 'Tag Plugin'
+    render_template = 'plugins/tag_plugin.html'
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context.update({"tags": Tag.objects.all()})
         return context

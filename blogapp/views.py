@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core import serializers
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, DetailView
 import json
 
 
@@ -81,20 +81,15 @@ class TagView(ListView):
     paginate_by = 2
     template_name = 'blogapp/tags.html'
 
-    # def get_queryset(self):
-    #     print(self.kwargs)
-    #     print(type(self.kwargs['tag']))
-    #     return super(TagView, self).get_queryset().filter(tags=self.kwargs['tag'])
+    def get_queryset(self):
+        return super(TagView, self).get_queryset().filter(tags__slug__icontains=self.kwargs.get('tag'))\
+            .order_by('-publish_on')
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+        context.update({"tag": self.kwargs.get('tag')})
+        print("context")
         print(context)
-        print("koniec contextu")
-        # print("context")
-        # print(context)
-        # print("kwargs")
-        # print(**kwargs)
-        #
         # tag = 1
         # tags = Tag.objects.get(slug=tag)
         # posters = Poster.objects.all().order_by('-date')

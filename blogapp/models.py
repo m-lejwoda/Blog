@@ -42,7 +42,7 @@ class Post(models.Model):
     symbol = models.CharField(max_length=2)
     short_description = models.CharField(max_length=200, default="")
     image = models.ImageField(default="")
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
     slug = models.SlugField(max_length=128, null=True, blank=True)
     content = RichTextField()
     content2 = RichTextUploadingField(blank=True, null=True)

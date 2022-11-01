@@ -1,33 +1,33 @@
- <div class="dashboard__news">
-        <div class="dashboard__news__firstcolumn-container">
-            <div class="dashboard__news__firstcolumn"
-{#                onClick="onClick('{% url 'post_detail' mainnews.0.post.all.0.slug %}')"#}
-                style="background-image: url({{ mainnews.0.post.all.0.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-                <div class="dashboard__news__firstcolumn__meta">
-                    <div class="dashboard__news__firstcolumn__meta-title">{{firstpost.title}}</div>
-                </div>
+<div class="dashboard__news">
+    <div class="dashboard__news__firstcolumn-container">
+        <div class="dashboard__news__firstcolumn"
+             onClick="onClick('{% url 'post_detail' first_post.slug %}')"
+             style="background-image: url({{ first_post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+            <div class="dashboard__news__firstcolumn__meta">
+                <div class="dashboard__news__firstcolumn__meta-title">{{ firstpost.title }}</div>
             </div>
         </div>
-        <div class="dashboard__news__secondcolumn">
-            <div class="dashboard__news__secondcolumn__first-container">
-                <div class="dashboard__news__secondcolumn__first"
-{#                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.1.slug %}')"#}
-                    style="background-image: url({{ mainnews.0.post.all.1.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-                    <div class="dashboard__news__secondcolumn__first__meta">
-                        <div class="dashboard__news__secondcolumn__first__meta-title">{{secondpost.title}}
-                        </div>
+    </div>
+    <div class="dashboard__news__secondcolumn">
+        <div class="dashboard__news__secondcolumn__first-container">
+            <div class="dashboard__news__secondcolumn__first"
+                 onClick="onClick('{% url 'post_detail' second_post.slug %}')"
+                 style="background-image: url({{ second_post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+                <div class="dashboard__news__secondcolumn__first__meta">
+                    <div class="dashboard__news__secondcolumn__first__meta-title">{{ secondpost.title }}
                     </div>
                 </div>
             </div>
-            <div class="dashboard__news__secondcolumn__second-container">
-                <div class="dashboard__news__secondcolumn__second"
-{#                    onClick="onClick('{% url 'post_detail' mainnews.0.post.all.2.slug %}')"#}
-                    style="background-image: url({{ mainnews.0.post.all.2.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-                    <div class="dashboard__news__secondcolumn__second__meta">
-                        <div class="dashboard__news__secondcolumn__second__meta-title">{{thirdpost.title}}
-                        </div>
+        </div>
+        <div class="dashboard__news__secondcolumn__second-container">
+            <div class="dashboard__news__secondcolumn__second"
+                 onClick="onClick('{% url 'post_detail' third_post.slug %}')"
+                 style="background-image: url({{ third_post.image.url }});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
+                <div class="dashboard__news__secondcolumn__second__meta">
+                    <div class="dashboard__news__secondcolumn__second__meta-title">{{ thirdpost.title }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
