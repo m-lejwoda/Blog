@@ -114,6 +114,27 @@ class AllNewsView(ListView):
     queryset = Post.objects.order_by('-publish_on')
 
 
+class JournalistDetailView(DetailView):
+    model = EditorProfile
+    template_name = 'blogapp/journalist.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(self.get_slug_field())
+        print(context)
+        return context
+
+def journalist_detail(request, journalist_slug):
+    journalist = EditorProfile.objects.get(slug=journalist_slug)
+    posters = Poster.objects.all().order_by('-date')
+    posts1 = Post.objects.filter(author=journalist.user)
+    paginator = Paginator(posts1, 8)
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
+    tags = Tag.objects.all()
+    context = {'posts': posts, 'tags': tags, 'journalist': journalist, 'posters': posters}
+    return render(request, 'blogapp/journalist.html', context)
+
 # def allnews(request):
 #     posts = Post.objects.all().order_by('-publish_on')
 #     tags = Tag.objects.all()
@@ -172,37 +193,37 @@ class AllNewsView(ListView):
 #     context = {}
 #     return render(request, 'blogapp/loginok.html', context)
 
-
-@csrf_exempt
-def update_radio(request):
-    post = Post.objects.all()
-    tag = Tag.objects.all()
-    editor = EditorProfile.objects.all()
-    data = Post.objects.all()
-    if request.method == 'POST':
-        inp = request.POST.get('input', None)
-        author = request.POST.get('author', None)
-        user = User.objects.get(username=author)
-        if (inp == "radio-two"):
-            data = Post.objects.all().order_by()
-        elif (inp == "radio-three"):
-            data = Post.objects.all().order_by('-publish_on')
-        else:
-            data = Post.objects.all().order_by('-clicks')
-
-    return render(request, 'blogapp/radio2.html', {'data': data})
-
-
-@csrf_exempt
-def radio_test(request, slug):
-    if request.method == 'POST':
-        print("readio_test")
-    return render(request, 'blogapp/radio2.html')
-
-
-def addcomment(request):
-    if request.method == 'POST':
-        print(request.POST)
+#
+# @csrf_exempt
+# def update_radio(request):
+#     post = Post.objects.all()
+#     tag = Tag.objects.all()
+#     editor = EditorProfile.objects.all()
+#     data = Post.objects.all()
+#     if request.method == 'POST':
+#         inp = request.POST.get('input', None)
+#         author = request.POST.get('author', None)
+#         user = User.objects.get(username=author)
+#         if (inp == "radio-two"):
+#             data = Post.objects.all().order_by()
+#         elif (inp == "radio-three"):
+#             data = Post.objects.all().order_by('-publish_on')
+#         else:
+#             data = Post.objects.all().order_by('-clicks')
+#
+#     return render(request, 'blogapp/radio2.html', {'data': data})
+#
+#
+# @csrf_exempt
+# def radio_test(request, slug):
+#     if request.method == 'POST':
+#         print("readio_test")
+#     return render(request, 'blogapp/radio2.html')
+#
+#
+# def addcomment(request):
+#     if request.method == 'POST':
+#         print(request.POST)
 
 
 # def registerPage(request):
@@ -218,10 +239,10 @@ def addcomment(request):
 #     return render(request, 'blogapp/registerok.html', context)
 
 
-def logoutUser(request):
-    logout(request)
-    return redirect('login')
-
+# def logoutUser(request):
+#     logout(request)
+#     return redirect('login')
+#
 
 # @csrf_exempt
 
@@ -324,16 +345,6 @@ def radio_posts(request):
 #     return render(request, 'blogapp/tags.html', context)
 
 
-def journalist_detail(request, journalist_slug):
-    journalist = EditorProfile.objects.get(slug=journalist_slug)
-    posters = Poster.objects.all().order_by('-date')
-    posts1 = Post.objects.filter(author=journalist.user)
-    paginator = Paginator(posts1, 8)
-    page_number = request.GET.get('page')
-    posts = paginator.get_page(page_number)
-    tags = Tag.objects.all()
-    context = {'posts': posts, 'tags': tags, 'journalist': journalist, 'posters': posters}
-    return render(request, 'blogapp/journalist.html', context)
 
 
 def schedule(request):

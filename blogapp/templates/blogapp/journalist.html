@@ -2,111 +2,117 @@
 {% load static %}
 {% load ads_tags %}
 {% load fontawesome_5 %}
+{% load cms_tags sekizai_tags menu_tags %}
 <link href="{% static 'blogapp/css/tags.css' %}" rel="stylesheet">
 {% block content %}
-<div class="search">
-    <div class=news__redbox>
-        <div class="news__redbox__box">
-            <div class="search__posts-title">
-                Artykuły użytkownika: {{journalist.user}}
+    <div class="search">
+        <div class=news__redbox>
+            <div class="news__redbox__box">
+                <div class="search__posts-title">
+                    Artykuły użytkownika: {{ journalist.user }}
+                </div>
+            </div>
+
+        </div>
+        <div class="news__redbox2__v2">
+            <div class="news__redbox2__box">
+                <span class="news__redbox2-news">Dodatkowe Informacje</span>
             </div>
         </div>
-
-    </div>
-    <div class="news__redbox2__v2">
-        <div class="news__redbox2__box">
-            <span class="news__redbox2-news">Dodatkowe Informacje</span>
-        </div>
-    </div>
-    <div class="search__posts">
-        {% for post in posts %}
-        <div class="search__posts__post">
-            <div class="search__posts__post__image"><img src={{ post.image.url }} /></div>
-            <div class="search__posts__post__information">
-                <div class="search__posts__post__title">{{post.title}}</div>
-                <div class="search__posts__post__meta">
-                    <div class="search__posts__post__meta__author">{{post.author}}</div>
-                    <div class="search__posts__post__meta__author__data">{{post.publish_on}}</div>
-                </div>
-                <div class="search__posts__post__shortdescription">{{post.short_description}}</div>
-                <div class="search__posts__post__comments">
-                </div>
-                <div class="search__posts__post__bottom-next">
-                    <div class="search__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}</div>
-                    <div class="search__posts__post__bottom-length">{{post.comments.all|length}}</div>
-                    <button onClick="onClick('{% url 'post_detail' post.slug %}')">Przejdź</button>
-                </div>
-            </div>
-        </div>
-
-        {% endfor %}
-        <div class="pagination">
-
-            <span class="step-links">
-                {% if posts.has_next %}
-                <div class="pagination__step-links">
-                    <a href="?page={{ posts.next_page_number }}">Następna</a>
-                    <a href="?page={{ posts.paginator.num_pages }}">Ostatnia &raquo;</a>
-                </div>
-                {% endif %}
-                {% if posts.has_previous %}
-                <div class="pagination__step-links">
-                    <a href="?page=1">&laquo; Pierwsza strona</a>
-                    <a href="?page={{ posts.previous_page_number }}">Poprzednia strona</a>
-                </div>
-                {% endif %}
-                <div class="pagination__current">
-                    <span class="current">
-                        Strona {{ posts.number }} z {{ posts.paginator.num_pages }}.
-                    </span>
-                </div>
-
-
-            </span>
-        </div>
-    </div>
-
-    <div class="news__bonusinformation">
-        <div class="news__bonusinformation__box">
-            <div class="news__bonusinformation__events"
-                style="background-image: url({{posters.0.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-            </div>
-            <div class="news__bonusinformation__title">Tagi</div>
-
-            <div class="news__bonusinformation__tags">
-                {% for tag in tags %}
-                <div class="news__bonusinformation__tags-tag" onClick="onClick('{% url 'tag_detail' tag.slug %}')">
-                    {{tag}}
-                </div>
-                {% endfor %}
-
-
-            </div>
-            <div class="news__bonusinformation__events"
-                style="background-image: url({{posters.1.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">
-            </div>
-            <div class="news__bonusinformation__title">Nasi Dziennikarze</div>
-            <div class="news__bonusinformation__journalists">
-                {% for editor in editors %}
-                <div class="news__bonusinformation__journalists__user"
-                    onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
-                    <div class="news__bonusinformation__journalists__user__image">
-                        <img src={{ editor.avatar.url }} />
-                    </div>
-                    <div class="news__bonusinformation__journalists__meta">
-                        <div class="news__bonusinformation__journalists__user__name">
-                            <a href={% url 'journalist_detail' editor.slug %}>{{editor.user.first_name}}
-                                {{editor.user.last_name}}</a>
+        <div class="search__posts">
+            {% for post in posts %}
+                <div class="search__posts__post">
+                    <div class="search__posts__post__image"><img src={{ post.image.url }}/></div>
+                    <div class="search__posts__post__information">
+                        <div class="search__posts__post__title">{{ post.title }}</div>
+                        <div class="search__posts__post__meta">
+                            <div class="search__posts__post__meta__author">{{ post.author }}</div>
+                            <div class="search__posts__post__meta__author__data">{{ post.publish_on }}</div>
                         </div>
-                        <div class="news__bonusinformation__journalists__user__rank">
-                            {{editor.rank}}
+                        <div class="search__posts__post__shortdescription">{{ post.short_description }}</div>
+                        <div class="search__posts__post__comments">
+                        </div>
+                        <div class="search__posts__post__bottom-next">
+                            <div class="search__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}</div>
+                            <div class="search__posts__post__bottom-length">{{ post.comments.all|length }}</div>
+                            <button onClick="onClick('{% url 'post_detail' post.slug %}')">Przejdź</button>
                         </div>
                     </div>
                 </div>
 
-                {% endfor %}
+            {% endfor %}
+            {% include 'blogapp/pagination.html' %}
+            {#        <div class="pagination">#}
+            {##}
+            {#            <span class="step-links">#}
+            {#                {% if posts.has_next %}#}
+            {#                <div class="pagination__step-links">#}
+            {#                    <a href="?page={{ posts.next_page_number }}">Następna</a>#}
+            {#                    <a href="?page={{ posts.paginator.num_pages }}">Ostatnia &raquo;</a>#}
+            {#                </div>#}
+            {#                {% endif %}#}
+            {#                {% if posts.has_previous %}#}
+            {#                <div class="pagination__step-links">#}
+            {#                    <a href="?page=1">&laquo; Pierwsza strona</a>#}
+            {#                    <a href="?page={{ posts.previous_page_number }}">Poprzednia strona</a>#}
+            {#                </div>#}
+            {#                {% endif %}#}
+            {#                <div class="pagination__current">#}
+            {#                    <span class="current">#}
+            {#                        Strona {{ posts.number }} z {{ posts.paginator.num_pages }}.#}
+            {#                    </span>#}
+            {#                </div>#}
+            {##}
+            {##}
+            {#            </span>#}
+            {#        </div>#}
+        </div>
+
+        <div class="news__bonusinformation">
+            <div class="news__bonusinformation__box">
+                {% static_placeholder 'first_event' %}
+                {% static_placeholder 'tag_plugin' %}
+                {% static_placeholder 'second_event' %}
+                {% static_placeholder 'journalist_plugin' %}
+                {#            <div class="news__bonusinformation__events"#}
+                {#                style="background-image: url({{posters.0.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
+                {#            </div>#}
+                {#            <div class="news__bonusinformation__title">Tagi</div>#}
+                {##}
+                {#            <div class="news__bonusinformation__tags">#}
+                {#                {% for tag in tags %}#}
+                {#                <div class="news__bonusinformation__tags-tag" onClick="onClick('{% url 'tag_detail' tag.slug %}')">#}
+                {#                    {{tag}}#}
+                {#                </div>#}
+                {#                {% endfor %}#}
+                {##}
+                {##}
+                {#            </div>#}
+                {#            <div class="news__bonusinformation__events"#}
+                {#                style="background-image: url({{posters.1.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
+                {#            </div>#}
+                {#            <div class="news__bonusinformation__title">Nasi Dziennikarze</div>#}
+                {#            <div class="news__bonusinformation__journalists">#}
+                {#                {% for editor in editors %}#}
+                {#                <div class="news__bonusinformation__journalists__user"#}
+                {#                    onClick="onClick('{% url 'journalist_detail' editor.slug %}')">#}
+                {#                    <div class="news__bonusinformation__journalists__user__image">#}
+                {#                        <img src={{ editor.avatar.url }} />#}
+                {#                    </div>#}
+                {#                    <div class="news__bonusinformation__journalists__meta">#}
+                {#                        <div class="news__bonusinformation__journalists__user__name">#}
+                {#                            <a href={% url 'journalist_detail' editor.slug %}>{{editor.user.first_name}}#}
+                {#                                {{editor.user.last_name}}</a>#}
+                {#                        </div>#}
+                {#                        <div class="news__bonusinformation__journalists__user__rank">#}
+                {#                            {{editor.rank}}#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {##}
+                {#                {% endfor %}#}
+                {#            </div>#}
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

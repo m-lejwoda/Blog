@@ -10,9 +10,7 @@ urlpatterns = [
     path('post/<slug:slug>/',  views.SingleArticleView.as_view(), name='post_detail'),
     path('schedule/', views.schedule, name='schedule_detail'),
     path('tags/<slug:tag>/', views.TagView.as_view(), name='tag_detail'),
-    path('journalist/<str:journalist_slug>/', views.journalist_detail,name='journalist_detail'),
-    # path('radio/', views.update_radio, name="radio"),
-    # path('radio2/', views.radio_test, name="radio2"),
+    path('journalist/<slug:slug>/', views.JournalistDetailView.as_view(),name='journalist_detail'),
     path('radioposts/', views.radio_posts, name="radio_posts"),
     path('news/', views.AllNewsView.as_view(), name="news"),
 
