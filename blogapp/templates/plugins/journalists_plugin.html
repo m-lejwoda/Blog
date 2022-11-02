@@ -1,0 +1,21 @@
+<div class="news__bonusinformation__title">Nasi Dziennikarze</div>
+<div class="news__bonusinformation__journalists">
+    {% for editor in editors %}
+        <div class="news__bonusinformation__journalists__user"
+             onClick="onClick('{% url 'journalist_detail' editor.slug %}')">
+            <div class="news__bonusinformation__journalists__user__image">
+                <img src={{ editor.avatar.url }}/>
+            </div>
+            <div class="news__bonusinformation__journalists__meta">
+                <div class="news__bonusinformation__journalists__user__name">
+                    <a href={% url 'journalist_detail' editor.slug %}>{{ editor.user.first_name }}
+                        {{ editor.user.last_name }}</a>
+                </div>
+                <div class="news__bonusinformation__journalists__user__rank">
+                    {{ editor.rank }}
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+</div>

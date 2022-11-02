@@ -1,6 +1,6 @@
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase, CMSPlugin
-from blogapp.models import Post, Poster, Tag
+from blogapp.models import Post, Poster, Tag, EditorProfile
 from django.db import models
 
 """CMS Plugin models"""
@@ -62,6 +62,17 @@ class EventPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(EventPlugin, self).render(context, instance, placeholder)
+        return context
+
+
+@plugin_pool.register_plugin
+class JournalistsPlugin(CMSPluginBase):
+    name = 'Journalists Plugin'
+    render_template = 'plugins/journalists_plugin.html'
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context.update({"editors": EditorProfile.objects.all()})
         return context
 
 

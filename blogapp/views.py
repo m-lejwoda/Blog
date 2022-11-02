@@ -88,22 +88,6 @@ class TagView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({"tag": self.kwargs.get('tag')})
-        print("context")
-        print(context)
-        # tag = 1
-        # tags = Tag.objects.get(slug=tag)
-        # posters = Poster.objects.all().order_by('-date')
-        # tag_name = Tag.objects.get(slug=tag)
-        # posts1 = Post.objects.filter(tags=tags.id).order_by('-publish_on')
-        # tags = Tag.objects.all()
-        # editors = EditorProfile.objects.all()
-        # paginator = Paginator(posts1, 8)
-        # # page_number = request.GET.get('page')
-        # # posts = paginator.get_page(page_number)
-        # context = {
-        #     # 'posts': posts
-        #      'tags': tags, 'editors': editors, 'tag_name': tag_name, 'posters': posters}
-        # # return render(request, 'blogapp/tags.html', context)
         return context
 
 
@@ -117,46 +101,31 @@ class SingleArticleView(View):
         radioposts = Post.objects.all()
         comments = post.comments.filter()
         posts = Post.objects.all()
-        tags = Tag.objects.all()
         editors = EditorProfile.objects.all()
-        context = {'post': post, 'tags': tags, 'editors': editors, 'posts': posts, 'comments': comments,
+        context = {'post': post, 'editors': editors, 'posts': posts, 'comments': comments,
                    'radioposts': radioposts}
         return render(request, 'blogapp/radio2.html', context)
 
-    # @staticmethod
-    # def post(request):
-    #     if 'textar' in request.POST:
-    #         user = User.objects.get(username=request.user)
-    #         text = request.POST.get("textar", None)
-    #         data = {
-    #             'post': post.id,
-    #             'author': user.id,
-    #             'text': text}
-    #         form = CommentForm(data)
-    #         if form.is_valid():
-    #             form.save()
-    #     if 'radio' in request.POST:
-    #         radio = request.POST.get("input", None)
-    #         if (radio == "radio-two"):
-    #             radioposts = Tag.objects.all()
-    #         elif (radio == "radio-three"):
-    #             radioposts = EditorProfile.objects.all()
-    #         else:
-    #             radioposts = Post.objects.all()
+
+class AllNewsView(ListView):
+    model = Post
+    paginate_by = 2
+    template_name = 'blogapp/news.html'
+    queryset = Post.objects.order_by('-publish_on')
 
 
-def allnews(request):
-    posts = Post.objects.all().order_by('-publish_on')
-    tags = Tag.objects.all()
-    editors = EditorProfile.objects.all()
-    paginator = Paginator(posts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    posters = Poster.objects.all()
-
-    context = {'posts': posts, 'tags': tags, 'editors': editors, 'page_obj': page_obj, 'posters': posters}
-    return render(request, 'blogapp/news.html', context)
-
+# def allnews(request):
+#     posts = Post.objects.all().order_by('-publish_on')
+#     tags = Tag.objects.all()
+#     editors = EditorProfile.objects.all()
+#     paginator = Paginator(posts, 10)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#     posters = Poster.objects.all()
+#
+#     context = {'posts': posts, 'tags': tags, 'editors': editors, 'page_obj': page_obj, 'posters': posters}
+#     return render(request, 'blogapp/news.html', context)
+#
 
 # def blog(request):
 #     posts = Post.objects.all().order_by('-publish_on')
@@ -178,13 +147,15 @@ def allnews(request):
 #     editors = EditorProfile.objects.all()
 #     context = {'posts': posts, 'tags':tags, 'editors': editors}
 #     return render(request,'blogapp/main.html',context)
-def post(request):
-    posts = Post.objects.all()
-    tags = Tag.objects.all()
-    editors = EditorProfile.objects.all()
-    mainnews = MainNews.objects.all()
-    context = {'posts': posts, 'tags': tags, 'editors': editors, 'mainnews': mainnews}
-    return render(request, 'blogapp/dashboard.html', context)
+
+#WTF
+# def post(request):
+#     posts = Post.objects.all()
+#     tags = Tag.objects.all()
+#     editors = EditorProfile.objects.all()
+#     mainnews = MainNews.objects.all()
+#     context = {'posts': posts, 'tags': tags, 'editors': editors, 'mainnews': mainnews}
+#     return render(request, 'blogapp/dashboard.html', context)
 
 
 # def loginPage(request):

@@ -22,7 +22,7 @@
         <div class="search__posts">
             {% for post in object_list %}
                 <div class="search__posts__post">
-                    <div class="search__posts__post__image"><img src="{{STATIC_U_R_L}}{{ post.image.url }}"/></div>
+                    <div class="search__posts__post__image"><img src="{{ post.image.url }}"/></div>
                     <div class="search__posts__post__information">
                         <div class="search__posts__post__title">{{ post.title }}</div>
                         <div class="search__posts__post__meta">
@@ -38,53 +38,14 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="pagination">
-
-            <span class="step-links">
-                {% if posts.has_next %}
-                    <div class="pagination__step-links">
-                    <a href="?page={{ posts.next_page_number }}">Następna</a>
-                    <a href="?page={{ posts.paginator.num_pages }}">Ostatnia &raquo;</a>
-                </div>
-                {% endif %}
-                {% if posts.has_previous %}
-                    <div class="pagination__step-links">
-                    <a href="?page=1">&laquo; Pierwsza strona</a>
-                    <a href="?page={{ posts.previous_page_number }}">Poprzednia strona</a>
-                </div>
-                {% endif %}
-                <div class="pagination__current">
-                    <span class="current">
-                        Strona {{ posts.number }} z {{ posts.paginator.num_pages }}.
-                    </span>
-                </div>
-
-
-            </span>
-            </div>
+            {% include 'blogapp/pagination.html' %}
         </div>
         <div class="news__bonusinformation">
             <div class="news__bonusinformation__box">
                 {% static_placeholder 'first_event' %}
-                {#            <div class="news__bonusinformation__events"#}
-                {#                style="background-image: url({{posters.0.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
-                {#            </div>#}
-
                 {% static_placeholder 'tag_plugin' %}
-
-                {#            <div class="news__bonusinformation__tags">#}
-                {#                {% for tag in tags %}#}
-                {#                <div class="news__bonusinformation__tags-tag" onClick="onClick('{% url 'tag_detail' tag.slug %}')">#}
-                {#                    {{tag}}#}
-                {#                </div>#}
-                {#                {% endfor %}#}
-                {##}
-                {##}
-                {#            </div>#}
                 {% static_placeholder 'second_event' %}
-                {#            <div class="news__bonusinformation__events"#}
-                {#                style="background-image: url({{posters.1.image.url}});background-repeat: no-repeat;background-size: 100% 100%; background-position:center center;">#}
-                {#            </div>#}
+                {% static_placeholder 'journalists_plugin' %}
                 <div class="news__bonusinformation__title">Nasi Dziennikarze</div>
                 <div class="news__bonusinformation__journalists">
                     {% for editor in editors %}
