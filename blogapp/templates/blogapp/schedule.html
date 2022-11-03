@@ -20,9 +20,12 @@
         </div>
     </div>
     <div class="search__posts">
+        <button onClick="onClick('{% url 'archival_schedule' %}')">Archiwalne rozpiski</button>
         <div class="search__posts__posters">
         {% for poster in page_obj %}
             <div class="search__posts__posters__image"><img src={{ poster.image.url }}></div>
+            Data {{ poster.date|date:"d, M, Y" }}
+            Czas rozpoczęcia gali {{ poster.date|date:"H:i" }}
         {% endfor %}
         </div>
         <div class="pagination">

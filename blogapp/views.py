@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core import serializers
 from django.views.generic import ListView, View, DetailView
+from django.utils import timezone
 import json
 
 
@@ -114,15 +115,40 @@ class AllNewsView(ListView):
     queryset = Post.objects.order_by('-publish_on')
 
 
-class JournalistDetailView(DetailView):
-    model = EditorProfile
+class JournalistDetailView(ListView):
+    model = Post
     template_name = 'blogapp/journalist.html'
+    paginate_by = 2
+    #TODO Change USer to Edit Profile
+    # def get_queryset(self):
+    #     return super(JournalistDetailView, self).get_queryset().filter(tags__slug__icontains=self.kwargs.get('tag')) \
+    #         .order_by('-publish_on')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        print(self.kwargs.get('slug'))
         print(self.get_slug_field())
         print(context)
         return context
+
+
+class ArchivalScheduleView(ListView):
+    model = Poster
+    template_name = 'blogapp/schedule.html'
+    paginate_by = 2
+    queryset = Poster.objects.filter(date__date__lt=timezone.now().date())
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # queryset = Poster.objects.filter(date__date__gte=timezone.now().date())
+        # print(queryset)
+        return context
+
+class UpcomingScheduleView(ListView):
+    model = Poster
+    template_name = 'blogapp/schedule.html'
+    paginate_by = 2
+    queryset = Poster.objects.filter(date__date__gte=timezone.now().date())
+
 
 def journalist_detail(request, journalist_slug):
     journalist = EditorProfile.objects.get(slug=journalist_slug)
@@ -134,117 +160,6 @@ def journalist_detail(request, journalist_slug):
     tags = Tag.objects.all()
     context = {'posts': posts, 'tags': tags, 'journalist': journalist, 'posters': posters}
     return render(request, 'blogapp/journalist.html', context)
-
-# def allnews(request):
-#     posts = Post.objects.all().order_by('-publish_on')
-#     tags = Tag.objects.all()
-#     editors = EditorProfile.objects.all()
-#     paginator = Paginator(posts, 10)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#     posters = Poster.objects.all()
-#
-#     context = {'posts': posts, 'tags': tags, 'editors': editors, 'page_obj': page_obj, 'posters': posters}
-#     return render(request, 'blogapp/news.html', context)
-#
-
-# def blog(request):
-#     posts = Post.objects.all().order_by('-publish_on')
-#     posters = Poster.objects.all()
-#     tags = Tag.objects.all()
-#     editors = EditorProfile.objects.all()
-#     mainnews = MainNews.objects.all()
-#     paginator = Paginator(posts, 10)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#     print("lest see blog")
-#     context = {'posts': posts, 'tags':tags, 'editors': editors,'page_obj':page_obj,'posters':posters,'mainnews':mainnews}
-#     return render(request,'blogapp/dashboard.html',context)
-
-
-# def main(request):
-#     posts = Post.objects.all()
-#     tags = Tag.objects.all()
-#     editors = EditorProfile.objects.all()
-#     context = {'posts': posts, 'tags':tags, 'editors': editors}
-#     return render(request,'blogapp/main.html',context)
-
-#WTF
-# def post(request):
-#     posts = Post.objects.all()
-#     tags = Tag.objects.all()
-#     editors = EditorProfile.objects.all()
-#     mainnews = MainNews.objects.all()
-#     context = {'posts': posts, 'tags': tags, 'editors': editors, 'mainnews': mainnews}
-#     return render(request, 'blogapp/dashboard.html', context)
-
-
-# def loginPage(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('index')
-#         else:
-#             messages.info(request, 'Nazwa użytkownika lub hasło są niepoprawne')
-#
-#     context = {}
-#     return render(request, 'blogapp/loginok.html', context)
-
-#
-# @csrf_exempt
-# def update_radio(request):
-#     post = Post.objects.all()
-#     tag = Tag.objects.all()
-#     editor = EditorProfile.objects.all()
-#     data = Post.objects.all()
-#     if request.method == 'POST':
-#         inp = request.POST.get('input', None)
-#         author = request.POST.get('author', None)
-#         user = User.objects.get(username=author)
-#         if (inp == "radio-two"):
-#             data = Post.objects.all().order_by()
-#         elif (inp == "radio-three"):
-#             data = Post.objects.all().order_by('-publish_on')
-#         else:
-#             data = Post.objects.all().order_by('-clicks')
-#
-#     return render(request, 'blogapp/radio2.html', {'data': data})
-#
-#
-# @csrf_exempt
-# def radio_test(request, slug):
-#     if request.method == 'POST':
-#         print("readio_test")
-#     return render(request, 'blogapp/radio2.html')
-#
-#
-# def addcomment(request):
-#     if request.method == 'POST':
-#         print(request.POST)
-
-
-# def registerPage(request):
-#     form = CreateUserForm()
-#     if request.method == 'POST':
-#         form = CreateUserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             user = form.cleaned_data.get('username')
-#             messages.success(request, 'Gratulacje utworzyłeś swój profil użytkownika ' + user)
-#             return redirect('login')
-#     context = {'form': form}
-#     return render(request, 'blogapp/registerok.html', context)
-
-
-# def logoutUser(request):
-#     logout(request)
-#     return redirect('login')
-#
-
-# @csrf_exempt
 
 def radio_posts(request):
     identity = request.GET.get('id')
@@ -346,13 +261,13 @@ def radio_posts(request):
 
 
 
-
-def schedule(request):
-    posters = Poster.objects.all().order_by('-date')
-    editors = EditorProfile.objects.all()
-    tags = Tag.objects.all()
-    paginator = Paginator(posters, 8)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {'posters': posters, 'tags': tags, 'editors': editors, 'page_obj': page_obj}
-    return render(request, 'blogapp/schedule.html', context)
+# TODO Correct Archival Upcoming or Remove
+# def schedule(request):
+#     posters = Poster.objects.all().order_by('-date')
+#     editors = EditorProfile.objects.all()
+#     tags = Tag.objects.all()
+#     paginator = Paginator(posters, 8)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#     context = {'posters': posters, 'tags': tags, 'editors': editors, 'page_obj': page_obj}
+#     return render(request, 'blogapp/schedule.html', context)

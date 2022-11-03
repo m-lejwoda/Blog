@@ -33,6 +33,8 @@ class Tag(models.Model):
 class Poster(models.Model):
     image = models.ImageField(default="")
     date = models.DateTimeField(default=timezone.now)
+    content = RichTextUploadingField(blank=True, null=True)
+    description = RichTextUploadingField(blank=True, null=True)
 
 
 class Post(models.Model):
