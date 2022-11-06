@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('archival_schedule/', views.ArchivalScheduleView.as_view(), name='archival_schedule'),
     path('upcoming_schedule/', views.UpcomingScheduleView.as_view(), name='upcoming_schedule'),
+    path('create_blog_post/', views.CreateArticleBlogView.as_view(), name='create_blog_post'),
     #TODO Radioposts
     path('radioposts/', views.radio_posts, name="radio_posts"),
     path('news/', views.AllNewsView.as_view(), name="news"),

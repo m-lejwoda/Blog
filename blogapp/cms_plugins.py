@@ -1,19 +1,19 @@
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase, CMSPlugin
-from blogapp.models import Post, Poster, Tag, EditorProfile
+from blogapp.models import Article, Schedule, Tag, EditorProfile
 from django.db import models
 
 """CMS Plugin models"""
 
 
 class Event(CMSPlugin):
-    poster = models.ForeignKey(Poster, on_delete=models.CASCADE, related_name='poster')
+    poster = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name='poster')
 
 
 class HotArticles(CMSPlugin):
-    first_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='first_post')
-    second_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='second_post')
-    third_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='third_post')
+    first_post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='first_post')
+    second_post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='second_post')
+    third_post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='third_post')
 
     def copy_relations(self, oldinstance):
         self.first_post.all().delete()

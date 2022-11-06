@@ -165,7 +165,7 @@ USE_L10N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 CORS_ORIGIN_ALLOW = True
-# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_U_R_L = '/static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (

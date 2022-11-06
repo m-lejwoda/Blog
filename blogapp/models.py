@@ -1,25 +1,23 @@
-from django.db import models
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
-from hitcount.models import HitCountMixin, HitCount
+from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
-from .choices import Ranks
+from .choices import Ranks, News_Category
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=32)
-
-    class Meta:
-        verbose_name_plural = "Categories"
-
-    def __str__(self):
-        return self.name
+# class Category(models.Model):
+#     name = models.CharField(max_length=32)
+#
+#     class Meta:
+#         verbose_name_plural = "Categories"
+#
+#     def __str__(self):
+#         return self.name
 
 
 class Tag(models.Model):
@@ -30,25 +28,46 @@ class Tag(models.Model):
         return self.name
 
 
-class Poster(models.Model):
+class Schedule(models.Model):
     image = models.ImageField(default="")
     date = models.DateTimeField(default=timezone.now)
     content = RichTextUploadingField(blank=True, null=True)
     description = RichTextUploadingField(blank=True, null=True)
 
 
-class Post(models.Model):
+class EditorProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    lastname = models.CharField(max_length=30)
+    avatar = models.ImageField()
+    slug = models.CharField(max_length=128, null=True, blank=True)
+    description = models.TextField()
+    rank = models.CharField(
+        max_length=20,
+        choices=Ranks,
+        default=Ranks.Redaktor,
+    )
+
+    def __str__(self):
+        return self.user.username
+
+
+class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    editor_profile = models.ForeignKey(EditorProfile, on_delete=models.CASCADE, blank=True, null=True)
+    show_in_main_news = models.BooleanField(default=True)
+    category = models.CharField(
+        max_length=20,
+        choices=News_Category,
+        default=News_Category.News,
+    )
     title = models.CharField(max_length=64)
-    symbol = models.CharField(max_length=2)
-    short_description = models.CharField(max_length=200, default="")
+    # short_description = models.CharField(max_length=200, default="")
     image = models.ImageField(default="")
     tags = models.ManyToManyField(Tag, blank=True)
     slug = models.SlugField(max_length=128, null=True, blank=True)
-    content = RichTextField()
-    content2 = RichTextUploadingField(blank=True, null=True)
-    clicks = models.IntegerField(default=0)
+    content = RichTextUploadingField(blank=True, null=True)
+    clicks = models.IntegerField(default=0, blank=True)
     updated_on = models.DateTimeField(auto_now=True, null=False, blank=False, )
     created_on = models.DateTimeField(auto_now=True, null=False, blank=False, )
     publish_on = models.DateTimeField(auto_now=True, null=False, blank=False, )
@@ -63,13 +82,12 @@ class Post(models.Model):
     def get_absolute_image_url(self):
         return '{}'.format(self.image.url)
 
-
     def __str__(self):
         return self.slug
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -98,25 +116,10 @@ class Social(models.Model):
         verbose_name_plural = "Social networks"
 
 
-class EditorProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30)
-    lastname = models.CharField(max_length=30)
-    avatar = models.ImageField()
-    slug = models.CharField(max_length=128, null=True, blank=True)
-    description = models.TextField()
-    rank = models.CharField(
-        max_length=20,
-        choices=Ranks,
-        default=Ranks.Redaktor,
-    )
-
-    def __str__(self):
-        return self.user.username
 
 
-class MainNews(models.Model):
-    post = models.ManyToManyField(Post, related_name='posts')
+# class MainNews(models.Model):
+#     post = models.ManyToManyField(Article, related_name='posts')
 
 
 def editor_create_slug(instance, new_slug=None):
@@ -135,7 +138,7 @@ def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
     if new_slug is not None:
         slug = new_slug
-    qs = Post.objects.filter(slug=slug).order_by("-id")
+    qs = Article.objects.filter(slug=slug).order_by("-id")
     exists = qs.exists()
     if exists:
         new_slug = "%s-%s" % (slug, qs.first().id)
@@ -156,10 +159,9 @@ def pre_save_editor_receiver(sender, instance, *args, **kwargs):
 def tag_create_slug(instance, new_slug=None):
     txt = instance.name.replace(" ", "_")
     slug = slugify(txt)
-    print(slug)
     if new_slug is not None:
         slug = new_slug
-    qs = Post.objects.filter(slug=slug).order_by("-id")
+    qs = Article.objects.filter(slug=slug).order_by("-id")
     exists = qs.exists()
     if exists:
         new_slug = "%s-%s" % (slug, qs.first().id)
@@ -168,11 +170,10 @@ def tag_create_slug(instance, new_slug=None):
 
 
 def pre_save_tag_receiver(sender, instance, *args, **kwargs):
-    print(instance)
     if not instance.slug:
         instance.slug = tag_create_slug(instance)
 
 
-pre_save.connect(pre_save_post_receiver, sender=Post)
+pre_save.connect(pre_save_post_receiver, sender=Article)
 pre_save.connect(pre_save_editor_receiver, sender=EditorProfile)
 pre_save.connect(pre_save_tag_receiver, sender=Tag)

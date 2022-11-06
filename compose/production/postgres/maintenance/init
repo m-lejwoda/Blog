@@ -13,7 +13,7 @@ set -o pipefail
 set -o nounset
 
 working_dir="$(dirname ${0})"
-database_url="https://it-docs.sunshineprofits.com/current_db.sql.gz"
+#database_url="https://it-docs.sunshineprofits.com/current_db.sql.gz"
 init_database_path="/init_db/current_db.sql.gz"
 source "${working_dir}/_sourced/constants.sh"
 source "${working_dir}/_sourced/messages.sh"

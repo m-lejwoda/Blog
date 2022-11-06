@@ -1,25 +1,29 @@
 from django.shortcuts import render, redirect
-from .models import Post, Tag, EditorProfile, Poster, MainNews
+from .models import Article, Tag, EditorProfile, Schedule
 from django.contrib import messages
-from .forms import CreateUserForm, CommentForm
+from .forms import CreateUserForm, CommentForm, CreateBlogArticleForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.views.generic.edit import FormView
 from django.core import serializers
 from django.views.generic import ListView, View, DetailView
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils import timezone
+from .choices import News_Category
 import json
 
 
 class ArticleListView(ListView):
-    model = Post
+    model = Article
     paginate_by = 2
     template_name = 'blogapp/dashboard.html'
 
     def get_queryset(self):
-        posts = Post.objects.filter().order_by('-created_on')
+        posts = Article.objects.filter().order_by('-created_on')
         return posts
 
     def get_context_data(self, **kwargs):
@@ -52,7 +56,6 @@ class LoginView(View):
 
 
 class RegisterView(View):
-
     @staticmethod
     def get(request):
         form = CreateUserForm()
@@ -78,7 +81,7 @@ class LogoutView(View):
 
 
 class TagView(ListView):
-    model = Post
+    model = Article
     paginate_by = 2
     template_name = 'blogapp/tags.html'
 
@@ -93,15 +96,14 @@ class TagView(ListView):
 
 
 class SingleArticleView(View):
-
     @staticmethod
     def get(request, slug):
-        post = Post.objects.get(slug=slug)
+        post = Article.objects.get(slug=slug)
         post.clicks = post.clicks + 1
         post.save()
-        radioposts = Post.objects.all()
+        radioposts = Article.objects.all()
         comments = post.comments.filter()
-        posts = Post.objects.all()
+        posts = Article.objects.all()
         editors = EditorProfile.objects.all()
         context = {'post': post, 'editors': editors, 'posts': posts, 'comments': comments,
                    'radioposts': radioposts}
@@ -109,14 +111,14 @@ class SingleArticleView(View):
 
 
 class AllNewsView(ListView):
-    model = Post
+    model = Article
     paginate_by = 2
     template_name = 'blogapp/news.html'
-    queryset = Post.objects.order_by('-publish_on')
+    queryset = Article.objects.order_by('-publish_on')
 
 
 class JournalistDetailView(ListView):
-    model = Post
+    model = Article
     template_name = 'blogapp/journalist.html'
     paginate_by = 2
     #TODO Change USer to Edit Profile
@@ -133,27 +135,68 @@ class JournalistDetailView(ListView):
 
 
 class ArchivalScheduleView(ListView):
-    model = Poster
+    model = Schedule
     template_name = 'blogapp/schedule.html'
     paginate_by = 2
-    queryset = Poster.objects.filter(date__date__lt=timezone.now().date())
+    queryset = Schedule.objects.filter(date__date__lt=timezone.now().date())
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # queryset = Poster.objects.filter(date__date__gte=timezone.now().date())
+        # queryset = Schedule.objects.filter(date__date__gte=timezone.now().date())
         # print(queryset)
         return context
 
 class UpcomingScheduleView(ListView):
-    model = Poster
+    model = Schedule
     template_name = 'blogapp/schedule.html'
     paginate_by = 2
-    queryset = Poster.objects.filter(date__date__gte=timezone.now().date())
+    queryset = Schedule.objects.filter(date__date__gte=timezone.now().date())
+
+
+# class CreateArticleBlogView(View):
+#     @staticmethod
+#     def get(request):
+#         form = CreateBlogArticleFrom()
+#         context = {'form': form}
+#         return render(request, 'blogapp/create_blog_article.html', context)
+#
+#     @staticmethod
+#     def post(request):
+#         form = CreateBlogArticleFrom(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             # messages.success(request, 'Gratulacje utworzyłeś swój profil użytkownika ' + user)
+#             return redirect('login')
+
+
+#LoginRequiredMixin
+class CreateArticleBlogView(UserPassesTestMixin, FormView):
+    login_url = '/login/'
+    redirect_field_name = '/create_blog_post/'
+    template_name = 'blogapp/create_blog_article.html'
+    form_class = CreateBlogArticleForm
+    success_url = '/blogs/'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    # def get_initial(self):
+    #     self.initial.update({'author': self.request.user})
+    #     return super(CreateArticleBlogView, self).get_initial()
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.category = News_Category.Blog
+        form.show_in_main_news = False
+        form.save()
+        # form.instance.clicks = 1
+        return super().form_valid(form)
+
 
 
 def journalist_detail(request, journalist_slug):
     journalist = EditorProfile.objects.get(slug=journalist_slug)
-    posters = Poster.objects.all().order_by('-date')
-    posts1 = Post.objects.filter(author=journalist.user)
+    posters = Schedule.objects.all().order_by('-date')
+    posts1 = Article.objects.filter(author=journalist.user)
     paginator = Paginator(posts1, 8)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
@@ -166,13 +209,13 @@ def radio_posts(request):
     author = request.GET.get('author')
     if identity == "radio-one":
         user = User.objects.get(username=author)
-        posts = Post.objects.all().order_by('-clicks')
+        posts = Article.objects.all().order_by('-clicks')
         threeposts = posts[0:3]
         result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
         y = json.loads(result)
         dictionary = {}
         for el in y:
-            post = Post.objects.get(slug=el['fields']['slug'])
+            post = Article.objects.get(slug=el['fields']['slug'])
             url = post.image.url
             absoluteurl = {"image": url}
             el['fields'].update(absoluteurl)
@@ -181,26 +224,26 @@ def radio_posts(request):
 
     if identity == "radio-two":
         user = User.objects.get(username=author)
-        posts = Post.objects.filter(author=user).order_by('-publish_on')
+        posts = Article.objects.filter(author=user).order_by('-publish_on')
         threeposts = posts[0:3]
         result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
         y = json.loads(result)
         dictionary = {}
         for el in y:
-            post = Post.objects.get(slug=el['fields']['slug'])
+            post = Article.objects.get(slug=el['fields']['slug'])
             url = post.image.url
             absoluteurl = {"image": url}
             el['fields'].update(absoluteurl)
         endpoint = json.dumps(y)
         return JsonResponse(endpoint, safe=False)
     if identity == "radio-three":
-        posts = Post.objects.all().order_by('-publish_on')[0:3]
+        posts = Article.objects.all().order_by('-publish_on')[0:3]
         threeposts = posts[0:3]
         result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
         y = json.loads(result)
         dictionary = {}
         for el in y:
-            post = Post.objects.get(slug=el['fields']['slug'])
+            post = Article.objects.get(slug=el['fields']['slug'])
             url = post.image.url
             absoluteurl = {"image": url}
             el['fields'].update(absoluteurl)
@@ -212,10 +255,10 @@ def radio_posts(request):
 
 # @csrf_exempt
 # def post_detail(request, slug):
-#     post = Post.objects.get(slug=slug)
+#     post = Article.objects.get(slug=slug)
 #     post.clicks = post.clicks + 1
 #     post.save()
-#     radioposts = Post.objects.all()
+#     radioposts = Article.objects.all()
 #     if request.method == "POST":
 #         if 'textar' in request.POST:
 #             user = User.objects.get(username=request.user)
@@ -235,9 +278,9 @@ def radio_posts(request):
 #             elif (radio == "radio-three"):
 #                 radioposts = EditorProfile.objects.all()
 #             else:
-#                 radioposts = Post.objects.all()
+#                 radioposts = Article.objects.all()
 #     comments = post.comments.filter()
-#     posts = Post.objects.all()
+#     posts = Article.objects.all()
 #     tags = Tag.objects.all()
 #     editors = EditorProfile.objects.all()
 #     context = {'post': post, 'tags': tags, 'editors': editors, 'posts': posts, 'comments': comments,
@@ -248,9 +291,9 @@ def radio_posts(request):
 # @csrf_exempt
 # def tag_detail(request, tag):
 #     tags = Tag.objects.get(slug=tag)
-#     posters = Poster.objects.all().order_by('-date')
+#     posters = Schedule.objects.all().order_by('-date')
 #     tag_name = Tag.objects.get(slug=tag)
-#     posts1 = Post.objects.filter(tags=tags.id).order_by('-publish_on')
+#     posts1 = Article.objects.filter(tags=tags.id).order_by('-publish_on')
 #     tags = Tag.objects.all()
 #     editors = EditorProfile.objects.all()
 #     paginator = Paginator(posts1, 8)
@@ -263,7 +306,7 @@ def radio_posts(request):
 
 # TODO Correct Archival Upcoming or Remove
 # def schedule(request):
-#     posters = Poster.objects.all().order_by('-date')
+#     posters = Schedule.objects.all().order_by('-date')
 #     editors = EditorProfile.objects.all()
 #     tags = Tag.objects.all()
 #     paginator = Paginator(posters, 8)
