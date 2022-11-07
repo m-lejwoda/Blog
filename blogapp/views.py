@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import Article, Tag, EditorProfile, Schedule
 from django.contrib import messages
-from .forms import CreateUserForm, CommentForm, CreateBlogArticleForm
+from .forms import CreateUserForm, CommentForm, CreateBlogArticleForm, CreateEditorArticleForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.generic.edit import FormView
 from django.core import serializers
 from django.views.generic import ListView, View, DetailView
@@ -23,8 +23,8 @@ class ArticleListView(ListView):
     template_name = 'blogapp/dashboard.html'
 
     def get_queryset(self):
-        posts = Article.objects.filter().order_by('-created_on')
-        return posts
+        articles = Article.objects.filter().order_by('-created_on')
+        return articles
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -32,6 +32,17 @@ class ArticleListView(ListView):
         editors = EditorProfile.objects.all()
         context.update({'tags': tags, 'editors': editors})
         return context
+
+
+class BlogsListView(ListView):
+    model = Article
+    paginate_by = 10
+    template_name = 'blogapp/blogs.html'
+
+    def get_queryset(self):
+        articles = Article.objects.filter(category=News_Category.Blog).order_by('-publish_on')
+        return articles
+
 
 
 class LoginView(View):
@@ -141,8 +152,6 @@ class ArchivalScheduleView(ListView):
     queryset = Schedule.objects.filter(date__date__lt=timezone.now().date())
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # queryset = Schedule.objects.filter(date__date__gte=timezone.now().date())
-        # print(queryset)
         return context
 
 class UpcomingScheduleView(ListView):
@@ -152,45 +161,46 @@ class UpcomingScheduleView(ListView):
     queryset = Schedule.objects.filter(date__date__gte=timezone.now().date())
 
 
-# class CreateArticleBlogView(View):
-#     @staticmethod
-#     def get(request):
-#         form = CreateBlogArticleFrom()
-#         context = {'form': form}
-#         return render(request, 'blogapp/create_blog_article.html', context)
-#
-#     @staticmethod
-#     def post(request):
-#         form = CreateBlogArticleFrom(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             # messages.success(request, 'Gratulacje utworzyłeś swój profil użytkownika ' + user)
-#             return redirect('login')
+class CreateEditorArticleView(UserPassesTestMixin, FormView):
+    login_url = '/login/'
+    redirect_field_name = '/create_editor_article/'
+    template_name = 'blogapp/create_article.html'
+    form_class = CreateEditorArticleForm
+    success_url = '/blogs/'
+
+    def handle_no_permission(self):
+        """ Do whatever you want here if the user doesn't pass the test """
+        return HttpResponse('You have been denied')
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.editor_profile = self.request.user.editor
+        form.show_in_main_news = True
+        form.save()
+        return super().form_valid(form)
 
 
-#LoginRequiredMixin
-class CreateArticleBlogView(UserPassesTestMixin, FormView):
+
+class CreateArticleBlogView(LoginRequiredMixin, FormView):
     login_url = '/login/'
     redirect_field_name = '/create_blog_post/'
     template_name = 'blogapp/create_blog_article.html'
     form_class = CreateBlogArticleForm
     success_url = '/blogs/'
 
-    def test_func(self):
-        return self.request.user.is_staff
-
-    # def get_initial(self):
-    #     self.initial.update({'author': self.request.user})
-    #     return super(CreateArticleBlogView, self).get_initial()
+    def handle_no_permission(self):
+        """ Do whatever you want here if the user doesn't pass the test """
+        return HttpResponse('You have been denied')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.category = News_Category.Blog
         form.show_in_main_news = False
         form.save()
-        # form.instance.clicks = 1
         return super().form_valid(form)
-
 
 
 def journalist_detail(request, journalist_slug):

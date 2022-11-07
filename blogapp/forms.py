@@ -6,6 +6,22 @@ from .models import Comment, Article, Tag
 from django import forms
 
 
+class CreateEditorArticleForm(ModelForm):
+    class Meta:
+        model = Article
+        fields = ['category', 'tags', 'title', 'image', 'content']
+
+    tags = ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=CheckboxSelectMultiple
+    )
+
+    def clean_title(self, *args, **kwargs):
+        title = self.cleaned_data.get('title')
+        if not len(title) > 3:
+            raise forms.ValidationError("Tytuł jest za krótki")
+        return title
+
 class CreateBlogArticleForm(ModelForm):
     class Meta:
         model = Article

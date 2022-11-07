@@ -36,7 +36,7 @@ class Schedule(models.Model):
 
 
 class EditorProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='editor')
     name = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
     avatar = models.ImageField()
@@ -53,7 +53,7 @@ class EditorProfile(models.Model):
 
 
 class Article(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_articles')
     editor_profile = models.ForeignKey(EditorProfile, on_delete=models.CASCADE, blank=True, null=True)
     show_in_main_news = models.BooleanField(default=True)
     category = models.CharField(
