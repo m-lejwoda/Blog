@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.views.generic.list import MultipleObjectMixin
+
 from .models import Article, Tag, EditorProfile, Schedule
 from django.contrib import messages
 from .forms import CreateUserForm, CommentForm, CreateBlogArticleForm, CreateEditorArticleForm
@@ -6,7 +8,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.views.generic.edit import FormView
 from django.core import serializers
@@ -127,22 +128,45 @@ class AllNewsView(ListView):
     template_name = 'blogapp/news.html'
     queryset = Article.objects.order_by('-publish_on')
 
-
-class JournalistDetailView(ListView):
-    model = Article
+#MultipleObjectMixin
+class JournalistDetailView(DetailView,MultipleObjectMixin):
+    model = EditorProfile
     template_name = 'blogapp/journalist.html'
     paginate_by = 2
+
+    # def get_queryset(self):
+    #     queryset = super(JournalistDetailView, self).get_queryset()
+    #     print(queryset)
+    #     return queryset
+
+    # def get_queryset(self):
+    #     print(super(JournalistDetailView,self).get_queryset())
+    #     return super(JournalistDetailView,self).get_queryset()
     #TODO Change USer to Edit Profile
     # def get_queryset(self):
     #     return super(JournalistDetailView, self).get_queryset().filter(tags__slug__icontains=self.kwargs.get('tag')) \
     #         .order_by('-publish_on')
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(self.kwargs.get('slug'))
-        print(self.get_slug_field())
+        object_list = Article.objects.filter(editor_profile=self.get_object())
+        context = super(JournalistDetailView, self).get_context_data(object_list=object_list, **kwargs)
         print(context)
         return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     print(context)
+    #     print("context")
+
+        return context
+
+
+    #
+    #     object_list = Article.objects.filter(editor_profile=)
+    #     context = super().get_context_data(**kwargs)
+    #     print(self.kwargs.get('slug'))
+    #     # print(self.get_slug_field())
+    #     print(context)
+    #     return context
 
 
 class ArchivalScheduleView(ListView):
@@ -150,6 +174,8 @@ class ArchivalScheduleView(ListView):
     template_name = 'blogapp/schedule.html'
     paginate_by = 2
     queryset = Schedule.objects.filter(date__date__lt=timezone.now().date())
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
