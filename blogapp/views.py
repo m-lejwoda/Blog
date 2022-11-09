@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic.list import MultipleObjectMixin
-
-from .models import Article, Tag, EditorProfile, Schedule
+from .models import Article, Tag, EditorProfile, Schedule, Comment
 from django.contrib import messages
 from .forms import CreateUserForm, CommentForm, CreateBlogArticleForm, CreateEditorArticleForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponse
 from django.views.generic.edit import FormView
@@ -14,6 +12,7 @@ from django.core import serializers
 from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils import timezone
+from django.views.generic.edit import CreateView
 from .choices import News_Category
 import json
 
@@ -106,20 +105,72 @@ class TagView(ListView):
         return context
 
 
-class SingleArticleView(View):
-    @staticmethod
-    def get(request, slug):
-        post = Article.objects.get(slug=slug)
-        post.clicks = post.clicks + 1
-        post.save()
-        radioposts = Article.objects.all()
-        comments = post.comments.filter()
-        posts = Article.objects.all()
-        editors = EditorProfile.objects.all()
-        context = {'post': post, 'editors': editors, 'posts': posts, 'comments': comments,
-                   'radioposts': radioposts}
-        return render(request, 'blogapp/radio2.html', context)
+# class SingleArticleView(View):
+#     @staticmethod
+#     def get(request, slug):
+#         post = Article.objects.get(slug=slug)
+#         post.clicks = post.clicks + 1
+#         post.save()
+#         radioposts = Article.objects.all()
+#         comments = post.comments.filter()
+#         posts = Article.objects.all()
+#         editors = EditorProfile.objects.all()
+#         context = {'post': post, 'editors': editors, 'posts': posts, 'comments': comments,
+#                    'radioposts': radioposts}
+#         return render(request, 'blogapp/radio2.html', context)
 
+class SingleArticleView(DetailView, MultipleObjectMixin):
+    model = Article
+    template_name = 'blogapp/radio2.html'
+    # paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        # object_list = Article.objects.filter(editor_profile=self.get_object())
+        comments = Comment.objects.filter(post=self.get_object())
+        radioposts = Article.objects.all()
+        author = self.get_object().editor_profile if self.get_object().editor_profile is not None else self.get_object().author
+        #TODO: Tu wróć
+        print(author)
+        # author = self.get_object().author
+        # editor_profile = self.get_object().editor_profile
+        # print(author)
+        # print(editor_profile)
+        context = super(SingleArticleView, self).get_context_data(object_list=comments, author=author, radioposts=radioposts, **kwargs)
+        print("context")
+        print(context)
+        return context
+
+    def post(self, request, slug):
+        self.object = self.get_object()
+        comments = Comment.objects.filter(post=self.get_object())
+        if 'comment' in request.POST:
+            text = request.POST.get("comment", None)
+            form = CommentForm({'text': text})
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.post = self.get_object()
+                instance.author = self.request.user
+                instance.text = text
+                instance.save()
+        # if 'switch-one' in request.POST:
+        #     print(request.POST)
+        #     print(request.POST.get('switch-one'), None)
+        #     print(request.POST.get('switch-one'), None)
+        #     print(request.POST.get('switch-one'), None)
+        #     print("powinno byc")
+        #     print(request.POST.get('radio-one'), None)
+        #     print(request.POST.get('radio-two'), None)
+        context = super(SingleArticleView, self).get_context_data(object_list=comments)
+        return render(request, self.template_name, {'context': context})
+
+
+class CreateCommentView(CreateView):
+    models = Comment
+    fields = '__all__'
+    # form_class = CommentForm
+
+    def form_valid(self, form):
+        return super(CreateCommentView, self).form_valid(form)
 
 class AllNewsView(ListView):
     model = Article
@@ -190,7 +241,6 @@ class CreateEditorArticleView(UserPassesTestMixin, FormView):
         return super().form_valid(form)
 
 
-
 class CreateArticleBlogView(LoginRequiredMixin, FormView):
     login_url = '/login/'
     redirect_field_name = '/create_blog_post/'
@@ -210,16 +260,16 @@ class CreateArticleBlogView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-def journalist_detail(request, journalist_slug):
-    journalist = EditorProfile.objects.get(slug=journalist_slug)
-    posters = Schedule.objects.all().order_by('-date')
-    posts1 = Article.objects.filter(author=journalist.user)
-    paginator = Paginator(posts1, 8)
-    page_number = request.GET.get('page')
-    posts = paginator.get_page(page_number)
-    tags = Tag.objects.all()
-    context = {'posts': posts, 'tags': tags, 'journalist': journalist, 'posters': posters}
-    return render(request, 'blogapp/journalist.html', context)
+# def journalist_detail(request, journalist_slug):
+#     journalist = EditorProfile.objects.get(slug=journalist_slug)
+#     posters = Schedule.objects.all().order_by('-date')
+#     posts1 = Article.objects.filter(author=journalist.user)
+#     paginator = Paginator(posts1, 8)
+#     page_number = request.GET.get('page')
+#     posts = paginator.get_page(page_number)
+#     tags = Tag.objects.all()
+#     context = {'posts': posts, 'tags': tags, 'journalist': journalist, 'posters': posters}
+#     return render(request, 'blogapp/journalist.html', context)
 
 def radio_posts(request):
     identity = request.GET.get('id')

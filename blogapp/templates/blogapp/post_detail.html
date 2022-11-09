@@ -13,10 +13,10 @@
                 {% endfor %}
             </div>
             <div class="post__meta__title">
-                {{post.title}}
+                {{article.title}}
             </div>
             <div class="post__meta__content">
-                {{post.content2 | safe}}
+                {{article.content | safe}}
             </div>
         </div>
 
@@ -45,7 +45,7 @@
                 {% csrf_token %}
                 {% if user.is_authenticated %}
                 <div class="post__addcomment__textarea">
-                    <textarea name="textar" id="textarea"></textarea>
+                    <textarea name="comment" id="textarea"></textarea>
                 </div>
                 <div class="post__addcomment__button">
                     <button id="addcomment">Dodaj Komentarz</button>
@@ -69,39 +69,46 @@
 
 {% endblock %}
 {% block extra_js %}
+{#    <script>#}
+{#     $('input[type=radio]').on('change', function() {#}
+{#    $(this).closest("form").submit();#}
+{##}
+{#    </script>#}
+});
 <script>
     function onClick(page) {
         window.location.href = page
     }
-    var author = "{{post.author}}"
-    $(".radio-btn").each(function () {
-        if ($(this)[0].checked == true) {
-            $.ajax({
-                url: 'http://0.0.0.0:8000/radioposts/',
-                data: {
-                    id: $(this)[0].id,
-                    author: "{{post.author}}",
-                },
-                type: 'get',
-                success: function (response) {
-                    $('.switch__elements').empty()
-                    $.each(JSON.parse(response), function (i, item) {
-                        console.log(item.fields.image)
-                        $('.switch__elements').append(
-                            '<div class="switch__elements__element" ' + 'id = "' + item
-                            .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item
-                            .fields
-                            .slug + '/&#39)' +
-                            '>' + '<img src="' + item.fields.image +
-                            '"/>' +
-                            '<span>' + item.fields.title + '</span>' + '</div>'
-                        );
-                    });
-                }
+    {#var author = "{{post.author}}"#}
+    var author = "{{ object }}"
+    {#$(".radio-btn").each(function () {#}
+    {#    if ($(this)[0].checked == true) {#}
+    {#        $.ajax({#}
+    {#            url: 'http://0.0.0.0:8000/radioposts/',#}
+    {#            data: {#}
+    {#                id: $(this)[0].id,#}
+    {#                author: "{{post.author}}",#}
+    {#            },#}
+    {#            type: 'get',#}
+    {#            success: function (response) {#}
+    {#                $('.switch__elements').empty()#}
+    {#                $.each(JSON.parse(response), function (i, item) {#}
+    {#                    console.log(item.fields.image)#}
+    {#                    $('.switch__elements').append(#}
+    {#                        '<div class="switch__elements__element" ' + 'id = "' + item#}
+    {#                        .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item#}
+    {#                        .fields#}
+    {#                        .slug + '/&#39)' +#}
+    {#                        '>' + '<img src="' + item.fields.image +#}
+    {#                        '"/>' +#}
+    {#                        '<span>' + item.fields.title + '</span>' + '</div>'#}
+    {#                    );#}
+    {#                });#}
+    {#            }#}
+    {##}
+    {#        });#}
+    {#    }#}
 
-            });
-        }
-    })
     $("[name='switch-one']").click(function () {
         var id = $(this).attr("id");
         $.ajax({

@@ -2,7 +2,7 @@
     {% block radio2 %}
     <form action="" id="form" name="form" method="POST">
         {% csrf_token %}
-        <div class="switch-field" name="switch-field">
+        <div class="switch-field" id="switch-field" name="switch-field">
             <input type="radio" id="radio-one" name="switch-one" class="radio-btn" value="true" checked>
             <label for="radio-one" name="popular">Popularne</label>
             <input type="radio" id="radio-two" name="switch-one" class="radio-btn" value="false" />
@@ -10,6 +10,5 @@
             <input type="radio" id="radio-three" name="switch-one" class="radio-btn" value="false" />
             <label for="radio-three" name="last_news">Ostatnie Newsy</label>
         </div>
-
     </form>
     {% endblock radio2 %}

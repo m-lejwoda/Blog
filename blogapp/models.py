@@ -10,16 +10,6 @@ from django.contrib.contenttypes.fields import GenericRelation
 from .choices import Ranks, News_Category
 
 
-# class Category(models.Model):
-#     name = models.CharField(max_length=32)
-#
-#     class Meta:
-#         verbose_name_plural = "Categories"
-#
-#     def __str__(self):
-#         return self.name
-
-
 class Tag(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(max_length=128, null=True, blank=True)
@@ -88,10 +78,19 @@ class Article(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    # post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     approved_comment = models.BooleanField(default=False)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ('created_date',)
+
+    def __str__(self):
+        return 'Comment by {}'.format(self.author.username)
 
 
 class Link(models.Model):

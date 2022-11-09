@@ -48,10 +48,25 @@ class CreateUserForm(UserCreationForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['post', 'author', 'text']
+        fields = ['text']
+        # fields = ['post', 'author', 'text']
 
-    def clean(self):
-        data = self.cleaned_data
-        first_name = data.get('post')
-        last_name = data.get('author')
-        email = data.get('text')
+    # def __init__(self, *args, **kwargs):
+    #     super(CommentForm, self).__init__(*args, **kwargs)
+    #     print("pierwsze pola")
+    #     print(self.fields)
+    #     self.post = kwargs.pop('post')
+    #     self.article = kwargs.pop('article')
+    #     self.text' = kwargs.pop('text')
+    #
+    #     print(self.fields)
+    #     print("args")
+    #     print(args)
+    #     print(kwargs)
+
+
+    # def clean(self):
+    #     data = self.cleaned_data
+        # first_name = data.get('post')
+        # last_name = data.get('author')
+        # email = data.get('text')
