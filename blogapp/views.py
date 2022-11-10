@@ -125,19 +125,10 @@ class SingleArticleView(DetailView, MultipleObjectMixin):
     # paginate_by = 2
 
     def get_context_data(self, **kwargs):
-        # object_list = Article.objects.filter(editor_profile=self.get_object())
         comments = Comment.objects.filter(post=self.get_object())
         radioposts = Article.objects.all()
-        author = self.get_object().editor_profile if self.get_object().editor_profile is not None else self.get_object().author
-        #TODO: Tu wróć
-        print(author)
-        # author = self.get_object().author
-        # editor_profile = self.get_object().editor_profile
-        # print(author)
-        # print(editor_profile)
+        author = self.get_object().author
         context = super(SingleArticleView, self).get_context_data(object_list=comments, author=author, radioposts=radioposts, **kwargs)
-        print("context")
-        print(context)
         return context
 
     def post(self, request, slug):
@@ -152,14 +143,6 @@ class SingleArticleView(DetailView, MultipleObjectMixin):
                 instance.author = self.request.user
                 instance.text = text
                 instance.save()
-        # if 'switch-one' in request.POST:
-        #     print(request.POST)
-        #     print(request.POST.get('switch-one'), None)
-        #     print(request.POST.get('switch-one'), None)
-        #     print(request.POST.get('switch-one'), None)
-        #     print("powinno byc")
-        #     print(request.POST.get('radio-one'), None)
-        #     print(request.POST.get('radio-two'), None)
         context = super(SingleArticleView, self).get_context_data(object_list=comments)
         return render(request, self.template_name, {'context': context})
 
@@ -171,6 +154,7 @@ class CreateCommentView(CreateView):
 
     def form_valid(self, form):
         return super(CreateCommentView, self).form_valid(form)
+
 
 class AllNewsView(ListView):
     model = Article
@@ -211,6 +195,7 @@ class ArchivalScheduleView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
 
 class UpcomingScheduleView(ListView):
     model = Schedule

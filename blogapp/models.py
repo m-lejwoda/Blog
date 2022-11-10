@@ -8,6 +8,7 @@ from django.utils import timezone
 from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from .choices import Ranks, News_Category
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Tag(models.Model):
@@ -176,3 +177,14 @@ def pre_save_tag_receiver(sender, instance, *args, **kwargs):
 pre_save.connect(pre_save_post_receiver, sender=Article)
 pre_save.connect(pre_save_editor_receiver, sender=EditorProfile)
 pre_save.connect(pre_save_tag_receiver, sender=Tag)
+
+
+@property
+def get_author_name(self):
+    try:
+        return "{} {}".format(self.editor.name, self.editor.lastname)
+    except ObjectDoesNotExist:
+        return "{}".format(self.username)
+
+
+User.add_to_class('get_author_name', get_author_name)
