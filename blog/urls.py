@@ -7,6 +7,7 @@ import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogapp.urls')),
+    path('api/v1/', include('blogapp.api.v1.urls')),
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),

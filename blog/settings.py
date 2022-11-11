@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'blogapp',
     'corsheaders',
+    'rest_framework',
     'django_sass',
     'svg',
     'ckeditor',

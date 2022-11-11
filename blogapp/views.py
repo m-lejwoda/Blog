@@ -12,7 +12,6 @@ from django.core import serializers
 from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils import timezone
-from django.views.generic.edit import CreateView
 from .choices import News_Category
 import json
 
@@ -105,20 +104,6 @@ class TagView(ListView):
         return context
 
 
-# class SingleArticleView(View):
-#     @staticmethod
-#     def get(request, slug):
-#         post = Article.objects.get(slug=slug)
-#         post.clicks = post.clicks + 1
-#         post.save()
-#         radioposts = Article.objects.all()
-#         comments = post.comments.filter()
-#         posts = Article.objects.all()
-#         editors = EditorProfile.objects.all()
-#         context = {'post': post, 'editors': editors, 'posts': posts, 'comments': comments,
-#                    'radioposts': radioposts}
-#         return render(request, 'blogapp/radio2.html', context)
-
 class SingleArticleView(DetailView, MultipleObjectMixin):
     model = Article
     template_name = 'blogapp/radio2.html'
@@ -145,15 +130,6 @@ class SingleArticleView(DetailView, MultipleObjectMixin):
                 instance.save()
         context = super(SingleArticleView, self).get_context_data(object_list=comments)
         return render(request, self.template_name, {'context': context})
-
-
-class CreateCommentView(CreateView):
-    models = Comment
-    fields = '__all__'
-    # form_class = CommentForm
-
-    def form_valid(self, form):
-        return super(CreateCommentView, self).form_valid(form)
 
 
 class AllNewsView(ListView):
@@ -190,7 +166,6 @@ class ArchivalScheduleView(ListView):
     template_name = 'blogapp/schedule.html'
     paginate_by = 2
     queryset = Schedule.objects.filter(date__date__lt=timezone.now().date())
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -245,17 +220,6 @@ class CreateArticleBlogView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-# def journalist_detail(request, journalist_slug):
-#     journalist = EditorProfile.objects.get(slug=journalist_slug)
-#     posters = Schedule.objects.all().order_by('-date')
-#     posts1 = Article.objects.filter(author=journalist.user)
-#     paginator = Paginator(posts1, 8)
-#     page_number = request.GET.get('page')
-#     posts = paginator.get_page(page_number)
-#     tags = Tag.objects.all()
-#     context = {'posts': posts, 'tags': tags, 'journalist': journalist, 'posters': posters}
-#     return render(request, 'blogapp/journalist.html', context)
-
 def radio_posts(request):
     identity = request.GET.get('id')
     author = request.GET.get('author')
@@ -292,6 +256,8 @@ def radio_posts(request):
         posts = Article.objects.all().order_by('-publish_on')[0:3]
         threeposts = posts[0:3]
         result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
+        print("result")
+        print(result)
         y = json.loads(result)
         dictionary = {}
         for el in y:
@@ -299,7 +265,11 @@ def radio_posts(request):
             url = post.image.url
             absoluteurl = {"image": url}
             el['fields'].update(absoluteurl)
+        print("y")
+        print(y)
         endpoint = json.dumps(y)
+        print("endpoint")
+        print(endpoint)
         return JsonResponse(endpoint, safe=False)
     else:
         return None

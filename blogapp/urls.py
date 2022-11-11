@@ -12,7 +12,6 @@ urlpatterns = [
     path('create_blog_article/', views.CreateArticleBlogView.as_view(), name='create_blog_article'),
     path('create_editor_article/', views.CreateEditorArticleView.as_view(), name='create_editor_article'),
     path('blogs/', views.BlogsListView.as_view(), name='blogs_list_view'),
-    # path('add_comment/', views.CreateCommentView.as_view(), name='add_comment'),
     #TODO Radioposts
     path('radioposts/', views.radio_posts, name="radio_posts"),
     path('news/', views.AllNewsView.as_view(), name="news"),
