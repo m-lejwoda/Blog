@@ -9,7 +9,6 @@
                 <div class="post__meta__tags-tag" onClick="onClick('{% url 'tag_detail' tag.slug %}')">
                     {{tag}}
                 </div>
-
                 {% endfor %}
             </div>
             <div class="post__meta__title">
@@ -20,7 +19,6 @@
                 {{article.content | safe}}
             </div>
         </div>
-
         <div class="post__comments">
             <div class="post__comments-title"><span>{{comments|length}} Komentarzy</span></div>
             {% for comment in comments %}
@@ -70,45 +68,10 @@
 
 {% endblock %}
 {% block extra_js %}
-{#    <script>#}
-{#     $('input[type=radio]').on('change', function() {#}
-{#    $(this).closest("form").submit();#}
-{##}
-{#    </script>#}
-});
 <script>
     function onClick(page) {
         window.location.href = page
     }
-    {#var author = "{{post.author}}"#}
-    var author = "{{ object }}"
-    {#$(".radio-btn").each(function () {#}
-    {#    if ($(this)[0].checked == true) {#}
-    {#        $.ajax({#}
-    {#            url: 'http://0.0.0.0:8000/radioposts/',#}
-    {#            data: {#}
-    {#                id: $(this)[0].id,#}
-    {#                author: "{{post.author}}",#}
-    {#            },#}
-    {#            type: 'get',#}
-    {#            success: function (response) {#}
-    {#                $('.switch__elements').empty()#}
-    {#                $.each(JSON.parse(response), function (i, item) {#}
-    {#                    console.log(item.fields.image)#}
-    {#                    $('.switch__elements').append(#}
-    {#                        '<div class="switch__elements__element" ' + 'id = "' + item#}
-    {#                        .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item#}
-    {#                        .fields#}
-    {#                        .slug + '/&#39)' +#}
-    {#                        '>' + '<img src="' + item.fields.image +#}
-    {#                        '"/>' +#}
-    {#                        '<span>' + item.fields.title + '</span>' + '</div>'#}
-    {#                    );#}
-    {#                });#}
-    {#            }#}
-    {##}
-    {#        });#}
-    {#    }#}
     $("[name='switch-one']").click(function () {
         var id = $(this).attr("id");
         $.ajax({
