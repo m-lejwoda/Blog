@@ -109,35 +109,64 @@
     {##}
     {#        });#}
     {#    }#}
-
     $("[name='switch-one']").click(function () {
         var id = $(this).attr("id");
         $.ajax({
-            url : 'http://0.0.0.0:8000/radioposts/',
-            {#url: 'https://sportywalki.herokuapp.com/radioposts/',#}
+            url : 'http://0.0.0.0:8000/api/v1/choose_3_articles/',
             data: {
                 id: id,
-                author: "{{post.author}}",
+                author: "{{author}}",
             },
             type: 'get',
             success: function (response) {
                 $('.switch__elements').empty()
-                $.each(JSON.parse(response), function (i, item) {
+                console.log("response")
+                console.log(response)
+
+                $.each(response, function (i, item) {
+                    console.log("test")
                     console.log(item)
-                    console.log(item.fields.image)
-                    console.log(item.fields.image.url)
                     $('.switch__elements').append(
                         '<div class="switch__elements__element" ' + 'id = "' + item
-                        .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item
-                        .fields
+                        .slug + '\" ' + 'onClick = onClick(&#39/post/' + item
                         .slug + '/&#39)' +
-                        '>' + '<img src="' + item.fields.image + '"/>' +
-                        '<span>' + item.fields.title + '</span>' + '</div>'
+                        '>' + '<img src="' + item.image + '"/>' +
+                        '<span>' + item.title + '</span>' + '</div>'
                     );
                 });
             }
 
         });
     })
+
+    {#$("[name='switch-one']").click(function () {#}
+    {#    var id = $(this).attr("id");#}
+    {#    $.ajax({#}
+    {#        url : 'http://0.0.0.0:8000/radioposts/',#}
+            {#url: 'https://sportywalki.herokuapp.com/radioposts/',#}
+    {#        data: {#}
+    {#            id: id,#}
+    {#            author: "{{post.author}}",#}
+    {#        },#}
+    {#        type: 'get',#}
+    {#        success: function (response) {#}
+    {#            $('.switch__elements').empty()#}
+    {#            $.each(JSON.parse(response), function (i, item) {#}
+    {#                console.log(item)#}
+    {#                console.log(item.fields.image)#}
+    {#                console.log(item.fields.image.url)#}
+    {#                $('.switch__elements').append(#}
+    {#                    '<div class="switch__elements__element" ' + 'id = "' + item#}
+    {#                    .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item#}
+    {#                    .fields#}
+    {#                    .slug + '/&#39)' +#}
+    {#                    '>' + '<img src="' + item.fields.image + '"/>' +#}
+    {#                    '<span>' + item.fields.title + '</span>' + '</div>'#}
+    {#                );#}
+    {#            });#}
+    {#        }#}
+    {##}
+    {#    });#}
+    {#})#}
 </script>
 {% endblock extra_js %}
