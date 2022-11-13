@@ -6,14 +6,12 @@ from .forms import CreateUserForm, CommentForm, CreateBlogArticleForm, CreateEdi
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from django.views.generic.edit import FormView
-from django.core import serializers
 from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils import timezone
 from .choices import News_Category
-import json
 
 
 class ArticleListView(ListView):

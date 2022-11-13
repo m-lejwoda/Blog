@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import include
 from . import views
 
 urlpatterns = [
@@ -16,7 +15,7 @@ urlpatterns = [
     path('post/<slug:slug>/',  views.SingleArticleView.as_view(), name='post_detail'),
     path('tags/<slug:tag>/', views.TagView.as_view(), name='tag_detail'),
     path('journalist/<slug:slug>/', views.JournalistDetailView.as_view(), name='journalist_detail'),
-    path('user_blog/slug:slug',views.UserBlogDetailView.as_view(), name='user_blog_detail')
+    path('user_blog/slug:slug', views.UserBlogDetailView.as_view(), name='user_blog_detail')
 
 
 ]
