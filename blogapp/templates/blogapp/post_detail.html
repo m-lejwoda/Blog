@@ -126,47 +126,18 @@
                 $.each(response, function (i, item) {
                     console.log("test")
                     console.log(item)
-                    $('.switch__elements').append(
-                        '<div class="switch__elements__element" ' + 'id = "' + item
-                        .slug + '\" ' + 'onClick = onClick(&#39/post/' + item
-                        .slug + '/&#39)' +
-                        '>' + '<img src="' + item.image + '"/>' +
-                        '<span>' + item.title + '</span>' + '</div>'
-                    );
+                    $('.switch__elements').append('<div class="switch__elements__element" onclick="onClick('+item.slug+', \''+item.slug+'\')">'+item.slug+'</div>')
+                    {#$('.switch__elements').append(#}
+                    {#    '<div class="switch__elements__element" ' + 'id = "' + item#}
+                    {#    .slug + '\" ' + 'onClick = onClick(&#39/post/' + item#}
+                    {#    .slug + '/&#39)' +#}
+                    {#    '>' + '<img src="' + item.image + '"/>' +#}
+                    {#    '<span>' + item.title + '</span>' + '</div>'#}
+                    {#);#}
                 });
             }
 
         });
     })
-
-    {#$("[name='switch-one']").click(function () {#}
-    {#    var id = $(this).attr("id");#}
-    {#    $.ajax({#}
-    {#        url : 'http://0.0.0.0:8000/radioposts/',#}
-            {#url: 'https://sportywalki.herokuapp.com/radioposts/',#}
-    {#        data: {#}
-    {#            id: id,#}
-    {#            author: "{{post.author}}",#}
-    {#        },#}
-    {#        type: 'get',#}
-    {#        success: function (response) {#}
-    {#            $('.switch__elements').empty()#}
-    {#            $.each(JSON.parse(response), function (i, item) {#}
-    {#                console.log(item)#}
-    {#                console.log(item.fields.image)#}
-    {#                console.log(item.fields.image.url)#}
-    {#                $('.switch__elements').append(#}
-    {#                    '<div class="switch__elements__element" ' + 'id = "' + item#}
-    {#                    .fields.slug + '\" ' + 'onClick = onClick(&#39/post/' + item#}
-    {#                    .fields#}
-    {#                    .slug + '/&#39)' +#}
-    {#                    '>' + '<img src="' + item.fields.image + '"/>' +#}
-    {#                    '<span>' + item.fields.title + '</span>' + '</div>'#}
-    {#                );#}
-    {#            });#}
-    {#        }#}
-    {##}
-    {#    });#}
-    {#})#}
 </script>
 {% endblock extra_js %}

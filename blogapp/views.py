@@ -220,59 +220,59 @@ class CreateArticleBlogView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-def radio_posts(request):
-    identity = request.GET.get('id')
-    author = request.GET.get('author')
-    if identity == "radio-one":
-        user = User.objects.get(username=author)
-        posts = Article.objects.all().order_by('-clicks')
-        threeposts = posts[0:3]
-        result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
-        y = json.loads(result)
-        dictionary = {}
-        for el in y:
-            post = Article.objects.get(slug=el['fields']['slug'])
-            url = post.image.url
-            absoluteurl = {"image": url}
-            el['fields'].update(absoluteurl)
-        endpoint = json.dumps(y)
-        return JsonResponse(endpoint, safe=False)
-
-    if identity == "radio-two":
-        user = User.objects.get(username=author)
-        posts = Article.objects.filter(author=user).order_by('-publish_on')
-        threeposts = posts[0:3]
-        result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
-        y = json.loads(result)
-        dictionary = {}
-        for el in y:
-            post = Article.objects.get(slug=el['fields']['slug'])
-            url = post.image.url
-            absoluteurl = {"image": url}
-            el['fields'].update(absoluteurl)
-        endpoint = json.dumps(y)
-        return JsonResponse(endpoint, safe=False)
-    if identity == "radio-three":
-        posts = Article.objects.all().order_by('-publish_on')[0:3]
-        threeposts = posts[0:3]
-        result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
-        print("result")
-        print(result)
-        y = json.loads(result)
-        dictionary = {}
-        for el in y:
-            post = Article.objects.get(slug=el['fields']['slug'])
-            url = post.image.url
-            absoluteurl = {"image": url}
-            el['fields'].update(absoluteurl)
-        print("y")
-        print(y)
-        endpoint = json.dumps(y)
-        print("endpoint")
-        print(endpoint)
-        return JsonResponse(endpoint, safe=False)
-    else:
-        return None
+# def radio_posts(request):
+#     identity = request.GET.get('id')
+#     author = request.GET.get('author')
+#     if identity == "radio-one":
+#         user = User.objects.get(username=author)
+#         posts = Article.objects.all().order_by('-clicks')
+#         threeposts = posts[0:3]
+#         result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
+#         y = json.loads(result)
+#         dictionary = {}
+#         for el in y:
+#             post = Article.objects.get(slug=el['fields']['slug'])
+#             url = post.image.url
+#             absoluteurl = {"image": url}
+#             el['fields'].update(absoluteurl)
+#         endpoint = json.dumps(y)
+#         return JsonResponse(endpoint, safe=False)
+#
+#     if identity == "radio-two":
+#         user = User.objects.get(username=author)
+#         posts = Article.objects.filter(author=user).order_by('-publish_on')
+#         threeposts = posts[0:3]
+#         result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
+#         y = json.loads(result)
+#         dictionary = {}
+#         for el in y:
+#             post = Article.objects.get(slug=el['fields']['slug'])
+#             url = post.image.url
+#             absoluteurl = {"image": url}
+#             el['fields'].update(absoluteurl)
+#         endpoint = json.dumps(y)
+#         return JsonResponse(endpoint, safe=False)
+#     if identity == "radio-three":
+#         posts = Article.objects.all().order_by('-publish_on')[0:3]
+#         threeposts = posts[0:3]
+#         result = serializers.serialize('json', threeposts, fields=('title', 'image', 'slug'))
+#         print("result")
+#         print(result)
+#         y = json.loads(result)
+#         dictionary = {}
+#         for el in y:
+#             post = Article.objects.get(slug=el['fields']['slug'])
+#             url = post.image.url
+#             absoluteurl = {"image": url}
+#             el['fields'].update(absoluteurl)
+#         print("y")
+#         print(y)
+#         endpoint = json.dumps(y)
+#         print("endpoint")
+#         print(endpoint)
+#         return JsonResponse(endpoint, safe=False)
+#     else:
+#         return None
 
 
 # @csrf_exempt
