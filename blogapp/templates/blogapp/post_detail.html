@@ -120,20 +120,14 @@
             type: 'get',
             success: function (response) {
                 $('.switch__elements').empty()
-                console.log("response")
-                console.log(response)
-
                 $.each(response, function (i, item) {
-                    console.log("test")
-                    console.log(item)
-                    $('.switch__elements').append('<div class="switch__elements__element" onclick="onClick('+item.slug+', \''+item.slug+'\')">'+item.slug+'</div>')
-                    {#$('.switch__elements').append(#}
-                    {#    '<div class="switch__elements__element" ' + 'id = "' + item#}
-                    {#    .slug + '\" ' + 'onClick = onClick(&#39/post/' + item#}
-                    {#    .slug + '/&#39)' +#}
-                    {#    '>' + '<img src="' + item.image + '"/>' +#}
-                    {#    '<span>' + item.title + '</span>' + '</div>'#}
-                    {#);#}
+                    $('.switch__elements').append(
+                        '<div class="switch__elements__element" ' + 'id = "' + item
+                        .slug + '\" ' + 'onClick = onClick(&#39/post/' + item
+                        .slug + '/&#39)' +
+                        '>' + '<img src="' + item.image + '"/>' +
+                        '<span>' + item.title + '</span>' + '</div>'
+                    );
                 });
             }
 
