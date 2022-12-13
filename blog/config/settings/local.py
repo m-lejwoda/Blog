@@ -1,0 +1,1 @@
+from blog.config.settings.base import *
