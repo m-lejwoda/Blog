@@ -3,10 +3,10 @@ name: Golden Workflow
 on:
   pull_request:
     branches:
-      - develop
+      - new_changes
   push:
     branches:
-      - develop
+      - new_changes
 
 jobs:
   basic-health-job:
