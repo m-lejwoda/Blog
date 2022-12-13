@@ -66,16 +66,16 @@ jobs:
 #          USE_DOCKER: true
 #        run: |
 #          python manage.py makemigrations --check --dry-run
-      - name: Run migrations
-        env:
-          USE_DOCKER: true
+#      - name: Run migrations
+#        env:
+#          USE_DOCKER: true
 #          DJANGO_SETTINGS_MODULE: config.settings.local_gold
-        run: |
-          export DEBUG=0
-          export GITHUB_WORKFLOW=True
-          export MODE=workflow
-#          python manage.py migrate sites
-          python manage.py migrate
+#        run: |
+#          export DEBUG=0
+#          export GITHUB_WORKFLOW=True
+#          export MODE=workflow
+##          python manage.py migrate sites
+#          python manage.py migrate
       - name: Django Check
         env:
           USE_DOCKER: true
