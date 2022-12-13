@@ -61,11 +61,11 @@ jobs:
 #        run: |
 #          python manage.py makemigrations scribe
 #          python manage.py migrate scribe
-      - name: Check Migrations
-        env:
-          USE_DOCKER: true
-        run: |
-          python manage.py makemigrations --check --dry-run
+#      - name: Check Migrations
+#        env:
+#          USE_DOCKER: true
+#        run: |
+#          python manage.py makemigrations --check --dry-run
       - name: Run migrations
         env:
           USE_DOCKER: true
