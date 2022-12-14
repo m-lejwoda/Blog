@@ -68,6 +68,8 @@ jobs:
           python manage.py check
 
       - name: Django Tests
+        env:
+          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
         run: |
           python manage.py tests
           
