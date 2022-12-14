@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 
-from blogapp.models import Post
+from blogapp.models import Article
 from blogapp.views import ArticleListView, LoginView
 
 @pytest.fixture
