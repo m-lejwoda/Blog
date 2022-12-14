@@ -58,8 +58,9 @@ jobs:
 #          python manage.py migrate
 
       - name: Django Check
-#        env:
-#          USE_DOCKER: true
+        env:
+          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
+          USE_DOCKER: true
         run: |
           export DEBUG=0
           export GITHUB_WORKFLOW=True
