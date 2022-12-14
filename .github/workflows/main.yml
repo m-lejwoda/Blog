@@ -11,7 +11,6 @@ on:
 jobs:
   basic-health-job:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     services:
       postgres:
         image: postgres
@@ -36,9 +35,38 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.8'
-#          cache: 'pip'
-#          cache-dependency-path: '**/requirements.txt'# caching pip dependencies
-#      - name: Setup python environment
-#        run: |
-#          python -m pip install --upgrade pip
-#          pip install --upgrade --upgrade-strategy eager -r requirements/local.txt
+
+      - name: Setup pip
+          run: |
+            python -m pip install --upgrade pip
+            pip install --upgrade --upgrade-strategy eager -r requirements/local.txt
+
+      - name: Check Migrations
+        env:
+          USE_DOCKER: true
+        run: |
+          python manage.py makemigrations --check --dry-run
+
+      - name: Run migrations
+        env:
+          USE_DOCKER: true
+          DJANGO_SETTINGS_MODULE: config.settings.local_gold
+        run: |
+          export DEBUG=0
+          export GITHUB_WORKFLOW=True
+          export MODE=workflow
+          python manage.py migrate
+
+      - name: Django Check
+        env:
+          USE_DOCKER: true
+        run: |
+          export DEBUG=0
+          export GITHUB_WORKFLOW=True
+          export MODE=workflow
+          python manage.py check
+
+      - name: Django Tests
+        run: |
+          python manage.py tests
+          
