@@ -71,5 +71,5 @@ jobs:
         env:
           SECRET_KEY: 'asdsadhuiu1247hyfewh7'
         run: |
-          python manage.py tests
+          python manage.py test
           
