@@ -27,7 +27,11 @@ jobs:
       - uses: isbang/compose-action@v1.4.1
         with:
           compose-file: "./local.yml"
+        env:
+          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
       - name: Check tests
+        env:
+          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
         run: |
           docker-compose -f local.yml run web python manage.py test
 
