@@ -11,41 +11,41 @@ on:
 jobs:
   basic-health-job:
     runs-on: ubuntu-latest
-#    services:
-#      postgres:
-#        image: postgres
-#        env:
-#          POSTGRES_USER: postgres
-#          POSTGRES_PASSWORD: postgres
-#          POSTGRES_DB: github-actions
-#        ports:
-#          - 5432:5432
-#        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github-actions
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: "./local.yml"
-        env:
-          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
-      - name: Check tests
-        env:
-          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
-        run: |
-#          docker-compose -f local.yml run web python manage.py makemigrations
-#          docker-compose -f local.yml run web python manage.py migrate
-          docker-compose -f local.yml run web python -m pytest
-
-#      - name: Install apt dependencies
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get upgrade -y
-#          sudo apt-get install pandoc
-#      - name: Setup python environment
-#        uses: actions/setup-python@v4
+#      - uses: isbang/compose-action@v1.4.1
 #        with:
-#          python-version: '3.8'
+#          compose-file: "./local.yml"
+#        env:
+#          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
+#      - name: Check tests
+#        env:
+#          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
+#        run: |
+##          docker-compose -f local.yml run web python manage.py makemigrations
+##          docker-compose -f local.yml run web python manage.py migrate
+#          docker-compose -f local.yml run web python -m pytest
+
+      - name: Install apt dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade -y
+          sudo apt-get install pandoc
+      - name: Setup python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
 #
 #      - name: Setup pip
 #        run: |
