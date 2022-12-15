@@ -28,8 +28,8 @@ jobs:
         with:
           compose-file: "./local.yml"
       - name: Check tests
-          run: |
-            docker-compose -f local.yml run web python manage.py test
+        run: |
+          docker-compose -f local.yml run web python manage.py test
 
 #      - name: Install apt dependencies
 #        run: |
