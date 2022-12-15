@@ -25,11 +25,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Create Docker compose
+      - name: Test action
         uses: isbang/compose-action@v1.4.1
           with:
-            compose-file: "./local.yml"
+            compose-file: "./docker/docker-compose.yml"
 #      - name: Install apt dependencies
 #        run: |
 #          sudo apt-get update
