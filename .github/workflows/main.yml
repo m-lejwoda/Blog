@@ -33,7 +33,7 @@ jobs:
         env:
           SECRET_KEY: 'asdsadhuiu1247hyfewh7'
         run: |
-          docker-compose -f local.yml run web python manage.py test
+          docker-compose -f local.yml run web python -m pytest
 
 #      - name: Install apt dependencies
 #        run: |
