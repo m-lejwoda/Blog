@@ -52,12 +52,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade --upgrade-strategy eager -r ./requirements.txt
 #
-      - name: Check Migrations
-        env:
-          USE_DOCKER: true
-        run: |
-          python manage.py makemigrations --check --dry-run
-#
+#      - name: Check Migrations
+#        env:
+#          USE_DOCKER: true
+#        run: |
+#          python manage.py makemigrations --check --dry-run
+##
 ##      - name: Run migrations
 ##        env:
 ##          USE_DOCKER: true
@@ -78,9 +78,10 @@ jobs:
 #          export MODE=workflow
 #          python manage.py check
 #
-#      - name: Django Tests
-#        env:
-#          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
-#        run: |
-#          python manage.py test
+      - name: Django Tests
+        env:
+          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
+          TEST_KEY: 'TEST_KEYsadasdas'
+        run: |
+          python -m pytest
           

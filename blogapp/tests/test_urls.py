@@ -1,5 +1,5 @@
 import json
-
+import os
 import pytest
 from django.contrib.auth.models import User
 from django.test import SimpleTestCase
@@ -16,6 +16,8 @@ def create_user(db, django_user_model):
 
 
 def test_login_url_is_returning_200(client):
+    print(os.environ['SECRET_KEY'])
+    print(os.environ['TEST_KEY'])
     url = reverse('login')
     response = client.get(url)
     assert response.status_code == 200
