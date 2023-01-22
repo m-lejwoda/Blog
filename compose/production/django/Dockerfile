@@ -1,5 +1,5 @@
-FROM python:3.8-slim-buster
-
+#FROM python:3.8-slim-buster
+ARG PYTHON_VERSION=3.8-slim-buster
 # define an alias for the specfic python version used in this file.
 FROM python:$PYTHON_VERSION as python
 
@@ -29,9 +29,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # pandoc
   pandoc \
   # python3 dev
-  python3-dev \
+  python3-dev
   # Avif support
-  libavif-dev
+  #TODO: Not working
+#  libavif-dev
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
 ARG BUILD_ENVIRONMENT=production
@@ -74,13 +75,13 @@ COPY --chown=django:django ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 
-COPY ./compose/local/django/start /start
-RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
+COPY ./compose/production/django/startweb /startweb
+RUN sed -i 's/\r$//g' /startweb
+RUN chmod +x /startweb
 # copy application code to WORKDIR
 COPY --chown=django:django . $APP_HOME
 
-RUN chown -R django:django /app && chmod 755 /app
+RUN chown -R django:django /app && chmod -R 777 /app
 USER django
 WORKDIR /app
 ENTRYPOINT ["/entrypoint"]

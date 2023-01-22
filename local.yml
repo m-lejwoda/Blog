@@ -9,18 +9,27 @@ services:
     image: postgres
     environment:
       POSTGRES_HOST_AUTH_METHOD: "trust"
+    env_file:
+      - ./.envs/.local/.db
     ports:
       - "5432:5432"
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/code
+      - .:/app:z
     ports:
       - "8000:8000"
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.db
+#    environment:
+#      - POSTGRES_HOST=local
+#      - POSTGRES_DB=local
+#      - POSTGRES_NAME=local
+#      - POSTGRES_USER=local
+#      - POSTGRES_PASSWORD=local
     depends_on:
       - db

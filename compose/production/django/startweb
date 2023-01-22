@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+python /app/manage.py collectstatic --noinput
+
+python /app/manage.py migrate
+
+/usr/local/bin/gunicorn blog.config.wsgi_production --workers=2 --threads=4  --bind 0.0.0.0:3000 --chdir=/app

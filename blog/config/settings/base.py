@@ -11,10 +11,10 @@ import os
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext
 from django.core.management.utils import get_random_secret_key
+from pathlib import Path
 import environ
 import dj_database_url
 # import django_heroku
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -116,18 +116,18 @@ import socket
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
 
-WSGI_APPLICATION = 'blog.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432
-    }
-}
+# WSGI_APPLICATION = 'blog.wsgi.application'
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'db',
+#         'PORT': 5432
+#     }
+# }
 
 CMS_TEMPLATES = [
     ('blogapp/dashboard.html', 'Dashboard'),
@@ -170,17 +170,22 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
 CORS_ORIGIN_ALLOW = True
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATIC_U_R_L = '/static'
+# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+print("STATIC_ROOT")
+
+STATIC_ROOT = str(ROOT_DIR / "static")
+# STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+print(STATIC_ROOT)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+#
+# STATICFILES_DIRS = (
+#     os.path.join(ROOT_DIR , 'static'),
+# )
+
 SVG_DIRS=[
-    # "C:\\Users\\Michal\\blogapp\\static\\blogapp\\svg"
-    # r'C:\Users\Michal\blog\blogapp\static\blogapp\svg'
-    os.path.join(BASE_DIR, 'svg')
+    os.path.join(ROOT_DIR , 'svg')
 ]
 
 MEDIA_URL = '/images/'
