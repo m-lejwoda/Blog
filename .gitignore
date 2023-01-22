@@ -116,3 +116,5 @@ GitHub.sublime-settings
 .history
 
 /blog/config/settings/local
+/static/
+/staticfiles/
