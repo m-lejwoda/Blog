@@ -173,11 +173,9 @@ USE_L10N = True
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
 CORS_ORIGIN_ALLOW = True
 # STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-print("STATIC_ROOT")
 
 STATIC_ROOT = str(ROOT_DIR / "static")
 # STATIC_ROOT = str(ROOT_DIR / "staticfiles")
-print(STATIC_ROOT)
 STATIC_URL = '/static/'
 #
 # STATICFILES_DIRS = (
