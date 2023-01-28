@@ -33,10 +33,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECRET_KEY = env('SECRET_KEY')
-# SECRET_KEY = 'gafsfasfasfa3424235235'
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -66,7 +62,9 @@ INSTALLED_APPS = [
     'cms',
     'menus',
     'treebeard',
-    'debug_toolbar'
+    'debug_toolbar',
+    # 'haystack'
+    'django_elasticsearch_dsl',
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 MIDDLEWARE = [
@@ -115,6 +113,20 @@ INTERNAL_IPS = ["127.0.0.1", "10.0.2.2","0.0.0.0", "172.22.0.3", "172.22.0.2"]
 import socket
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
+
+# ELASTICSEARCH_DSL = {
+#     'default': {
+#         'hosts': 'es:9200'
+#     },
+# }
+
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
+#         'URL': 'es:9200',
+#         'INDEX_NAME': 'haystack',
+#     },
+# }
 
 # WSGI_APPLICATION = 'blog.wsgi.application'
 #
@@ -170,24 +182,24 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
+
 CORS_ORIGIN_ALLOW = True
 # STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-
-STATIC_ROOT = str(ROOT_DIR / "static")
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
+# STATIC_ROOT = str(ROOT_DIR / "static")
 # STATIC_ROOT = str(ROOT_DIR / "staticfiles")
 STATIC_URL = '/static/'
 #
 # STATICFILES_DIRS = (
-#     os.path.join(ROOT_DIR , 'static'),
+#     os.path.join(BASE_DIR , 'static'),
 # )
 
-SVG_DIRS=[
-    os.path.join(ROOT_DIR , 'svg')
-]
+# SVG_DIRS=[
+#     os.path.join(ROOT_DIR , 'svg')
+# ]
 
 MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # MEDIA_URL = "/media/"
 # MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 ADS_GOOGLE_ADSENSE_CLIENT = None  # 'ca-pub-xxxxxxxxxxxxxxxx'

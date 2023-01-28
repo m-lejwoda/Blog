@@ -33,3 +33,13 @@ services:
 #      - POSTGRES_PASSWORD=local
     depends_on:
       - db
+      - es
+
+  es:
+    container_name: es
+    image: elasticsearch:7.8.1
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+

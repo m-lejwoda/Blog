@@ -1,8 +1,8 @@
 version: "3.3"
 
 volumes:
-  local_postgres_data:
-  local_postgres_data_backups:
+  blog_production_postgres_data:
+  blog_production_postgres_data_backups:
 
 services:
   nginx:
@@ -14,11 +14,10 @@ services:
     volumes:
       - ./staticfiles:/app/static
       - ./media:/app/media
-#      - ./.scribe_queue:/app/scribe_queue
-#      - /opt/proxy_data/certs/:/etc/local_certs:ro
       - /var/log/containers/:/var/log/nginx
     depends_on:
       - production_web
+      - production_es
     networks:
       - backend
     ports:
@@ -33,9 +32,9 @@ services:
       dockerfile: ./compose/production/postgres/Dockerfile
     image: postgres
 #    container_name: content_db
-#    volumes:
-#      - local_postgres_data:/var/lib/postgresql/data:Z
-#      - local_postgres_data_backups:/backups:z
+    volumes:
+      - blog_production_postgres_data:/var/lib/postgresql/data:Z
+      - blog_production_postgres_data_backups:/backups:z
 #      - ./.current_db:/init_db
     env_file:
       - ./.envs/.production/.db
@@ -45,7 +44,18 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_HOST_AUTH_METHOD: "trust"
+    shm_size: 2g
     restart: always
+
+  production_es:
+    container_name: production_es
+    image: elasticsearch:7.8.1
+    environment:
+      - discovery.type=single-node
+    networks:
+      - backend
+    ports:
+      - "9200:9200"
 
   production_web:
     build:
