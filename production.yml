@@ -12,7 +12,7 @@ services:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
     volumes:
-      - ./staticfiles:/app/static
+      - ./static:/app/static
       - ./media:/app/media
       - /var/log/containers/:/var/log/nginx
     depends_on:
