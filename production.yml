@@ -52,7 +52,7 @@ services:
     image: elasticsearch:7.8.1
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms750m -Xmx750m
+      - ES_JAVA_OPTS=-Xms500m -Xmx500m
     networks:
       - backend
     ports:
