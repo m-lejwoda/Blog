@@ -90,7 +90,7 @@ jobs:
           TEST_KEY: 'TEST_KEYsadasdas'
           DJANGO_SETTINGS_MODULE: 'blog.config.settings.local'
           POSTGRES_DB: postgres
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: test
             # The default PostgreSQL port
