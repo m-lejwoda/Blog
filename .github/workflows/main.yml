@@ -15,6 +15,7 @@ jobs:
       postgres:
         image: postgres
         env:
+          POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
 #          POSTGRES_HOST: db
         ports:
@@ -87,6 +88,7 @@ jobs:
           SECRET_KEY: 'asdsadhuiu1247hyfewh7'
           TEST_KEY: 'TEST_KEYsadasdas'
           DJANGO_SETTINGS_MODULE: 'blog.config.settings.local'
+          POSTGRES_DB: postgres
           POSTGRES_HOST: postgres
             # The default PostgreSQL port
           POSTGRES_PORT: 5432
