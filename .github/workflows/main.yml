@@ -91,6 +91,7 @@ jobs:
           DJANGO_SETTINGS_MODULE: 'blog.config.settings.local'
           POSTGRES_DB: postgres
           POSTGRES_HOST: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_USER: test
             # The default PostgreSQL port
           POSTGRES_PORT: 5432
