@@ -15,13 +15,16 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: github-actions
 #          POSTGRES_HOST: db
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+#        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - uses: actions/checkout@v3
@@ -84,10 +87,13 @@ jobs:
           SECRET_KEY: 'asdsadhuiu1247hyfewh7'
           TEST_KEY: 'TEST_KEYsadasdas'
           DJANGO_SETTINGS_MODULE: 'blog.config.settings.local'
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: github-actions
           POSTGRES_HOST: postgres
+            # The default PostgreSQL port
+          POSTGRES_PORT: 5432
+#          POSTGRES_USER: postgres
+#          POSTGRES_PASSWORD: postgres
+#          POSTGRES_DB: github-actions
+#          POSTGRES_HOST: postgres
         run: |
           python -m pytest
           
