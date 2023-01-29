@@ -83,6 +83,9 @@ jobs:
           SECRET_KEY: 'asdsadhuiu1247hyfewh7'
           TEST_KEY: 'TEST_KEYsadasdas'
           DJANGO_SETTINGS_MODULE: 'blog.config.settings.local'
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github-actions
         run: |
           python -m pytest
           
