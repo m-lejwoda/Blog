@@ -103,6 +103,7 @@ jobs:
   deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
+      needs: basic-health-job
     steps:
       - name: multiple SSH commands
         uses: appleboy/ssh-action@master
@@ -114,5 +115,5 @@ jobs:
           script: |
             cd Blog
             git pull
-            docker-compose -f production.yml up
+#            docker-compose -f production.yml up
           
