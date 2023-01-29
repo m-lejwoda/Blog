@@ -82,6 +82,7 @@ jobs:
         env:
           SECRET_KEY: 'asdsadhuiu1247hyfewh7'
           TEST_KEY: 'TEST_KEYsadasdas'
+          DJANGO_SETTINGS_MODULE: 'blog.config.settings.local'
         run: |
           python -m pytest
           
