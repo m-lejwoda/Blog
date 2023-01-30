@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Run production"
+docker kill $(docker ps -q)
+docker rm $(docker ps -a -q)
+docker-compose -f production.yml build
+docker-compose -f production.yml up
