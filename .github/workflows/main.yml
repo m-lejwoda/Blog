@@ -114,7 +114,7 @@ jobs:
           password: ${{secrets.SERVER_PASSWORD}}
           script: |
             cd Blog
-            git pull
+            git fetch
 #            docker-compose -f production.yml build
 #            docker-compose -f production.yml up
           
