@@ -1,7 +1,7 @@
 from blogapp.documents import ArticleDocument
 
-def test_function():
-    s = ArticleDocument.search().filter()
+def get_article_function():
+    s = ArticleDocument.search().filter(fields=['title'])
     for hit in s:
         print(hit.author)
         print(hit.title)

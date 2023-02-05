@@ -9,8 +9,6 @@ on:
       - new_changes
 
 jobs:
-
-
   basic-health-job:
     runs-on: ubuntu-latest
     services:
@@ -32,19 +30,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-#      - uses: isbang/compose-action@v1.4.1
-#        with:
-#          compose-file: "./local.yml"
-#        env:
-#          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
-#      - name: Check tests
-#        env:
-#          SECRET_KEY: 'asdsadhuiu1247hyfewh7'
-#        run: |
-##          docker-compose -f local.yml run web python manage.py makemigrations
-##          docker-compose -f local.yml run web python manage.py migrate
-#          docker-compose -f local.yml run web python -m pytest
-
       - name: Install apt dependencies
         run: |
           sudo apt-get update
@@ -117,5 +102,5 @@ jobs:
             git reset --hard
             git pull
 #            docker-compose -f production.yml build
-#            docker-compose -f production.yml up
+#            docker-compose -f production.yml up -d
           

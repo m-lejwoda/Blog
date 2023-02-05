@@ -12,6 +12,7 @@ from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils import timezone
 from .choices import News_Category
+from blogapp.documents import ArticleDocument
 
 
 class ArticleListView(ListView):
@@ -87,6 +88,8 @@ class LogoutView(View):
         return redirect('login')
 
 
+
+
 class TagView(ListView):
     model = Article
     paginate_by = 2
@@ -105,6 +108,7 @@ class TagView(ListView):
 class SingleArticleView(DetailView, MultipleObjectMixin):
     model = Article
     template_name = 'blogapp/radio2.html'
+    form = CommentForm
     # paginate_by = 2
 
     def get_context_data(self, **kwargs):
@@ -127,7 +131,7 @@ class SingleArticleView(DetailView, MultipleObjectMixin):
                 instance.text = text
                 instance.save()
         context = super(SingleArticleView, self).get_context_data(object_list=comments)
-        return render(request, self.template_name, {'context': context})
+        return render(request, self.template_name, {'context': context, 'form': form})
 
 
 class AllNewsView(ListView):
@@ -216,6 +220,37 @@ class CreateArticleBlogView(LoginRequiredMixin, FormView):
         form.show_in_main_news = False
         form.save()
         return super().form_valid(form)
+
+def search(request):
+    s = ArticleDocument.search().query('multi_match', query='test', fields=['title', 'content'])
+    for hit in s:
+        print(hit.author)
+        print(hit.title)
+        print(hit.content)
+
+    return HttpResponse("test")
+
+class SearchView(ListView):
+    model = ArticleDocument
+    paginate_by = 2
+    template_name = 'blogapp/tags.html'
+
+    def get_queryset(self):
+        articles = ArticleDocument.search().query('multi_match', query='keszke', fields=['title', 'content'])[:30]
+        return articles.to_queryset()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+
+        context.update({'title': "Wyniki wyszukiwania"})
+        # print("context")
+        # print(context['object_list'])
+        # for i in context['object_list']:
+        #     print(i.title)
+        #     print(i.content)
+        # context.update({"tag": self.kwargs.get('tag')})
+        return context
 
 
 # def radio_posts(request):

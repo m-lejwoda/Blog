@@ -141,6 +141,23 @@ INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
 #     }
 # }
 
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'skin': 'moono',
+#         'toolbar_Basic': [
+#             ['Source', '-', 'Bold', 'Italic']
+#         ]}
+# }
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar_Basic': [
+#             ['Source', '-', 'Bold', 'Italic']
+#         ],
+#         'toolbar': 'Basic',
+#     }
+# }
+
+
 CMS_TEMPLATES = [
     ('blogapp/dashboard.html', 'Dashboard'),
     ('blogapp/subpage.html', 'Subpage'),

@@ -5,7 +5,7 @@ from blogapp.models import Article
 @registry.register_document
 class ArticleDocument(Document):
     author = fields.ObjectField(properties={
-        'username': fields.TextField(),
+        'username': fields.KeywordField(),
     })
     content = fields.TextField(
         attr='content'
