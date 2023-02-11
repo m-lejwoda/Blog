@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from blogapp.choices import News_Category
 from blogapp.models import Article, Schedule, Tag, EditorProfile
 from django.db import models
+from django.core.cache import cache
+
 
 """CMS Plugin models"""
 
@@ -75,7 +77,11 @@ class JournalistsPlugin(CMSPluginBase):
     cache = True
 
     def render(self, context, instance, placeholder):
-        context.update({"editors": EditorProfile.objects.all()})
+        all_editors = cache.get('all_editors')
+        if all_editors is None:
+            all_editors = EditorProfile.objects.all()
+            cache.set('all_editors', all_editors)
+        context.update({"editors": all_editors})
         return context
 
 
@@ -86,7 +92,11 @@ class TagPlugin(CMSPluginBase):
     cache = True
 
     def render(self, context, instance, placeholder):
-        context.update({"tags": Tag.objects.all()})
+        all_tags = cache.get('all_tags')
+        if all_tags is None:
+            all_tags = Tag.objects.all()
+            cache.set('all_tags', all_tags)
+        context.update({"tags": all_tags})
         return context
 
 
@@ -97,9 +107,12 @@ class ActiveBlogUsersPlugin(CMSPluginBase):
     cache = True
 
     def render(self, context, instance, placeholder):
-        users = User.objects.filter(author_articles__category=News_Category.Blog).annotate(
-            number_of_blogs=models.Count('author_articles')).order_by('-number_of_blogs')[:10]
-        context.update({'users': users})
+        active_blog_users = cache.get('active_blog_users')
+        if active_blog_users is None:
+            active_blog_users = User.objects.filter(author_articles__category=News_Category.Blog).annotate(
+                number_of_blogs=models.Count('author_articles')).order_by('-number_of_blogs')[:10]
+            cache.set('active_blog_users', active_blog_users, 3*3600)
+        context.update({'users': active_blog_users})
         return context
 
 
@@ -110,8 +123,11 @@ class MostUsersCommentsPlugin(CMSPluginBase):
     cache = True
 
     def render(self, context, instance, placeholder):
-        users = User.objects.annotate(
-            number_of_comments=models.Count('comments')).order_by('-number_of_comments')[:10]
-        context.update({'users': users})
+        most_users_comments = cache.get('most_users_comments')
+        if most_users_comments is None:
+            most_users_comments = User.objects.annotate(
+                number_of_comments=models.Count('comments')).order_by('-number_of_comments')[:10]
+            cache.set('most_users_comments', most_users_comments, 3*3600)
+        context.update({'users': most_users_comments})
         return context
 

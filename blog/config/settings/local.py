@@ -32,6 +32,19 @@ ELASTICSEARCH_DSL = {
         'hosts': 'es:9200'
     },
 }
+
+CACHES = {
+    # "default": {
+    #     "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    #     "LOCATION": "",
+    # },
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://cache:6379",
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient", },
+    }
+}
+
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
 # )

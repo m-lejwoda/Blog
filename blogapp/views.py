@@ -13,6 +13,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils import timezone
 from .choices import News_Category
 from blogapp.documents import ArticleDocument
+from django.core.cache import cache
 
 
 class ArticleListView(ListView):
@@ -21,15 +22,18 @@ class ArticleListView(ListView):
     template_name = 'blogapp/dashboard.html'
 
     def get_queryset(self):
-        articles = Article.objects.filter().order_by('-created_on')
-        return articles
+        newest_articles = cache.get('newest_articles')
+        if newest_articles is None:
+            articles = Article.objects.filter().order_by('-created_on')[:15]
+            cache.set('newest_articles', articles)
+        return newest_articles
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        tags = Tag.objects.all()
-        editors = EditorProfile.objects.all()
-        context.update({'tags': tags, 'editors': editors})
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     tags = Tag.objects.all()
+    #     editors = EditorProfile.objects.all()
+    #     context.update({'tags': tags, 'editors': editors})
+    #     return context
 
 
 class BlogsListView(ListView):
@@ -43,7 +47,6 @@ class BlogsListView(ListView):
 
 
 class LoginView(View):
-
     @staticmethod
     def get(request):
         return render(request, 'blogapp/loginok.html')
@@ -91,14 +94,13 @@ class LogoutView(View):
         return redirect('login')
 
 
-
-
 class TagView(ListView):
     model = Article
     paginate_by = 2
     template_name = 'blogapp/tags.html'
 
     def get_queryset(self):
+
         return super(TagView, self).get_queryset().filter(tags__slug__icontains=self.kwargs.get('tag'))\
             .order_by('-publish_on')
 
@@ -170,7 +172,15 @@ class ArchivalScheduleView(ListView):
     model = Schedule
     template_name = 'blogapp/schedule.html'
     paginate_by = 2
-    queryset = Schedule.objects.filter(date__date__lt=timezone.now().date())
+    # queryset = Schedule.objects.filter(date__date__lt=timezone.now().date())
+
+    def get_queryset(self):
+        archival_schedule = cache.get('archival_schedule')
+        if archival_schedule is None:
+            archival_schedule = Schedule.objects.filter(date__date__lt=timezone.now().date())
+            cache.set('archival_schedule', archival_schedule, 6*3600)
+        return archival_schedule
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -181,7 +191,14 @@ class UpcomingScheduleView(ListView):
     model = Schedule
     template_name = 'blogapp/schedule.html'
     paginate_by = 2
-    queryset = Schedule.objects.filter(date__date__gte=timezone.now().date())
+    # queryset = Schedule.objects.filter(date__date__gte=timezone.now().date())
+
+    def get_queryset(self):
+        upcoming_schedule = cache.get('upcoming_schedule')
+        if upcoming_schedule is None:
+            upcoming_schedule = Schedule.objects.filter(date__date__gte=timezone.now().date())
+            cache.set('upcoming_schedule', upcoming_schedule, 6*3600)
+        return upcoming_schedule
 
 
 class CreateEditorArticleView(UserPassesTestMixin, FormView):
