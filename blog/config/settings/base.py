@@ -211,9 +211,9 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR , 'static'),
 # )
 
-# SVG_DIRS=[
-#     os.path.join(ROOT_DIR , 'svg')
-# ]
+SVG_DIRS= [
+    os.path.join(ROOT_DIR , 'svg')
+]
 
 MEDIA_URL = '/images/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')

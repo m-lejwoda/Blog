@@ -44,6 +44,43 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if password1 != password2:
+            self.add_error('password1', "Hasła nie są takie same")
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if len(username) <= 4:
+            raise forms.ValidationError("Nazwa użtykownika powinna mieć conajmniej 5 znaków")
+        try:
+            User.objects.get(username=username)
+            raise forms.ValidationError("Użytkownik o takim username isnieje.")
+        except User.DoesNotExist:
+            return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            User.objects.get(email=email)
+            raise forms.ValidationError("Ten email jest już używany przez innego użytkownika")
+        except User.DoesNotExist:
+            return email
+
+    def clean_password1(self):
+        password1 = self.cleaned_data.get('password1')
+        if len(password1) <= 5:
+            raise forms.ValidationError("Hasło musi mieć conajmniej 6 znaków")
+        return password1
+
+    def clean_password2(self):
+        password2 = self.cleaned_data.get('password2')
+        # if len(password2) <= 5:
+        #     raise forms.ValidationError("Hasło musi mieć conajmniej 6 znaków")
+        return password2
+
 
 class CommentForm(ModelForm):
     class Meta:

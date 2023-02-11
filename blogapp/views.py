@@ -76,8 +76,11 @@ class RegisterView(View):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
-            messages.success(request, 'Gratulacje utworzyłeś swój profil użytkownika ' + user)
+            # messages.success(request, 'Gratulacje utworzyłeś swój profil użytkownika ' + user)
             return redirect('login')
+        else:
+            context = {'form': form}
+            return render(request, 'blogapp/registerok.html', context)
 
 
 class LogoutView(View):

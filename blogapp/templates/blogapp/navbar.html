@@ -5,7 +5,7 @@
     <div class="navbar__mobile-icon" tabindex="0">{% fa5_icon 'bars' 'fa fa-2x' %}</div>
     <ul class="navbar__mobile__panel">
         <div class="navbar__mobile__panel-elements">
-            <li class="navbar__mobile__panel__element"><a href="/schedule/" class="navbar__mobile-item">Rozpiski</a></li>
+            <li class="navbar__mobile__panel__element"><a href="/upcoming_schedule/" class="navbar__mobile-item">Rozpiski</a></li>
             <li class="navbar__mobile__panel__element" id="news"><a href="/news/" class="navbar__mobile-item">Newsy</a>
             </li>
             <li class="navbar__mobile__panel__element" id="news"><a href="/blogs/" class="navbar__mobile-item">Blogi</a>
@@ -26,7 +26,7 @@
 </div>
 <ul class="navbar">
 {#    <li class="navbar__left"><a href={% url 'index' %} class="navbar__item">Strona Domowa</a></li>#}
-    <li class="navbar__left"><a class="navbar__item" href="/schedule/">Rozpiski</a></li>
+    <li class="navbar__left"><a class="navbar__item" href="/upcoming_schedule/">Rozpiski</a></li>
     <li class="navbar__left"><a href="/news/" class=" navbar__item">Newsy</a></li>
     <li class="navbar__left"><a href="/blogs/" class=" navbar__item">Blogi</a></li>
     {% if user.is_authenticated %}

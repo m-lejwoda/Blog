@@ -2,35 +2,42 @@
 {% load static %}
 {% load svg %}
 {% block content %}
-<div class="login">
-    <div class="login__illustration">
-        {% svg 'login2' %}
-    </div>
-    <div class="login__box">
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="login__box__title">Logowanie</div>
-            <div class="login__box__rest">
-                <div class="login__box__rest-label">
-                    <label>Nazwa użytkownika</label>
+    <div class="login">
+        <div class="login__illustration">
+            {% svg 'login2' %}
+        </div>
+        <div class="login__box">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="login__box__title">Logowanie</div>
+                <div class="login__box__rest">
+                    <div class="login__box__rest-label">
+                        <label>Nazwa użytkownika</label>
+                    </div>
+                    <div class="login__box__rest-input">
+                        <input type="text" name="username" placeholder="Nazwa użytkownika"/>
+                    </div>
+                    <div class="login__box__rest-label">
+                        <label>Hasło</label>
+                    </div>
+                    <div class="login__box__rest-input">
+                        <input type="password" name="password" placeholder="Hasło"/>
+                    </div>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <div class="login__box__rest-submit">
+                        <button>Zaloguj się</button>
+                    </div>
                 </div>
-                <div class="login__box__rest-input">
-                    <input type="text" name="username" placeholder="Nazwa użytkownika" />
-                </div>
-                <div class="login__box__rest-label">
-                    <label>Hasło</label>
-                </div>
-                <div class="login__box__rest-input">
-                    <input type="text" name="password" placeholder="Hasło" />
-                </div>
-                <div class="login__box__rest-submit">
-                    <button>Zaloguj się</button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
-</div>
+    </div>
 
 
 {% endblock %}

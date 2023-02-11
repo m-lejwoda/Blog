@@ -17,18 +17,22 @@
                 <div class="login__box__rest-input">
                     {{form.username}}
                 </div>
+                {{ form.errors.username }}
                 <div class="login__box__rest-label">
                     <label>Adres E-mail</label>
                 </div>
+
                 <div class="login__box__rest-input">
                     {{form.email}}
                 </div>
+                {{ forms.errors.email }}
                 <div class="login__box__rest-label">
                     <label>Hasło</label>
                 </div>
                 <div class="login__box__rest-input">
                     {{form.password1}}
                 </div>
+                {{ form.errors.password1 }}
                 <div class="login__box__rest-label">
                     <label>Powtórz hasło</label>
                 </div>
