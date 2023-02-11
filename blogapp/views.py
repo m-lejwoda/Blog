@@ -18,18 +18,21 @@ from django.core.cache import cache
 
 class ArticleListView(ListView):
     model = Article
-    paginate_by = 2
+    # paginate_by = 2
     template_name = 'blogapp/dashboard.html'
 
     def get_queryset(self):
         newest_articles = cache.get('newest_articles')
         if newest_articles is None:
-            articles = Article.objects.filter().order_by('-created_on')[:15]
-            cache.set('newest_articles', articles)
+            newest_articles = Article.objects.filter().order_by('-created_on')[:15]
+            cache.set('newest_articles', newest_articles)
         return newest_articles
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print("context")
+        print(context)
+        return context
     #     tags = Tag.objects.all()
     #     editors = EditorProfile.objects.all()
     #     context.update({'tags': tags, 'editors': editors})

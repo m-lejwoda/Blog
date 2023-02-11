@@ -36,7 +36,7 @@
             </div>
             <div class="news__box">
                 <div class="news__posts">
-                    {% for post in page_obj %}
+                    {% for post in article_list %}
                         {% if forloop.counter == 1 %}
                             <div class="news__posts__firstpost-container">
                                 <div class="news__posts__firstpost"
@@ -82,7 +82,7 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-                {% include 'blogapp/pagination.html' %}
+{#                {% include 'blogapp/pagination.html' %}#}
                 </div>
                 <div class="news__bonusinformation">
                     <div class="news__bonusinformation__box">

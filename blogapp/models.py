@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
@@ -10,6 +10,7 @@ from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from .choices import Ranks, News_Category
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.cache import cache
 
 
 class Tag(models.Model):
@@ -174,7 +175,28 @@ def pre_save_tag_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = tag_create_slug(instance)
 
+def create_cache_after_post_article(sender, instance, created, **kwargs):
+    cache.set('newest_article', Article.objects.filter().order_by('-created_on')[:15])
 
+def create_schedule_cache(sender,instance,created, **kwargs):
+    archival_schedule = Schedule.objects.filter(date__date__lt=timezone.now().date())
+    upcoming_schedule = Schedule.objects.filter(date__date__gte=timezone.now().date())
+    cache.set('archival_schedule', archival_schedule, 6 * 3600)
+    cache.set('upcoming_schedule', upcoming_schedule, 6 * 3600)
+
+def create_tag_cache(sender,instance, created, **kwargs):
+    all_tags = Tag.objects.all()
+    cache.set('all_tags', all_tags)
+
+def create_editor_cache(sender,instance, created, **kwargs):
+    all_editors = EditorProfile.objects.all()
+    cache.set('all_editors', all_editors)
+
+
+post_save.connect(create_schedule_cache, sender=Schedule)
+post_save.connect(create_tag_cache, sender=Tag)
+post_save.connect(create_editor_cache, sender=EditorProfile)
+post_save.connect(create_cache_after_post_article, sender=Article)
 pre_save.connect(pre_save_post_receiver, sender=Article)
 pre_save.connect(pre_save_editor_receiver, sender=EditorProfile)
 pre_save.connect(pre_save_tag_receiver, sender=Tag)

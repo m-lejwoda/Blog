@@ -163,8 +163,24 @@ CMS_TEMPLATES = [
     ('blogapp/subpage.html', 'Subpage'),
     ('blogapp/main.html', 'Main'),
     ('home.html','Home'),
-
 ]
+
+CMS_LANGUAGES = {
+    1: [
+        {
+            'name': 'pl',
+            'redirect_on_fallback': True,
+            'code': 'pl',
+            'public': True,
+            'hide_untranslated': False,
+        },
+    ],
+    'default': {
+        'redirect_on_fallback': True,
+        'hide_untranslated': False,
+        'public': True,
+    },
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
