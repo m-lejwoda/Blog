@@ -18,6 +18,7 @@ urlpatterns = [
     path('journalist/<slug:slug>/', views.JournalistDetailView.as_view(), name='journalist_detail'),
     path('user_blog/slug:slug', views.UserBlogDetailView.as_view(), name='user_blog_detail'),
     path('search/', views.SearchView.as_view(), name='search_view'),
+
     # path('test/', views.search, name='search')
 
 

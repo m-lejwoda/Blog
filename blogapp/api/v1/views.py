@@ -22,3 +22,19 @@ class Choose3Articles(ListModelMixin, viewsets.GenericViewSet):
         queryset = self.get_queryset()
         serializer = ArticleSerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class LoadMoreArticles(viewsets.GenericViewSet):
+    def get_queryset(self):
+        num_page = int(self.request.query_params.get('num_page'))
+        load_number = num_page + 3
+        return Article.objects.all()[num_page:load_number]
+
+    def list(self, request):
+        data = {}
+        num_page = int(self.request.query_params.get('num_page'))
+        queryset = self.get_queryset()
+        serializer = ArticleSerializer(queryset, many=True)
+        data['articles'] = serializer.data
+        data['num_page'] = num_page + 3
+        return Response(data)

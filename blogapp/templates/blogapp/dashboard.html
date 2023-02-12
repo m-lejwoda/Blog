@@ -82,6 +82,7 @@
                             </div>
                         {% endif %}
                     {% endfor %}
+                <button id="load_more">Załaduj kolejne</button>
 {#                {% include 'blogapp/pagination.html' %}#}
                 </div>
                 <div class="news__bonusinformation">
@@ -95,5 +96,25 @@
             </div>
         </div>
     </div>
+    <span hidden id="num_page" data-id="10"></span>
 
+{% endblock %}
+{% block extra_js %}
+<script>
+    $("#load_more").click(function () {
+        let num_page = $("#num_page").attr('data-id')
+        $.ajax({
+            url : 'http://0.0.0.0:8000/api/v1/load_more_articles/',
+            data: {
+                num_page: num_page,
+            },
+            type: 'get',
+            success: function (response) {
+                // TODO ADD for loop
+                $("#num_page").attr('data-id', response.num_page)
+            }
+
+        });
+    })
+</script>
 {% endblock %}
