@@ -14,6 +14,7 @@ from django.utils import timezone
 from .choices import News_Category
 from blogapp.documents import ArticleDocument
 from django.core.cache import cache
+from django.conf import settings
 
 
 class ArticleListView(ListView):
@@ -24,12 +25,13 @@ class ArticleListView(ListView):
     def get_queryset(self):
         newest_articles = cache.get('newest_articles')
         if newest_articles is None:
-            newest_articles = Article.objects.filter().order_by('-created_on')[:15]
-            cache.set('newest_articles', newest_articles)
+            newest_articles = Article.objects.filter().order_by('-created_on')[:10]
+            cache.set('newest_articles', newest_articles, 120)
         return newest_articles
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["num_dashboard_posts"] = settings.NUM_DASHBOARD_POSTS
         return context
     #     tags = Tag.objects.all()
     #     editors = EditorProfile.objects.all()
@@ -40,12 +42,16 @@ class ArticleListView(ListView):
 class BlogsListView(ListView):
     model = Article
     paginate_by = 10
-    template_name = 'blogapp/blogs.html'
+    template_name = 'blogapp/news.html'
 
     def get_queryset(self):
         articles = Article.objects.filter(category=News_Category.Blog).order_by('-publish_on')
         return articles
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["label"] = "Posty użytkowników"
+        return context
 
 class LoginView(View):
     @staticmethod
@@ -107,7 +113,8 @@ class TagView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"tag": self.kwargs.get('tag')})
+        tag = Tag.objects.get(self.kwargs.get('tag'))
+        context.update({"tag": tag},{"label": "TAG: {}".format(tag.name)})
         return context
 
 
@@ -185,6 +192,8 @@ class ArchivalScheduleView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context.update({"label": "Archiwalne rozpiski"}, {"type": 'archival'})
+        print(context)
         return context
 
 
@@ -201,6 +210,10 @@ class UpcomingScheduleView(ListView):
             cache.set('upcoming_schedule', upcoming_schedule, 6*3600)
         return upcoming_schedule
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({"label": "Nadchodzdzące rozpiski"},{"type": 'upcoming'})
+        return context
 
 class CreateEditorArticleView(UserPassesTestMixin, FormView):
     login_url = '/login/'
@@ -262,8 +275,6 @@ class SearchView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-
-
         context.update({'title': "Wyniki wyszukiwania"})
         # print("context")
         # print(context['object_list'])

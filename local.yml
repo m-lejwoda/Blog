@@ -34,6 +34,7 @@ services:
     depends_on:
       - db
       - es
+
   cache:
     image: redis
     ports:

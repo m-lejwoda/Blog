@@ -20,7 +20,11 @@
         </div>
     </div>
     <div class="search__posts">
+    {% if type == "archival" %}
         <button onClick="onClick('{% url 'archival_schedule' %}')">Archiwalne rozpiski</button>
+    {% elif type == "upcoming" %}
+        <button onClick="onClick('{% url 'upcoming_schedule' %}')">Nadchodzące rozpiski</button>
+    {% endif %}
         <div class="search__posts__posters">
         {% for poster in page_obj %}
             <div class="search__posts__posters__image"><img src={{ poster.image.url }}></div>

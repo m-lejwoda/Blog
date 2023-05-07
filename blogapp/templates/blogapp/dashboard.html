@@ -82,9 +82,12 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-                <button id="load_more">Załaduj kolejne</button>
-{#                {% include 'blogapp/pagination.html' %}#}
+                    {% if article_list|length >= num_dashboard_posts %}
+                        <button id="load_more">Załaduj kolejne</button>
+                    {% endif %}
                 </div>
+
+
                 <div class="news__bonusinformation">
                     <div class="news__bonusinformation__box">
                         {% static_placeholder 'first_event' %}
@@ -100,21 +103,64 @@
 
 {% endblock %}
 {% block extra_js %}
-<script>
-    $("#load_more").click(function () {
-        let num_page = $("#num_page").attr('data-id')
-        $.ajax({
-            url : 'http://0.0.0.0:8000/api/v1/load_more_articles/',
-            data: {
-                num_page: num_page,
-            },
-            type: 'get',
-            success: function (response) {
-                // TODO ADD for loop
-                $("#num_page").attr('data-id', response.num_page)
-            }
+    <script>
+        $("#load_more").click(function () {
+            let num_page = $("#num_page").attr('data-id')
+            $.ajax({
+                url: 'http://0.0.0.0:8000/api/v1/load_more_articles/',
+                data: {
+                    num_page: num_page,
+                },
+                type: 'get',
+                success: function (response) {
+                    $.each(response.articles, function (i, item) {
+                        $('.news__posts').append(
+                            '<div class=" news__posts__post">' + '<div class="news__posts__post-image">' +
+                            '<img src="' + item.image + '" alt="obraz nie został wczytany"/>'
 
-        });
-    })
-</script>
+                            {#    <div class="news__posts__post-image">#}
+                            {#        <img src="{{ post.image.url }}" alt="obraz nie został wczytany"/>#}
+                            {#    </div>#}
+                            {#    <div class="news__posts__post__information">#}
+                            {#        <div class="news__posts__post-title">{{ post.title }}</div>#}
+                            {#        <div class="news__posts__post__meta">#}
+                            {#            <div class="news__posts__post__meta-author">{{ post.author }}</div>#}
+                            {#            <div class="news__posts__post__meta-data">{{ post.publish_on }}</div>#}
+                            {#        </div>#}
+                            {#        <div class="news__posts__post-description">{{ post.short_description }}</div>#}
+                            {#        <div class="news__posts__post__bottom">#}
+                            {##}
+                            {#            <div class="news__posts__post__bottom-icon">{% fa5_icon 'comment' 'fa fa-2x' %}#}
+                            {#            </div>#}
+                            {#            <div class="news__posts__post__bottom-length">{{ post.comments.all|length }}#}
+                            {#            </div>#}
+                            {#            <div class="news__posts__post__bottom-next">#}
+                            {#                <button#}
+                            {#                        onClick="onClick('{% url 'post_detail' post.slug %}')"#}
+                            {#                >Przejdź#}
+                            {#                </button>#}
+                            {#            </div>#}
+                            {#        </div>#}
+                            {#    </div>#}
+                            {#</div>''#}
+
+
+
+
+                            {#'<div class="switch__elements__element" ' + 'id = "' + item#}
+                            {#.slug + '\" ' + 'onClick = onClick(&#39/post/' + item#}
+                            {#.slug + '/&#39)' +#}
+                            {#'>' + '<img src="' + item.image + '"/>' +#}
+                            {#'<span>' + item.title + '</span>' + '</div>'#}
+                        );
+                    });
+                    console.log("response")
+                    console.log(response)
+                    // TODO ADD for loop
+                    $("#num_page").attr('data-id', response.num_page)
+                }
+
+            });
+        })
+    </script>
 {% endblock %}
