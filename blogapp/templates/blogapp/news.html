@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="search__posts">
-        {% for post in posts %}
+        {% for post in object_list %}
         <div class="search__posts__post">
             <div class="search__posts__post__image"><img src={{ post.image.url }} /></div>
             <div class="search__posts__post__information">

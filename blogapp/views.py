@@ -114,7 +114,7 @@ class TagView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         tag = Tag.objects.get(self.kwargs.get('tag'))
-        context.update({"tag": tag},{"label": "TAG: {}".format(tag.name)})
+        context.update({"tag": tag},{"label": "TAG:"},{"label_name": tag.name})
         return context
 
 
@@ -152,6 +152,13 @@ class AllNewsView(ListView):
     paginate_by = 2
     template_name = 'blogapp/news.html'
     queryset = Article.objects.order_by('-publish_on')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({"label": "Artykuły"})
+        print("context")
+        print(context)
+        return context
 
 
 class UserBlogDetailView(DetailView, MultipleObjectMixin):
@@ -192,8 +199,7 @@ class ArchivalScheduleView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"label": "Archiwalne rozpiski"}, {"type": 'archival'})
-        print(context)
+        context.update({"label": "Archiwalne rozpiski", "type": 'archival'})
         return context
 
 
@@ -212,7 +218,7 @@ class UpcomingScheduleView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"label": "Nadchodzdzące rozpiski"},{"type": 'upcoming'})
+        context.update({"label": "Nadchodzdzące rozpiski","type": 'upcoming'})
         return context
 
 class CreateEditorArticleView(UserPassesTestMixin, FormView):
